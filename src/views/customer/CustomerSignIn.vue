@@ -65,9 +65,12 @@ export default {
   methods: {
     btnOnClickLogin() {
       axios
-        .post("http://localhost:9000/api/auth/login", this.customerLogin)
-        .then((res) => {
-          console.log(res);
+        .post("http://b85db928f598.ngrok.io/api/auth/login", this.customerLogin)
+        .then((response) => {
+          const token = response.data.token
+          if (response.status == 200) {
+            localStorage.setItem('token',token)
+          }
         })
         .catch((error) => {
           console.log(error.response);

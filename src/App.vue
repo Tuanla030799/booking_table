@@ -6,6 +6,9 @@
       <router-link class="nav-signin" to="/signin">
         <button class="btn-login">Đăng nhập</button>
       </router-link>
+      <router-link class="nav-signin" to="/change-password">
+        <button class="btn-login">Đổi mật khẩu</button>
+      </router-link>
       
       <router-link class="nav-signup" to="/register">
             <button class="btn-login">Đăng Kí</button>

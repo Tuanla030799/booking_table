@@ -23,7 +23,8 @@ export default {
     return {
       customerForgot: {
         email: ''
-      }
+      },
+      token: localStorage.getItem('token')
     }
   },
   methods: {
