@@ -32,7 +32,7 @@
                     </div>
             </b-col>
         <div class="d-block text-center" >
-        <h3 
+        <h3
         style="font-size: 1.21875rem; color: rgb(73, 80, 87); margin-bottom: .5rem;font-weight: 500;line-height: 1.2;font-size: 22px;">Đổi mật khẩu thành công</h3>
         <div class="mb-text ">
                         <p style="font-size: 13px;" >Bạn đã đổi mật khẩu thành công<br/>Vui lòng đăng nhập lại</p>
@@ -66,7 +66,7 @@ export default {
       console.log(this.newPass);
       axios({
         method: "put",
-        url: `http://b85db928f598.ngrok.io/api/user/change-password`,
+        url: `${this.base_url}/api/user/change-password`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${this.token}`,
@@ -77,8 +77,8 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
-          if (response.status == 200) {
+          console.log(response.data.statusCode);
+          if (response.status == 200 && response.data.statusCode != 'SUCCESS') {
             alert(response.data.message)
             // this.$bvModal.show('bv-modal-example-4')
           }
@@ -90,5 +90,4 @@ export default {
   },
 };
 </script>
-
 <style></style>
