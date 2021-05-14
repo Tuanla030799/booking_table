@@ -30,6 +30,43 @@
                 style="position: absolute !important"
                 outlined
               >
+                <v-list-item
+                  three-line
+                  right
+                  style="float: right"
+                  class="ml-10"
+                >
+                  <!-- <v-list-item-content>
+                    <div class="overline mb-4">OVERLINE</div>
+                    <v-list-item-title class="headline mb-1">
+                      Headline 5
+                    </v-list-item-title>
+                    <v-list-item-subtitle
+                      >Greyhound divisely hello coldly
+                      fonwderfully</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+
+                  <v-list-item-avatar
+                    tile
+                    size="80"
+                    color="grey"
+                  ></v-list-item-avatar> -->
+                </v-list-item>
+              </v-card>
+            </div>
+            <div class="navbar-item test">
+              <button class="btn-account">
+                <v-icon small>mdi-help</v-icon>
+                Hỗ trợ
+              </button>
+
+              <v-card
+                class="mx-auto d-none try-test"
+                max-width="344"
+                style="position: absolute !important"
+                outlined
+              >
                 <v-list-item three-line>
                   <v-list-item-content>
                     <div class="overline mb-4">OVERLINE</div>
@@ -50,17 +87,29 @@
                 </v-list-item>
               </v-card>
             </div>
-            <div class="navbar-item">
-              <button class="btn-account">
-                <v-icon small>mdi-help</v-icon>
-                Hỗ trợ
-              </button>
-            </div>
-            <div class="navbar-item">
-              <button class="btn-account" @click="onClickAccount()">
+            <div class="navbar-item test">
+              <button class="btn-account" @click="onClickAccount1()">
                 <v-icon small>mdi-account</v-icon>
                 Tài Khoản
               </button>
+
+              <v-card
+                class="mx-auto d-none try-test"
+                width="200"
+                style="position: absolute !important; right: 0px"
+                outlined
+              >
+                <v-list-item three-line class="accountFix">
+                  <form action="/account" class="form-account">
+                    <router-link class="nav-signin" to="/signin" >
+                      <button class="btn-login">Đăng nhập</button>
+                    </router-link>                   
+                    <router-link class="nav-signup" to="/register" style="padding: 15px 0px">
+                      <button class="btn-login">Đăng Kí</button>
+                    </router-link>
+                  </form>
+                </v-list-item>
+              </v-card>
             </div>
           </div>
         </div>
@@ -89,12 +138,14 @@
           Tai Khoan
           <v-icon>mdi-account</v-icon>
         </v-btn> -->
-      </div>
+        
+      </div> 
     </v-app-bar>
   </nav>
 </template>
 
 <script>
+
 export default {
   name: "the-navbar",
   data() {
@@ -107,6 +158,9 @@ export default {
       this.$emit("hidePopup");
     },
   },
+  components: {
+    
+  }
 };
 </script>
 
@@ -116,6 +170,7 @@ export default {
   left: 10%;
   right: 10%;
   height: 100%;
+  
 }
 .navbar .navbar-header {
   display: flex;
@@ -169,4 +224,12 @@ export default {
 .test:hover .try-test {
   display: block !important;
 }
+.form-account .btn-login {
+  margin: 10px;
+}
+.accountFix form{
+  align-items: center;
+  text-align: center;
+}
+
 </style>

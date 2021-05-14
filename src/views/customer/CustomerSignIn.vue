@@ -2,10 +2,9 @@
   <div id="Signin">
     <div class="login">
       <div class="loginFrom">
-
         <!-- dialog -->
 
-        <v-dialog  width="500px">
+        <v-dialog width="500px">
           <v-card>
             <v-card-title class="headline grey lighten-2">
               Privacy Policy
@@ -24,20 +23,19 @@
           </v-card>
         </v-dialog>
 
-        
         <div class="text-header">Nhập thông tin đăng nhập</div>
         <br />
         <input
           type="text"
           class="input username"
           placeholder="Username or SDT"
-          v-model="customerLogin.email"
+          v-model="email"
         />
         <input
           type="password"
           class="input passwd"
           placeholder="Password"
-          v-model="customerLogin.password"
+          v-model="password"
         />
         <button class="btn-login btn-default" @click="btnOnClickLogin()">
           Login
@@ -50,8 +48,6 @@
             <div class="Signin-text forgot"><p>forgot password</p></div>
           </router-link>
         </div>
-
-        
       </div>
     </div>
   </div>
@@ -64,28 +60,60 @@ export default {
   created() {},
   methods: {
     btnOnClickLogin() {
-      axios
-        .post("http://localhost:9000/api/auth/login", this.customerLogin)
+      // axios
+      //   .post(`http://localhost:9000/api/auth/login`, this.customerLogin)
+      //   .then((res) => {
+      //     const token = res.response.token
+      //     //if (response.status == 200) {
+      //       localStorage.setItem('token',token)
+      //       console.log(res.token)
+      //     //}
+      //   })
+      //   .catch((error) => {
+      //     console.log(error.response);
+      //   });
+      axios({
+        method: "post",
+        url: `${this.base_url}/api/auth/login`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        data: {
+          email: this.email,
+          password: this.password,
+        },
+      })
         .then((response) => {
-          const token = response.data.token
+          console.log(response);
+          const token = response.data.token;
           if (response.status == 200) {
-            localStorage.setItem('token',token)
+            localStorage.setItem("token", token);
+            this.$router.push({name: "Home"}).catch(err =>{
+              return err;
+            });
+            console.log(token);
           }
         })
-        .catch((error) => {
-          console.log(error.response);
+        .catch((res) => {
+          this.message = res.response.data.message
+          console.log(this.message);
+          localStorage.setItem("message", res.response.data.message);
         });
     },
   },
   data() {
     return {
-      customerLogin: {
-        email: "",
-        password: "",
-        dialog: false,
-      },
+      email: "",
+      password: "",
+      dialog: false,
+      base_url: process.env.VUE_APP_BASE_URL,
+      token: localStorage.getItem("token"),
+      message: ""
     };
   },
+  props: {
+  }
 };
 </script>
 

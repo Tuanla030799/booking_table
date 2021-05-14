@@ -53,12 +53,12 @@ export default {
         {
           title: "ăn sập hà nội thì đi đâu?",
           img:
-            "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
+            "https://www.dropbox.com/s/676cf6eexi9ahi7/sucess.png",
         },
         {
           title: "ăn sập hà nội thì đi đâu?",
           img:
-            "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
+            "https://drive.google.com/file/d/1324XiHreZo64NWJs2wBKRf6xT7vn7BjD/view?usp=sharing",
         },
         {
           title: "sushi nhật bản món ăn giành cho giới thượng lưu?",

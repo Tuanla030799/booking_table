@@ -64,6 +64,7 @@ export default {
     handleChangePass() {
       console.log(this.oldPass);
       console.log(this.newPass);
+      console.log(this.base_url)
       axios({
         method: "put",
         url: `${this.base_url}/api/user/change-password`,
