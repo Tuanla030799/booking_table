@@ -50,12 +50,15 @@
         </div>
       </div>
     </div>
+    <noti-msg />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import NotiMsg from '../components/NotiMsg.vue';
 export default {
+  components: { NotiMsg },
   name: "customer-signin",
   created() {},
   methods: {
@@ -95,10 +98,13 @@ export default {
             console.log(token);
           }
         })
-        .catch((res) => {
-          this.message = res.response.data.message
-          console.log(this.message);
-          localStorage.setItem("message", res.response.data.message);
+        .catch((error) => {
+          this.message = error.response.data.message
+          localStorage.setItem("message", error.response.data.message);
+          if(error.response){
+            this.$bvModal.show("bv-modal-example-error-login")           
+            console.log(this.message);
+          }
         });
     },
   },
