@@ -10,7 +10,7 @@
               Privacy Policy
             </v-card-title>
 
-            <v-card-text> aaaaa </v-card-text>
+            <v-card-text> aaaaa</v-card-text>
 
             <v-divider></v-divider>
 
@@ -24,18 +24,18 @@
         </v-dialog>
 
         <div class="text-header">Nhập thông tin đăng nhập</div>
-        <br />
+        <br/>
         <input
-          type="text"
-          class="input username"
-          placeholder="Username or SDT"
-          v-model="email"
+            type="text"
+            class="input username"
+            placeholder="Username or SDT"
+            v-model="email"
         />
         <input
-          type="password"
-          class="input passwd"
-          placeholder="Password"
-          v-model="password"
+            type="password"
+            class="input passwd"
+            placeholder="Password"
+            v-model="password"
         />
         <button class="btn-login btn-default" @click="btnOnClickLogin()">
           Login
@@ -50,17 +50,19 @@
         </div>
       </div>
     </div>
-    <noti-msg />
+    <noti-msg/>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import NotiMsg from '../components/NotiMsg.vue';
+
 export default {
-  components: { NotiMsg },
+  components: {NotiMsg},
   name: "customer-signin",
-  created() {},
+  created() {
+  },
   methods: {
     btnOnClickLogin() {
       // axios
@@ -87,25 +89,35 @@ export default {
           password: this.password,
         },
       })
-        .then((response) => {
-          console.log(response);
-          const token = response.data.token;
-          if (response.status == 200) {
-            localStorage.setItem("token", token);
-            this.$router.push({name: "Home"}).catch(err =>{
-              return err;
-            });
-            console.log(token);
-          }
-        })
-        .catch((error) => {
-          this.message = error.response.data.message
-          localStorage.setItem("message", error.response.data.message);
-          if(error.response){
-            this.$bvModal.show("bv-modal-example-error-login")           
-            console.log(this.message);
-          }
-        });
+          .then((response) => {
+            console.log(response);
+            const token = response.data.token;
+            if (response.status === 200) {
+              localStorage.setItem("token", token);
+              if (response.data.role === "USERS") {
+                this.$router.push({name: "Home"}).catch(err => {
+                  return err
+                });
+              }
+              if (response.data.role === "ADMIN") {
+                this.$router.push({name: "booking-list"})
+                    .catch(err => {
+                          return err
+                        }
+                    )
+              }
+
+              console.log(token);
+            }
+          })
+          .catch((error) => {
+            this.message = error.response.data.message
+            localStorage.setItem("message", error.response.data.message);
+            if (error.response) {
+              this.$bvModal.show("bv-modal-example-error-login")
+              console.log(this.message);
+            }
+          });
     },
   },
   data() {
@@ -118,8 +130,7 @@ export default {
       message: ""
     };
   },
-  props: {
-  }
+  props: {}
 };
 </script>
 
@@ -132,6 +143,7 @@ export default {
   bottom: 0;
   background-color: #ccc;
 }
+
 .login .loginFrom {
   position: fixed;
   top: 120px;
@@ -147,13 +159,16 @@ export default {
   margin-bottom: 20px;
   width: 80%;
 }
+
 .username {
   margin-top: 15%;
 }
+
 .btn-login {
   width: 80%;
   margin-left: 10%;
 }
+
 .header-link {
   display: flex;
   font-size: 13px;
@@ -161,15 +176,18 @@ export default {
   margin-left: 10%;
   margin-right: 10%;
 }
+
 .Signin-text {
   margin-top: 15px;
   color: red;
   font-size: 13px;
   font-weight: 500;
 }
+
 .Signin-text :hover {
   color: #000000;
 }
+
 .text-header {
   font-size: 20px;
   text-align: center;

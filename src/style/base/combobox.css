@@ -1,0 +1,26 @@
+select {
+    height: 32px;
+    border: 1px solid #bbbbbb;
+    padding-left: 14px !important;
+    outline: none;
+    box-sizing: border-box;
+    
+}
+
+option {
+    padding: 10px;
+}
+
+option:hover {
+    background-color: #019160;
+}
+
+select:hover {
+    border-color: #019160;
+}
+
+.combobox {
+    width: 170px;
+    margin-left: 10px;
+    font-size: 13px;
+}
