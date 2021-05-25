@@ -6,6 +6,7 @@ import ChangePassWord from "../views/components/ChangePassWord.vue"
 import CustomerSignIn from "../views/customer/CustomerSignIn.vue";
 import CustomerForgot from "../views/customer/CustomerForgot.vue";
 import CustomerRegister from "../views/customer/CustomerRegister";
+import ChooseFoot from "../views/foots/ChooseFoot.vue";
 
 
 
@@ -22,6 +23,7 @@ const routes = [
     name:'Đăng nhập',
     component: CustomerSignIn,
     },
+    
     { 
         path: "/register",
         name:'Đăng ký',
@@ -36,6 +38,11 @@ const routes = [
         path: "/change-password",
         name:"Đổi mật khẩu",
         component: ChangePassWord
+    },
+    {
+        path: "/choose-foot",
+        name:"Chọn món ăn",
+        component: ChooseFoot
     }
 ];
 

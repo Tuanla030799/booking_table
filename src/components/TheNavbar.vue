@@ -1,6 +1,8 @@
 <template>
-  <nav>
-    <v-app-bar light fixed app height="100px">
+  <nav >
+      <v-app-bar light fixed app :height="apHeight" 
+      
+      :class="hideNavbar">
       <div class="navbar">
         <div class="navbar-header">
           <div class="navbar-header-left">
@@ -88,9 +90,9 @@
               </v-card>
             </div>
             <div class="navbar-item test">
-              <button class="btn-account" @click="onClickAccount1()">
+              <button class="btn-account">
                 <v-icon small>mdi-account</v-icon>
-                Tài Khoản
+                {{ Account }}
               </button>
 
               <v-card
@@ -131,7 +133,7 @@
             placeholder="Tìm kiếm các món ăn..."
           />
 
-          <button class="btn-default">Đặt bàn</button>
+          <button class="btn-default" @click="BookingTable()">Đặt bàn</button>
         </div>
 
         <!-- <v-btn color="grey">
@@ -151,15 +153,36 @@ export default {
   data() {
     return {
       active: false,
+      Account: "Tài khoản",
     };
+  },
+  props: {
+    apHeight:{
+      type: String,
+      default: "0px"
+    },
+    hideNavbar: {
+      type: String,
+      default: ""
+    }
   },
   methods: {
     onClickAccount() {
       this.$emit("hidePopup");
     },
+    BookingTable(){
+      this.$emit("showBookingTable");
+    }
   },
   components: {
     
+  },
+  computed: {
+    appHeight: function () {
+      let s = this.aHeight
+      console.log(this.aHeight);
+      return (s > 0) ? 0 : 100;
+    }
   }
 };
 </script>

@@ -56,13 +56,14 @@
 
 <script>
 import axios from "axios";
-import NotiMsg from '../components/NotiMsg.vue';
+import NotiMsg from "../components/NotiMsg.vue";
 export default {
   components: { NotiMsg },
   name: "customer-signin",
   created() {},
   methods: {
     btnOnClickLogin() {
+      localStorage.setItem("aHeight", this.appHeight);
       // axios
       //   .post(`http://localhost:9000/api/auth/login`, this.customerLogin)
       //   .then((res) => {
@@ -92,17 +93,25 @@ export default {
           const token = response.data.token;
           if (response.status == 200) {
             localStorage.setItem("token", token);
-            this.$router.push({name: "Home"}).catch(err =>{
+            if (response.data.role == "USERS") {
+              this.$router.push({ name: "Home" }).catch((err) => {
               return err;
             });
-            console.log(token);
+            } else if (response.data.role == "ADMIN") {
+              this.$emit("appHeight", this.aHeight)
+              this.$emit("hideNav")   
+              this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
+            }
+            //console.log(token);
           }
         })
         .catch((error) => {
-          this.message = error.response.data.message
+          this.message = error.response.data.message;
           localStorage.setItem("message", error.response.data.message);
-          if(error.response){
-            this.$bvModal.show("bv-modal-example-error-login")           
+          if (error.response) {
+            this.$bvModal.show("bv-modal-example-error-login");
             console.log(this.message);
           }
         });
@@ -115,11 +124,12 @@ export default {
       dialog: false,
       base_url: process.env.VUE_APP_BASE_URL,
       token: localStorage.getItem("token"),
-      message: ""
+      message: "",
+      aHeight: "1px"
+      
     };
   },
-  props: {
-  }
+  props: {},
 };
 </script>
 
