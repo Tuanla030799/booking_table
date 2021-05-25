@@ -57,6 +57,7 @@
 <script>
 import axios from "axios";
 import NotiMsg from '../components/NotiMsg.vue';
+import {ACCESS_TOKEN_ADMIN} from "../../constants/index"
 
 export default {
   components: {NotiMsg},
@@ -93,14 +94,15 @@ export default {
             console.log(response);
             const token = response.data.token;
             if (response.status === 200) {
-              localStorage.setItem("token", token);
               if (response.data.role === "USERS") {
+                localStorage.setItem("token", token);
                 this.$router.push({name: "Home"}).catch(err => {
                   return err
                 });
               }
               if (response.data.role === "ADMIN") {
-                this.$router.push({name: "booking-list"})
+                localStorage.setItem(ACCESS_TOKEN_ADMIN, token);
+                this.$router.push({name: "admin"})
                     .catch(err => {
                           return err
                         }

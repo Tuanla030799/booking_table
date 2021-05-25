@@ -6,8 +6,8 @@ import ChangePassWord from "../views/components/ChangePassWord.vue"
 import CustomerSignIn from "../views/customer/CustomerSignIn.vue";
 import CustomerForgot from "../views/customer/CustomerForgot.vue";
 import CustomerRegister from "../views/customer/CustomerRegister";
-import BookingTable from "../views/admin/components/BookingTable";
 import AdminPage from "../views/admin/page/AdminPage";
+import BookingTable from "../views/admin/components/BookingTable";
 
 
 Vue.use(VueRouter);
@@ -39,14 +39,15 @@ const routes = [
         component: ChangePassWord
     },
     {
-        path: "/booking-list",
-        name: "booking-list",
-        component: BookingTable
-    },
-    {
         path:"/admin",
         name:"admin",
-        component: AdminPage
+        component: AdminPage,
+
+    },
+    {
+        path:"/admin/booking-table",
+        name: "booking-table",
+        component: BookingTable
     }
 ];
 

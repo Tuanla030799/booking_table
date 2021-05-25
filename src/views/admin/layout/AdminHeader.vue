@@ -3,7 +3,7 @@
     <div class="header-select">
       <div class="icon-nav header-icon icon-stripes"></div>
       <select id="restaurian">
-        <option value="biendong" selected>CÔNG TY TNHH SẢN SUẤT - THƯƠNG MẠI - DỊCH VỤ QUI PHÚC</option>
+        <option value="biendong" selected>Trang Quản Lý Nhà Hàng </option>
         <!-- <option value="aaaaa">Nhà Hàng Biển Đông</option>
         <option value="bbbbb">Nhà Hàng Biển Đông</option>
         <option value="ccccc">Nhà Hàng Biển Đông</option> -->
