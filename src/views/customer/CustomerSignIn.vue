@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <noti-msg/>
+    <noti-msg />
   </div>
 </template>
 
@@ -66,6 +66,7 @@ export default {
   },
   methods: {
     btnOnClickLogin() {
+      localStorage.setItem("aHeight", this.appHeight);
       // axios
       //   .post(`http://localhost:9000/api/auth/login`, this.customerLogin)
       //   .then((res) => {
@@ -129,7 +130,9 @@ export default {
       dialog: false,
       base_url: process.env.VUE_APP_BASE_URL,
       token: localStorage.getItem("token"),
-      message: ""
+      message: "",
+      aHeight: "1px"
+
     };
   },
   props: {}

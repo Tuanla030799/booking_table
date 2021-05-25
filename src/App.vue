@@ -16,16 +16,20 @@
         
       </form>
     </div> -->
-    
     <the-navbar 
-    @hidePopup = "ShowPopupAccount"
+    @showBookingTable="showBookingTable" 
+    :hideNavbar="hideNavbar"
+    :apHeight="aHeight"
     />
-    <button @click="aaa()">aaa</button>
     <v-main>
-      <router-view @showMessage ="showMessage" />
-      <noti-msg 
-      :hideNotiError="hideNoti"
-      :notiTitle="Message"/>
+      <!-- <button @click="aaaaa()">a</button> -->
+      <router-view 
+      @hideNav="hideNav"
+      @appHeight="appHeight"
+      />
+      
+      <noti-msg :hideNotiError="hideNoti" :notiTitle="Message" />
+      <booking-foot :hideBookingFoots="showPopup" @hideBooking="hideBooking" />
     </v-main>
   </v-app>
 </template>
@@ -33,31 +37,46 @@
 <script>
 import TheNavbar from "./components/TheNavbar.vue";
 import NotiMsg from "./views/components/NotiMsg.vue";
+import BookingFoot from "./views/foots/BookingFoot.vue";
 export default {
   name: "App",
 
   components: {
     TheNavbar,
-    NotiMsg
+    NotiMsg,
+    BookingFoot,
   },
 
   methods: {
-    ShowPopupAccount() {
-      this.showPopup = !this.showPopup
+    showBookingTable() {
+      this.showPopup = true;
+    },
+    showMessage() {
+      //this.Message = message;
+      this.hideNoti = true;
+      console.log(this.Message);
+    },
+    hideBooking() {
+      this.showPopup = false;
+    },
+    appHeight(aHeight) {
+      this.aHeight = aHeight
+    },
+    hideNav() {
+      this.hideNavbar = "d-none"
+    },
+    aaaaa() {
+      
+      console.log(this.aHeight);
+      console.log(this.hideNavbar);
     }
   },
-  showMessage() {
-    //this.Message = message;
-    this.hideNoti = true;
-    console.log(this.Message);
-  },
-aaa() {
-console.log(this.Message)
-},
   data: () => ({
     showPopup: false,
     Message: "aaa",
-    hideNoti: true
+    hideNoti: true,
+    aHeight: "100px",
+    hideNavbar: "d-block"
   }),
 };
 </script>

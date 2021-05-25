@@ -8,6 +8,8 @@ import CustomerForgot from "../views/customer/CustomerForgot.vue";
 import CustomerRegister from "../views/customer/CustomerRegister";
 import AdminPage from "../views/admin/page/AdminPage";
 import BookingTable from "../views/admin/components/BookingTable";
+import ChooseFoot from "../views/foots/ChooseFoot.vue";
+
 
 
 Vue.use(VueRouter);
@@ -37,6 +39,11 @@ const routes = [
         path: "/change-password",
         name: "Đổi mật khẩu",
         component: ChangePassWord
+    },
+    {
+        path: "/choose-foot",
+        name:"Chọn món ăn",
+        component: ChooseFoot
     },
     {
         path:"/admin",
