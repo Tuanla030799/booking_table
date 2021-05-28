@@ -6,10 +6,9 @@ import ChangePassWord from "../views/components/ChangePassWord.vue"
 import CustomerSignIn from "../views/customer/CustomerSignIn.vue";
 import CustomerForgot from "../views/customer/CustomerForgot.vue";
 import CustomerRegister from "../views/customer/CustomerRegister";
-import AdminPage from "../views/admin/page/AdminPage";
-import BookingTable from "../views/admin/components/BookingTable";
+import AdminPage from "../admin/page/AdminPage";
 import ChooseFoot from "../views/foots/ChooseFoot.vue";
-
+import BookingTable from "../admin/components/BookingTable";
 
 
 Vue.use(VueRouter);
@@ -42,20 +41,23 @@ const routes = [
     },
     {
         path: "/choose-foot",
-        name:"Chọn món ăn",
+        name: "Chọn món ăn",
         component: ChooseFoot
     },
     {
-        path:"/admin",
-        name:"admin",
+        path: "/admin",
+        name: "admin",
         component: AdminPage,
+        children: [
+            {
+                path: "/booking-table",
+                name: "booking-table",
+                component: BookingTable
+
+            }
+        ]
 
     },
-    {
-        path:"/admin/booking-table",
-        name: "booking-table",
-        component: BookingTable
-    }
 ];
 
 const router = new VueRouter({

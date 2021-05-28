@@ -4,7 +4,7 @@
    </AdminHeader>
    <AdminNavbar>
    </AdminNavbar>
-   <button v-on:click="handleGetListBooking" class="btn btn-primary">GET</button>
+
  </v-app>
 </template>
 

@@ -7,15 +7,15 @@
     <div class="navbar-box">
       <a class="navbar-item">
         <div class="icon-nav navbar-icon icon-tongquan"></div>
-        <div class="navbar-text">Tổng quan</div>
+        <div class="navbar-text">BookingTable</div>
       </a>
       <a class="navbar-item">
         <div class="icon-nav navbar-icon icon-tienmat"></div>
-        <div class="navbar-text">Tiền mặt</div>
+        <div class="navbar-text">Customer Order</div>
       </a>
       <a class="navbar-item">
         <div class="icon-nav navbar-icon icon-tiengui"></div>
-        <div class="navbar-text">Tiền gửi</div>
+        <div class="navbar-text"></div>
       </a>
       <a class="navbar-item">
         <div class="icon-nav navbar-icon icon-muahang"></div>
@@ -110,7 +110,7 @@ export default {
   width: 100%;
   height: 32px;
   flex-shrink: 0;
-  background-image: url("../../../assets/Logo_Module_TiengViet_White.66947422.svg");
+  background-image: url("../../assets/Logo_Module_TiengViet_White.66947422.svg");
   background-size: contain;
   background-position: left;
   background-repeat: no-repeat;

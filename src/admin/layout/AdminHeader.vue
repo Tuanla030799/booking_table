@@ -26,5 +26,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../../style/layout/header.css";
+@import "../../style/layout/header.css";
 </style>
