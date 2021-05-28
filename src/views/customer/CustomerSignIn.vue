@@ -100,7 +100,7 @@ export default {
             } else if (response.data.role == "ADMIN") {
               this.$emit("appHeight", this.aHeight)
               this.$emit("hideNav")   
-              this.$router.push({ name: "Home" }).catch((err) => {
+              this.$router.push({ name: "admin" }).catch((err) => {
               return err;
             });
             }

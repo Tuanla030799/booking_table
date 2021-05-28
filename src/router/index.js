@@ -7,6 +7,9 @@ import CustomerSignIn from "../views/customer/CustomerSignIn.vue";
 import CustomerForgot from "../views/customer/CustomerForgot.vue";
 import CustomerRegister from "../views/customer/CustomerRegister";
 import ChooseFoot from "../views/foots/ChooseFoot.vue";
+import AdminPage from "../admin/pages/AdminPage";
+import AdminBooking from "../admin/components/admin-booking/AdminBooking";
+import AdminFood from "../admin/components/admin-food/AdminFood";
 
 
 
@@ -43,6 +46,23 @@ const routes = [
         path: "/choose-foot",
         name:"Chọn món ăn",
         component: ChooseFoot
+    },
+    {
+        path: "/admin/",
+        name: "admin",
+        component: AdminPage,
+        children:[
+            {
+                path:'booking',
+                name:'booking',
+                component: AdminBooking
+            },
+            {
+                path:'foods',
+                name:'foods',
+                component: AdminFood
+            }
+        ]
     }
 ];
 

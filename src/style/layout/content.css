@@ -1,0 +1,159 @@
+#content {
+    position: absolute;
+    top: 48px;
+    left: 175px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #F4F5F6;
+    padding: 12px;
+}
+
+#content .content-hea{
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+.content-hea .content-title{ 
+    height: 36px;
+    
+    font-size: 24px;
+    color: #111111;
+    text-align: center;
+    font-weight: 600;
+}
+#content .content-table{
+    background-color: #ffffff;
+    position: absolute;
+    top: 64px;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+}
+.content-table .search-employee{
+    height: 62px;
+    align-items: center;
+    margin-right: 12px;
+    display: flex;
+    float: right; 
+}
+
+/* .content-table .employee-search{
+    align-items: center;
+    padding: 12px; 
+} */
+
+.content-table .search-employee .content-icon {
+    width: 24px;
+    height: 24px;
+    min-height: 24px;
+    min-width: 24px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+.btn-edit {
+    display: flex;
+    align-items: center;
+}
+.editDialog {
+    position: relative !important;
+}
+.button-table-text {
+    outline: none !important;
+    border: none !important;
+    color: #0075c0 !important;
+    font-weight: 500 !important;
+
+}
+.arrow-icon {
+    width: 16px;
+    height: 16px;
+    min-height: 16px;
+    min-width: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.grid {
+    position: absolute;
+    right: 16px;
+    left: 16px;
+    bottom: 50px;
+    top: 60px;
+    overflow-y: auto;
+    /* background-color: #F8F8F8; */
+}   
+#tblEmployee th{
+    background-color: #f1f1f1;
+    font-weight: 600;
+}
+#tblEmployee td{
+    
+    border: 1px dashed #ddd;
+    /* padding: 8px; */
+}
+#tblEmployee th {
+    border-left: 1px solid #ddd;
+}
+.paging{
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 50px;
+}
+.paging .page{
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+/* .m-row input, select{
+    margin-top: 4px;
+} */
+
+/* dialog edit */
+.Edit .dialogEdit{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 122px;
+    height: 94px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    
+}
+.btn-edittable {
+    width: 100%;
+    height: 31px;
+    border: none;
+    outline: none;
+    text-align: left;
+    background-color: #ffffff;
+    font-style: 13px;
+    font-weight: 600px;
+    cursor: pointer;
+}
+.btn-edittable:hover {
+    color: #2CA01C;
+    background-color: #f1f1f1;
+}
+/* .sua {
+    width: 80px !important;
+} */
+
+.btn-text {
+    padding: 0 15px 0 15px;
+    border: none;
+    outline: none;
+    background-color: #ffffff;
+    color: #9E9E9E;
+    font-size: 13px;
+    font-weight: 600px;
+    cursor: pointer;
+}
+.btn-text:hover {
+    color: #111111;
+}
