@@ -5,8 +5,9 @@ import ChangePassWord from "../views/components/ChangePassWord.vue"
 
 import CustomerSignIn from "../views/customer/CustomerSignIn.vue";
 import CustomerForgot from "../views/customer/CustomerForgot.vue";
-import CustomerRegister from "../views/customer/CustomerRegister";
+import CustomerRegister from "../views/customer/CustomerRegister.vue";
 import ChooseFoot from "../views/foots/ChooseFoot.vue";
+import CustomerInformation from "../views/customer/CustomerInformation.vue"
 
 
 
@@ -43,6 +44,11 @@ const routes = [
         path: "/choose-foot",
         name:"Chọn món ăn",
         component: ChooseFoot
+    },
+    {
+        path: "/information",
+        name:"Thông tin",
+        component: CustomerInformation
     }
 ];
 
