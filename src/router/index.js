@@ -14,8 +14,6 @@ import AdminFood from "../admin/components/admin-food/AdminFood";
 import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDetail";
 import AdminCustomer from "../admin/components/admin-customer/AdminCustomer";
 
-
-
 Vue.use(VueRouter);
 const routes = [
     {
