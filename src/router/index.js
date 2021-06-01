@@ -9,8 +9,6 @@ import CustomerRegister from "../views/customer/CustomerRegister.vue";
 import ChooseFoot from "../views/foots/ChooseFoot.vue";
 import CustomerInformation from "../views/customer/CustomerInformation.vue"
 
-
-
 Vue.use(VueRouter);
 const routes = [
     {
