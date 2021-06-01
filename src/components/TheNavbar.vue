@@ -1,8 +1,6 @@
 <template>
-  <nav >
-      <v-app-bar light fixed app :height="apHeight" 
-      
-      :class="hideNavbar">
+  <nav>
+    <v-app-bar light fixed app :height="apHeight" :class="hideNavbar">
       <div class="navbar">
         <div class="navbar-header">
           <div class="navbar-header-left">
@@ -103,12 +101,30 @@
               >
                 <v-list-item three-line class="accountFix">
                   <form action="/account" class="form-account">
-                    <router-link class="nav-signin" to="/signin" >
-                      <button class="btn-login">Đăng nhập</button>
-                    </router-link>                   
-                    <router-link class="nav-signup" to="/register" style="padding: 15px 0px">
-                      <button class="btn-login">Đăng Kí</button>
-                    </router-link>
+                    <div class="not-loggedIn" :class="hideLogged(this.logged)">
+                      <router-link class="nav-signin" to="/signin">
+                        <button class="btn-login">Đăng nhập</button>
+                      </router-link>
+                      <router-link
+                        class="nav-signup"
+                        to="/register"
+                        style="padding: 15px 0px"
+                      >
+                        <button class="btn-login">Đăng Kí</button>
+                      </router-link>
+                    </div>
+                    <div class="loggedIn" :class="hideLogged(!this.logged)">
+                      <ul>
+                        <router-link class="nav-information" to="/information">
+                          <li>Quản lí tài khoản</li>
+                        </router-link>
+                        <router-link class="nav-changepass" to="/change-password" style="text-decoration: none">
+                          <li>Quản lí mật khẩu</li>
+                        </router-link>
+                        <li>Lịch sử đặt chỗ</li>
+                      </ul>
+                      <button class="btn-login">Đăng xuất</button>
+                    </div>
                   </form>
                 </v-list-item>
               </v-card>
@@ -140,50 +156,64 @@
           Tai Khoan
           <v-icon>mdi-account</v-icon>
         </v-btn> -->
-        
-      </div> 
+      </div>
     </v-app-bar>
   </nav>
 </template>
 
 <script>
-
 export default {
   name: "the-navbar",
   data() {
     return {
       active: false,
-      Account: "Tài khoản",
     };
   },
   props: {
-    apHeight:{
+    apHeight: {
       type: String,
-      default: "0px"
+      default: "0px",
     },
     hideNavbar: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
+    Account: {
+      type: String,
+      default: "Tài khoản",
+    },
+    logged: {
+      type: Boolean,
+      default: true,
+    },
   },
   methods: {
     onClickAccount() {
       this.$emit("hidePopup");
     },
-    BookingTable(){
-      this.$emit("showBookingTable");
-    }
+    BookingTable() {
+      if (this.Account == "Tài khoản") {
+        this.$router.push({ name: "Đăng nhập" }).catch((err) => {
+          return err;
+        });
+      } else {
+        this.$emit("showBookingTable");
+      }
+    },
+    hideLogged(hide) {
+      if (hide) {
+        return "d-block";
+      } else {
+        return "d-none";
+      }
+    },
   },
-  components: {
-    
-  },
+  components: {},
   computed: {
-    appHeight: function () {
-      let s = this.aHeight
-      console.log(this.aHeight);
-      return (s > 0) ? 0 : 100;
-    }
-  }
+    hideLoggedIn: function () {
+      return this.hideLogged();
+    },
+  },
 };
 </script>
 
@@ -193,7 +223,6 @@ export default {
   left: 10%;
   right: 10%;
   height: 100%;
-  
 }
 .navbar .navbar-header {
   display: flex;
@@ -250,9 +279,21 @@ export default {
 .form-account .btn-login {
   margin: 10px;
 }
-.accountFix form{
+.accountFix form {
   align-items: center;
   text-align: center;
 }
-
+.loggedIn ul {
+  list-style-type: none;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+.loggedIn ul li {
+  padding: 10px 0px;
+  color: #3a77e5;
+}
+.loggedIn ul li:hover {
+  color: red;
+  cursor: pointer;
+}
 </style>

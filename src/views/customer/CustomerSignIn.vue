@@ -79,10 +79,10 @@ export default {
       axios({
         method: "post",
         url: `${this.base_url}/api/auth/login`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`,
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   Authorization: `Bearer ${this.token}`,
+        // },
         data: {
           email: this.email,
           password: this.password,
@@ -94,6 +94,10 @@ export default {
           if (response.status == 200) {
             localStorage.setItem("token", token);
             if (response.data.role == "USERS") {
+              console.log(token);
+              this.Account = response.data.email
+              this.$emit("AcountEmail", this.Account)
+              this.$emit("loggedHide", this.hideLoged)
               this.$router.push({ name: "Home" }).catch((err) => {
               return err;
             });
@@ -111,11 +115,15 @@ export default {
           this.message = error.response.data.message;
           localStorage.setItem("message", error.response.data.message);
           if (error.response) {
-            this.$bvModal.show("bv-modal-example-error-login");
-            console.log(this.message);
+            // this.$bvModal.show("bv-modal-example-error-login");
+            // console.log(this.message);
+            this.$emit("showMessage", this.showMessageError)
           }
         });
     },
+  },
+    beforeDestroy () {
+    localStorage.removeItem('token');
   },
   data() {
     return {
@@ -123,10 +131,12 @@ export default {
       password: "",
       dialog: false,
       base_url: process.env.VUE_APP_BASE_URL,
-      token: localStorage.getItem("token"),
+      //token: localStorage.getItem("token"),
       message: "",
-      aHeight: "1px"
-      
+      aHeight: "1px",
+      Account: "",
+      hideLoged: false,
+      showMessageError: "d-block"
     };
   },
   props: {},

@@ -20,16 +20,31 @@
     @showBookingTable="showBookingTable" 
     :hideNavbar="hideNavbar"
     :apHeight="aHeight"
+    :Account="Acount"
+    :logged="hidelogged"
     />
     <v-main>
       <!-- <button @click="aaaaa()">a</button> -->
       <router-view 
       @hideNav="hideNav"
       @appHeight="appHeight"
+      @AcountEmail="Account"
+      @loggedHide="loggedHide"
+      @showMessage="showMessage"
       />
       
-      <noti-msg :hideNotiError="hideNoti" :notiTitle="Message" />
-      <booking-foot :hideBookingFoots="showPopup" @hideBooking="hideBooking" />
+      <noti-msg 
+      :hideNotiError="hideNoti" 
+      @hideNotiError="hideNotiError"/>
+      <booking-foot 
+      :hideBookingFoots="showPopup" 
+      @hideBooking="hideBooking"
+      @showInforBooking="showInforBooking" 
+      />
+      <infor-booking-foot 
+      :hideinforBookingFoot="hideinforBooking"
+      :InforBookingFoot="InforBooking"
+      @hideBookingFoot="hideBookingFoot" />
     </v-main>
   </v-app>
 </template>
@@ -38,6 +53,7 @@
 import TheNavbar from "./components/TheNavbar.vue";
 import NotiMsg from "./views/components/NotiMsg.vue";
 import BookingFoot from "./views/foots/BookingFoot.vue";
+import InforBookingFoot from "./views/foots/InforBookingFoot.vue";
 export default {
   name: "App",
 
@@ -45,19 +61,23 @@ export default {
     TheNavbar,
     NotiMsg,
     BookingFoot,
+    InforBookingFoot
   },
 
   methods: {
     showBookingTable() {
       this.showPopup = true;
     },
-    showMessage() {
+    showMessage(show) {
       //this.Message = message;
-      this.hideNoti = true;
-      console.log(this.Message);
+      this.hideNoti = show;
+      console.log(this.hideNoti);
     },
     hideBooking() {
       this.showPopup = false;
+      this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
     },
     appHeight(aHeight) {
       this.aHeight = aHeight
@@ -65,18 +85,47 @@ export default {
     hideNav() {
       this.hideNavbar = "d-none"
     },
+    Account(emailAccount) {
+      this.Acount = emailAccount
+      console.log(emailAccount);
+    },
+    loggedHide(hide) {
+      this.hidelogged = hide;
+    },
+    hideNotiError() {
+      this.hideNoti = "d-none"
+      console.log(this.hideNoti);
+    },
+
+    showInforBooking(Infor) {
+      this.showPopup = false;
+      console.log(Infor);
+      this.InforBooking = Infor;
+      this.hideinforBooking = true
+    },
+    hideBookingFoot(){
+      this.hideinforBooking = false
+      this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
+    },
     aaaaa() {
-      
-      console.log(this.aHeight);
-      console.log(this.hideNavbar);
+      // console.log(this.aHeight);
+      // console.log(this.hideNavbar);
+      console.log(this.hidelogged);
+      //this.Account()
     }
   },
   data: () => ({
     showPopup: false,
+    hideinforBooking: false,
     Message: "aaa",
-    hideNoti: true,
+    hideNoti: "d-none",
     aHeight: "100px",
-    hideNavbar: "d-block"
+    hideNavbar: "d-block",
+    Acount: "Tài khoản",
+    hidelogged: true,
+    InforBooking: {}
   }),
 };
 </script>
