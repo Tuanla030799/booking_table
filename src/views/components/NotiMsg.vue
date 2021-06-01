@@ -1,5 +1,5 @@
 <template>
-  <!-- <div id="bv-modal-example-error-login" class="NotiMsg" :class="{ 'dialog-hide': !hideNotiError }">
+  <div id="bv-modal-example-error-login" class="NotiMsg" :class="hideNotiError">
     <div class="model"></div>
     <div class="delete-content">
       <div class="dialog-body">
@@ -20,8 +20,10 @@
         </div>
       </div>
     </div>
-  </div> -->
-<b-modal id="bv-modal-example-error-login" hide-footer hide-header >
+  </div>
+
+
+<!-- <b-modal id="bv-modal-example-error-login" hide-footer hide-header >
 <b-col class="iconLogout mb-2">
 <b-icon icon="x-circle" class="iconsBox" style="color: red!important;"></b-icon>
 </b-col>
@@ -30,31 +32,30 @@
 style="font-size: 1.21875rem; color: rgb(73, 80, 87); margin-bottom: .5rem;font-weight: 500;line-height: 1.2;">{{ message }}</h3>
 </div>
 <div class="buttonSubmitLogout">
- <!-- <router-link to="/list-role">  -->
 <button class="buttonOK mt-3" @click="$bModal.hide('bv-modal-example-error-login')"  style="font-size: 13px;">OK</button>
- <!-- </router-link> -->
 </div>
-</b-modal>
+</b-modal> -->
 </template>
 
 <script>
 export default {
   name: "noti-msg",
-  // props: {
-  //     hideNotiError: {
-  //         type: Boolean,
-  //         default: true
-  //     },
-  //     notiTitle: {
-  //         type: String,
-  //         default: "bbb"
-  //     }
-  // },
+  props: {
+      hideNotiError: {
+          type: String,
+          default: 'd-none'
+      },
+  },
   data() {
     return {
       message: localStorage.getItem("message"),
     }
   },
+  methods: {
+    hideNotiErrorOnClick() {
+      this.$emit("hideNotiError")
+    }
+  }
 };
 </script>
 

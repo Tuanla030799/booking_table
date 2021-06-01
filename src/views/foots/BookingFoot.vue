@@ -10,6 +10,7 @@
               type="datetime-local"
               id="DateBooking"
               class="dialog-input"
+              v-model="InforBooking.bookingTime"
         />
         </div>
         <div class="bfoot-item">
@@ -18,22 +19,25 @@
               id="NumberPeople"
               class="dialog-input"
               placeholder="Số lượng người"
+              v-model="InforBooking.totalSeats"
             />
         </div>
-        <div class="bfoot-item">
+        <!-- <div class="bfoot-item">
          <input
               type="text"
               id="NumberBank"
               class="dialog-input"
               placeholder="Số tài khoản"
             />
-        </div>
+        </div> -->
         <div class="bfoot-item">
            <input
               type="text"
               id="txtNote"
-              class="dialog-input"
+              class="dialog-input note"
               placeholder="Ghi chú"
+              v-model="InforBooking.note"
+              
             />
         </div>
         
@@ -52,6 +56,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "booking-foot",
   props: {
@@ -62,7 +67,13 @@ export default {
   },
   data() {
     return {
-      
+      InforBooking: {
+        bookingTime : "",
+        totalSeats: 0,
+        note: ""
+      },
+      base_url: process.env.VUE_APP_BASE_URL,
+      token2: localStorage.getItem("token"),
     }
   },
   methods: {
@@ -70,7 +81,33 @@ export default {
       this.$emit("hideBooking")
     },
     BookingFootOnClick(){
+      console.log(this.token2);
+      axios({
+        method: "post",
+        url: `${this.base_url}/api/customer/get-deposit`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token2}`,
+        },
+        data: {
+          bookingTime: Date.parse(this.InforBooking.bookingTime),
+          totalSeats: this.InforBooking.totalSeats,
+          note: this.InforBooking.note,
+        },
+      })
+        .then((response) => {
+          console.log(response.data.statusCode);
+          if (response.status == 200 && response.data.statusCode != 'SUCCESS') {
+            alert(response.data.message)
+            // this.$bvModal.show('bv-modal-example-4')
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      //console.log(url);
       this.$emit("hideBooking")
+      this.$emit("showInforBooking", this.InforBooking)
     }
   },
 };
@@ -152,5 +189,8 @@ export default {
 .bfoot-footer-title span {
   color: #D02028;
   font-size: 18px;
+}
+.note {
+  resize: none;
 }
 </style>

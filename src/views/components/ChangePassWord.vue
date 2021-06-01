@@ -62,8 +62,7 @@ export default {
   },
   methods: {
     handleChangePass() {
-      console.log(this.oldPass);
-      console.log(this.newPass);
+      console.log(this.token);
       console.log(this.base_url)
       axios({
         method: "put",
