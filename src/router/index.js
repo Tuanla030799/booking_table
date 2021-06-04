@@ -10,6 +10,8 @@ import ChooseFoot from "../views/foots/ChooseFoot.vue";
 import AdminPage from "../admin/pages/AdminPage";
 import AdminBooking from "../admin/components/admin-booking/AdminBooking";
 import AdminFood from "../admin/components/admin-food/AdminFood";
+import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDetail";
+import AdminCustomer from "../admin/components/admin-customer/AdminCustomer";
 
 
 
@@ -58,9 +60,19 @@ const routes = [
                 component: AdminBooking
             },
             {
+                path: 'booking-detail',
+                name: 'booking-detail',
+                component: AdminBookingDetail
+            },
+            {
                 path:'foods',
                 name:'foods',
                 component: AdminFood
+            },
+            {
+                path:'customers',
+                name:'admin-customers',
+                component: AdminCustomer
             }
         ]
     }

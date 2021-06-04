@@ -85,8 +85,9 @@
     /* background-color: #F8F8F8; */
 }   
 #tblEmployee th{
-    background-color: #f1f1f1;
-    font-weight: 600;
+    background-color: #2085ce;
+    font-weight: 400;
+    color: #ffffff;
 }
 #tblEmployee td{
     

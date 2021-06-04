@@ -57,6 +57,8 @@
 <script>
 import axios from "axios";
 import NotiMsg from "../components/NotiMsg.vue";
+import {ACCESS_TOKEN_ADMIN} from "../../constants";
+
 export default {
   components: { NotiMsg },
   name: "customer-signin",
@@ -92,14 +94,15 @@ export default {
           console.log(response);
           const token = response.data.token;
           if (response.status == 200) {
-            localStorage.setItem("token", token);
             if (response.data.role == "USERS") {
+              localStorage.setItem("token", token);
               this.$router.push({ name: "Home" }).catch((err) => {
               return err;
             });
             } else if (response.data.role == "ADMIN") {
+              localStorage.setItem(ACCESS_TOKEN_ADMIN, token)
               this.$emit("appHeight", this.aHeight)
-              this.$emit("hideNav")   
+              this.$emit("hideNav")
               this.$router.push({ name: "admin" }).catch((err) => {
               return err;
             });
