@@ -13,10 +13,7 @@
               <th>Phone Number</th>
               <th>Total Money</th>
               <th>Role</th>
-              <th>Image</th>
               <th>Detail</th>
-
-
             </tr>
             </thead>
             <tbody>
@@ -27,7 +24,6 @@
               <td>{{ list.phoneNumber }}</td>
               <td>{{ list.totalMoney}}</td>
               <td>{{ list.role }}</td>
-              <td>{{ list.image }}</td>
               <td>
                 <router-link to="booking-detail" class="btn btn-primary btn-sm" >
                   Detail
