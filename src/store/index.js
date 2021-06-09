@@ -7,26 +7,26 @@ import food from "./food"
 Vue.use(Vuex)
 export default new Vuex.Store({
     strict: true,
-    modules:{
+    modules: {
         customer,
         food
     },
     // state
     state: {
         bookingTables: [],
-        bookingById:[]
+        bookingDetail: [],
     },
     getters: {
         getBookingTables: (state) => state.bookingTables,
-        getBookingTableById: (state) => state.bookingById
+        getBookingDetail: (state) => state.bookingDetail,
     },
     mutations: {
         LIST_BOOKING_TABLES: (state, data) => {
             state.bookingTables = data
         },
-        BOOKING_TABLE_BY_ID: (state, data) =>{
-            state.bookingById = data
-        }
+        BOOKING_DETAIL: (state, data) => {
+            state.bookingDetail = data
+        },
     },
     actions: {
         async getBookingTables(context) {
@@ -37,9 +37,14 @@ export default new Vuex.Store({
                 return e
             }
         },
-        async getBookingTableById(context, bookingId){
-            let data = await  axiosInstance.get("/api/customer/booking-history-detail", bookingId)
-            context.commit("BOOKING_TABLE_BY_ID", data)
+        async getBookingTableById(context, bookingId) {
+            try {
+                let result = (await axiosInstance.get(`/api/customer/booking-history-detail/${bookingId}`)).data
+                context.commit("BOOKING_DETAIL", result)
+            } catch (e) {
+                return e
+            }
+
         }
     }
 })

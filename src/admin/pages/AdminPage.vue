@@ -19,13 +19,16 @@ export default {
     ...mapActions({
       getListBooking: "getBookingTables",
       getListCustomer: "getListCustomer",
-      getListFoods:"getListFoods"
-    })
+      getListFoods: "getListFoods"
+    }),
+    fetchData() {
+      this.getListBooking()
+      this.getListCustomer()
+      this.getListFoods()
+    }
   },
   created() {
-    this.getListBooking()
-    this.getListCustomer()
-    this.getListFoods()
+    this.fetchData()
   }
 }
 </script>

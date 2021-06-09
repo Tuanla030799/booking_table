@@ -13,78 +13,90 @@ import AdminBooking from "../admin/components/admin-booking/AdminBooking";
 import AdminFood from "../admin/components/admin-food/AdminFood";
 import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDetail";
 import AdminCustomer from "../admin/components/admin-customer/AdminCustomer";
+import AdminFoodDetail from "../admin/components/admin-food/AdminFoodDetail";
+import AdminCustomerDetail from "../admin/components/admin-customer/AdminCustomerDetail";
 
 Vue.use(VueRouter);
 const routes = [
     {
-    path: "/",
-    name: "Home",
-    component: Home,
+        path: "/",
+        name: "Home",
+        component: Home,
     },
 
     {
-    path: "/Signin",
-    name:'Đăng nhập',
-    component: CustomerSignIn,
+        path: "/Signin",
+        name: 'Đăng nhập',
+        component: CustomerSignIn,
     },
-    
-    { 
+
+    {
         path: "/register",
-        name:'Đăng ký',
-        component: CustomerRegister 
+        name: 'Đăng ký',
+        component: CustomerRegister
     },
-    { 
-        path: "/forgotpass", 
-        name:'Quên mật khẩu',
-        component: CustomerForgot 
+    {
+        path: "/forgotpass",
+        name: 'Quên mật khẩu',
+        component: CustomerForgot
     },
     {
         path: "/change-password",
-        name:"Đổi mật khẩu",
+        name: "Đổi mật khẩu",
         component: ChangePassWord
     },
     {
         path: "/choose-foot",
-        name:"Chọn món ăn",
+        name: "Chọn món ăn",
         component: ChooseFoot
     },
     {
         path: "/information",
-        name:"Thông tin",
+        name: "Thông tin",
         component: CustomerInformation
     },
     {
         path: "/admin/",
         name: "admin",
         component: AdminPage,
-        children:[
+        children: [
             {
-                path:'booking',
-                name:'booking',
+                path: 'booking',
+                name: 'booking',
                 component: AdminBooking
             },
             {
-                path: 'booking-detail',
+                path: 'booking-detail/:bookingId',
                 name: 'booking-detail',
                 component: AdminBookingDetail
             },
             {
-                path:'foods',
-                name:'foods',
+                path: 'foods',
+                name: 'foods',
                 component: AdminFood
             },
             {
-                path:'customers',
-                name:'admin-customers',
+                path: 'food-detail/:foodId',
+                name: 'food-detail',
+                component: AdminFoodDetail
+            },
+            {
+                path: 'customers',
+                name: 'admin-customers',
                 component: AdminCustomer
+            },
+            {
+                path: 'customer-detail/:email',
+                name: 'customer-detail',
+                component: AdminCustomerDetail
             }
         ]
     }
 ];
 
 const router = new VueRouter({
-mode: "history",
-routes,
+    mode: "history",
+    routes,
 });
 
 export default router;

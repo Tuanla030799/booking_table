@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
     baseURL: `${process.env.VUE_APP_BASE_URL}`,
     headers: {
         'Accept': 'application/json',
-        // 'Authorization':'Bearer ' + token
     }
 })
 axiosInstance.interceptors.request.use(function (config) {

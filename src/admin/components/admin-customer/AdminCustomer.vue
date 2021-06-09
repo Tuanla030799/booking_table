@@ -4,7 +4,7 @@
       <div class="content-title">Customer</div>
       <div class="employee-table">
         <div class="grid">
-          <table  id="tblEmployee" class="table text-center " width="100%" border="0">
+          <table id="tblEmployee" class="table text-center " width="100%" border="0">
             <thead>
             <tr>
               <th>STT</th>
@@ -13,6 +13,8 @@
               <th>Phone Number</th>
               <th>Total Money</th>
               <th>Role</th>
+              <th>Image</th>
+              <th>status</th>
               <th>Detail</th>
             </tr>
             </thead>
@@ -22,11 +24,16 @@
               <td>{{ list.email }}</td>
               <td>{{ list.fullName }}</td>
               <td>{{ list.phoneNumber }}</td>
-              <td>{{ list.totalMoney}}</td>
+              <td>{{ list.totalMoney }}</td>
               <td>{{ list.role }}</td>
               <td>
-                <router-link to="booking-detail" class="btn btn-primary btn-sm" >
-                  Detail
+                <v-img v-bind:src="list.image" width="200px" height="100px"></v-img>
+              </td>
+              <td>{{ list.status }}</td>
+              <td>
+                <router-link :to="{name:'customer-detail' , params: {email: list.email}}" class="btn btn-primary btn-sm"
+                             tag='a'>
+                  Customer Detail
                 </router-link>
               </td>
             </tr>
@@ -41,6 +48,7 @@
 
 <script>
 import {mapGetters} from "vuex"
+
 export default {
   name: "AdminCustomer",
   computed: {

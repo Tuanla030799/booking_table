@@ -1,3 +1,4 @@
 export default {
-    listCustomers:[]
+    listCustomers: [],
+    customerDetail: []
 }

@@ -4,7 +4,7 @@
       <div class="content-title">Booking Table</div>
       <div class="employee-table">
         <div class="grid">
-          <table  id="tblEmployee" class="table" width="100%" border="0">
+          <table id="tblEmployee" class="table" width="100%" border="0">
             <thead>
             <tr>
               <th>STT</th>
@@ -27,8 +27,9 @@
               <td>{{ list.moneyPay }}</td>
               <td>{{ list.bookingStatus }}</td>
               <td>
-                <router-link to="booking-detail" class="btn btn-primary btn-sm" >
-                  Detail
+                <router-link :to="{name:'booking-detail', params:{bookingId: list.bookingId}}"
+                             class="btn btn-primary btn-sm" tag="a">
+                  Booking Detail
                 </router-link>
               </td>
             </tr>
@@ -46,8 +47,7 @@ import {mapGetters} from "vuex"
 export default {
   name: "AdminBooking",
   data() {
-    return {
-    }
+    return {}
   },
   computed: {
     ...mapGetters(['getBookingTables'])

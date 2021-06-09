@@ -4,10 +4,7 @@
       <div class="content-title">Booking Table</div>
       <div class="employee-table">
         <div class="grid">
-          <div>Admin Booking Table</div>
-          <form>
 
-          </form>
         </div>
       </div>
     </div>
@@ -15,11 +12,38 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import {mapActions, mapGetters} from "vuex"
+
 export default {
   name: "AdminBookingDetail",
-  computed:{
-    ...mapGetters(["getBookingTableById"])
+  data() {
+    return {
+      bookingId: this.$route.params.bookingId
+    }
+  },
+  computed: {
+    ...mapGetters({
+      bookingDetail: 'getBookingDetail'
+    }),
+  },
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    '$route'(to, from) {
+      this.bookingId = to.params.id
+      this.fetchDataGetBookingById()
+    }
+  },
+  methods: {
+    ...mapActions(['getBookingTableById']),
+    fetchDataGetBookingById() {
+      this.getBookingTableById(this.bookingId)
+    },
+    parseJson(data){
+      return JSON.parse(data)
+    }
+  },
+  created() {
+    this.fetchDataGetBookingById()
   }
 }
 </script>

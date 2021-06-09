@@ -1,3 +1,4 @@
 export default {
-    listFoods: []
+    listFoods: [],
+    foodDetail: []
 }
