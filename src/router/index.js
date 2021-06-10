@@ -50,6 +50,7 @@ const routes = [
         name: "Chọn món ăn",
         component: ChooseFoot
     },
+
     {
         path: "/information",
         name: "Thông tin",

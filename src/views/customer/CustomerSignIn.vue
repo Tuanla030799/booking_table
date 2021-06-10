@@ -94,12 +94,12 @@ export default {
           console.log(response);
           const token = response.data.token;
           if (response.status == 200) {
+            localStorage.setItem("token", token);
             if (response.data.role == "USERS") {
               console.log(token);
               this.Account = response.data.email
               this.$emit("AcountEmail", this.Account)
               this.$emit("loggedHide", this.hideLoged)
-              localStorage.setItem("token", token);
               this.$router.push({ name: "Home" }).catch((err) => {
               return err;
             });
