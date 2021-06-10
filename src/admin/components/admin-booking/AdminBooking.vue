@@ -14,8 +14,6 @@
               <th>Money Pay</th>
               <th>Booking Status</th>
               <th>Detail</th>
-
-
             </tr>
             </thead>
             <tbody>
@@ -42,7 +40,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import {mapGetters, mapActions} from "vuex"
 
 export default {
   name: "AdminBooking",
@@ -51,7 +49,19 @@ export default {
   },
   computed: {
     ...mapGetters(['getBookingTables'])
+  },
+  methods:{
+    ...mapActions({
+      getListBookingTables: 'getBookingTables'
+    }),
+    handleGetListBookingTables(){
+      this.getListBookingTables()
+    },
+  },
+  created() {
+    this.handleGetListBookingTables()
   }
+
 
 }
 </script>

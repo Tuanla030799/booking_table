@@ -1,14 +1,7 @@
 <template>
-  <div>
-    <div>
-      <div class="content-hea">
-        <div class="content-title">Food</div>
-        <div class="content-button-add">
-          <button class="btn-default btn-add">
-            Thêm Mới Món ăn
-          </button>
-        </div>
-      </div>
+  <b-container>
+    <div class="content-hea">
+      <div class="content-title">Booking Table</div>
       <div class="employee-table">
         <div class="grid">
           <table id="tblEmployee" class="table text-center" width="100%" border="0">
@@ -47,17 +40,29 @@
         </div>
       </div>
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: "AdminFood",
   computed: {
     ...mapGetters(["getListFoods"])
+  },
+  methods: {
+    ...mapActions({
+      getFoods: 'getListFoods'
+    }),
+    handleGetListFoods() {
+      this.getFoods()
+    }
+  },
+  created() {
+    this.handleGetListFoods()
   }
+
 }
 </script>
 

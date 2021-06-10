@@ -13,7 +13,6 @@
               <th>Phone Number</th>
               <th>Total Money</th>
               <th>Role</th>
-              <th>Image</th>
               <th>status</th>
               <th>Detail</th>
             </tr>
@@ -26,9 +25,6 @@
               <td>{{ list.phoneNumber }}</td>
               <td>{{ list.totalMoney }}</td>
               <td>{{ list.role }}</td>
-              <td>
-                <v-img v-bind:src="list.image" width="200px" height="100px"></v-img>
-              </td>
               <td>{{ list.status }}</td>
               <td>
                 <router-link :to="{name:'customer-detail' , params: {email: list.email}}" class="btn btn-primary btn-sm"
@@ -47,12 +43,23 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import {mapGetters, mapActions} from "vuex"
 
 export default {
   name: "AdminCustomer",
   computed: {
     ...mapGetters(["getListCustomer"])
+  },
+  methods: {
+    ...mapActions({
+      getCustomers: 'getListCustomer'
+    }),
+    handleGetListCustomer(){
+      this.getCustomers()
+    }
+  },
+  created() {
+    this.handleGetListCustomer()
   }
 }
 </script>

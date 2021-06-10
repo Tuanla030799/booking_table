@@ -7,14 +7,17 @@ Vue.use(VueAxios, axios)
 
 const axiosInstance = axios.create({
     baseURL: `${process.env.VUE_APP_BASE_URL}`,
-    headers: {
-        'Accept': 'application/json',
+    headers:{
+        'accept': 'application/json'
     }
 })
 axiosInstance.interceptors.request.use(function (config) {
-    // eslint-disable-next-line no-undef
-    const token = localStorage.getItem(ACCESS_TOKEN_ADMIN);
-    config.headers.Authorization = token ? `Bearer ${token}` : '';
-    return config;
-});
+        const token = localStorage.getItem(ACCESS_TOKEN_ADMIN)
+        config.headers['Accept'] = 'application/json'
+        config.headers.Authorization = token ? `Bearer ${token}` : ''
+        return config;
+    }, function (error) {
+        return Promise.reject(error)
+    }
+);
 export default axiosInstance

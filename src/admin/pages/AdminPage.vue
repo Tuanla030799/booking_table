@@ -10,26 +10,10 @@
 import AdminHeader from "../components/layouts/AdminHeader";
 import AdminNavbar from "../components/layouts/AdminNavbar";
 import AdminContent from "../components/layouts/AdminContent";
-import {mapActions} from "vuex"
 
 export default {
   name: "AdminPage",
   components: {AdminContent, AdminNavbar, AdminHeader},
-  methods: {
-    ...mapActions({
-      getListBooking: "getBookingTables",
-      getListCustomer: "getListCustomer",
-      getListFoods: "getListFoods"
-    }),
-    fetchData() {
-      this.getListBooking()
-      this.getListCustomer()
-      this.getListFoods()
-    }
-  },
-  created() {
-    this.fetchData()
-  }
 }
 </script>
 

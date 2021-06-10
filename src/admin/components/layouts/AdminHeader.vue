@@ -3,7 +3,7 @@
     <div class="header-select">
       <div class="icon-nav header-icon icon-stripes"></div>
       <select id="restaurian">
-        <option value="biendong" selected>Admin Booking </option>
+        <option value="biendong" selected>Admin</option>
       </select>
     </div>
     <div class="header-gmail">
