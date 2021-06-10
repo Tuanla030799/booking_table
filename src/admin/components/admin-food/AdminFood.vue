@@ -1,19 +1,19 @@
 <template>
   <b-container>
     <div class="content-hea">
-      <div class="content-title">Booking Table</div>
+      <div class="content-title">Quản Lý Món Ăn</div>
       <div class="employee-table">
         <div class="grid">
           <table id="tblEmployee" class="table text-center" width="100%" border="0">
             <thead>
             <tr>
               <th>ID</th>
-              <th>Food Name</th>
-              <th>Description</th>
-              <th>Food Image</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Detail</th>
+              <th>Tên Món Ăn</th>
+              <th>Mô Tả</th>
+              <th>Ảnh</th>
+              <th>Giá Tiền</th>
+              <th>Số Lượng</th>
+              <th>Chi Tiết Món Ăn</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                     :to="{name:'food-detail', params:{foodId:foods.foodId}}"
                     tag='a'
                 >
-                  Food Detail
+                  Chi Tiết
                 </router-link>
               </td>
             </tr>

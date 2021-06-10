@@ -1,19 +1,19 @@
 <template>
   <b-container>
     <div class="content-hea">
-      <div class="content-title">Booking Table</div>
+      <div class="content-title">Quản lý đặt bàn</div>
       <div class="employee-table">
         <div class="grid">
-          <table id="tblEmployee" class="table" width="100%" border="0">
+          <table id="tblEmployee" class="table text-center" width="100%" border="0">
             <thead>
             <tr>
-              <th>STT</th>
-              <th>Booking ID</th>
-              <th>Booking Time</th>
-              <th>Deposit</th>
-              <th>Money Pay</th>
-              <th>Booking Status</th>
-              <th>Detail</th>
+              <th>Số thứ tự</th>
+              <th>Mã Đặt Bàn</th>
+              <th>Thời Gian Đặt Bàn</th>
+              <th>Tiền Cọc</th>
+              <th>Tiền Phải Thanh Toán</th>
+              <th>Trang Thái</th>
+              <th>Chi Tiết</th>
             </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
               <td>
                 <router-link :to="{name:'booking-detail', params:{bookingId: list.bookingId}}"
                              class="btn btn-primary btn-sm" tag="a">
-                  Booking Detail
+                  Chi Tiết
                 </router-link>
               </td>
             </tr>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from "vuex"
+import {mapActions, mapGetters} from "vuex"
 
 export default {
   name: "AdminBooking",
@@ -50,11 +50,11 @@ export default {
   computed: {
     ...mapGetters(['getBookingTables'])
   },
-  methods:{
+  methods: {
     ...mapActions({
       getListBookingTables: 'getBookingTables'
     }),
-    handleGetListBookingTables(){
+    handleGetListBookingTables() {
       this.getListBookingTables()
     },
   },
@@ -68,4 +68,10 @@ export default {
 
 <style scoped>
 @import "../../../style/layout/content.css";
+
+.content-title {
+  color: red;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
 </style>

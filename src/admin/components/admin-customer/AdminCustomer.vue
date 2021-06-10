@@ -1,20 +1,20 @@
 <template>
   <b-container>
     <div class="content-hea">
-      <div class="content-title">Customer</div>
+      <div class="content-title">Quản lý khách hàng</div>
       <div class="employee-table">
         <div class="grid">
           <table id="tblEmployee" class="table text-center " width="100%" border="0">
             <thead>
             <tr>
-              <th>STT</th>
+              <th>Số thứ tự</th>
               <th>Email</th>
-              <th>Full Name</th>
-              <th>Phone Number</th>
-              <th>Total Money</th>
-              <th>Role</th>
-              <th>status</th>
-              <th>Detail</th>
+              <th>Tên Khách Hàng</th>
+              <th>Số Điện Thoạir</th>
+              <th>Tổng Tiền</th>
+              <th>Phân Quyền</th>
+              <th>Trạng Thái</th>
+              <th>Chi Tiết</th>
             </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
               <td>
                 <router-link :to="{name:'customer-detail' , params: {email: list.email}}" class="btn btn-primary btn-sm"
                              tag='a'>
-                  Customer Detail
+                  Chi Tiết Khách Hàng
                 </router-link>
               </td>
             </tr>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from "vuex"
+import {mapActions, mapGetters} from "vuex"
 
 export default {
   name: "AdminCustomer",
@@ -54,7 +54,7 @@ export default {
     ...mapActions({
       getCustomers: 'getListCustomer'
     }),
-    handleGetListCustomer(){
+    handleGetListCustomer() {
       this.getCustomers()
     }
   },

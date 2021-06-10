@@ -15,47 +15,55 @@ import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDe
 import AdminCustomer from "../admin/components/admin-customer/AdminCustomer";
 import AdminFoodDetail from "../admin/components/admin-food/AdminFoodDetail";
 import AdminCustomerDetail from "../admin/components/admin-customer/AdminCustomerDetail";
+import CustomerPage from "../views/CustomerPage";
 
 Vue.use(VueRouter);
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
+        name: "customer",
+        component: CustomerPage,
+        children: [
+            {
+                path: '',
+                name:'Home',
+                component: Home
+            },
+            {
+                path: "/Signin",
+                name: 'Đăng nhập',
+                component: CustomerSignIn,
+            },
+
+            {
+                path: "/register",
+                name: 'Đăng ký',
+                component: CustomerRegister
+            },
+            {
+                path: "/forgotpass",
+                name: 'Quên mật khẩu',
+                component: CustomerForgot
+            },
+            {
+                path: "/change-password",
+                name: "Đổi mật khẩu",
+                component: ChangePassWord
+            },
+            {
+                path: "/choose-foot",
+                name: "Chọn món ăn",
+                component: ChooseFoot
+            },
+
+            {
+                path: "/information",
+                name: "Thông tin",
+                component: CustomerInformation
+            }
+        ]
     },
 
-    {
-        path: "/Signin",
-        name: 'Đăng nhập',
-        component: CustomerSignIn,
-    },
-
-    {
-        path: "/register",
-        name: 'Đăng ký',
-        component: CustomerRegister
-    },
-    {
-        path: "/forgotpass",
-        name: 'Quên mật khẩu',
-        component: CustomerForgot
-    },
-    {
-        path: "/change-password",
-        name: "Đổi mật khẩu",
-        component: ChangePassWord
-    },
-    {
-        path: "/choose-foot",
-        name: "Chọn món ăn",
-        component: ChooseFoot
-    },
-
-    {
-        path: "/information",
-        name: "Thông tin",
-        component: CustomerInformation
-    },
     {
         path: "/admin/",
         name: "admin",
