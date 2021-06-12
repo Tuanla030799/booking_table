@@ -1,45 +1,37 @@
 <template>
-  <b-container>
-    <div class="content-hea">
-      <div class="content-title">Quản lý khách hàng</div>
-      <div class="employee-table">
-        <div class="grid">
-          <table id="tblEmployee" class="table text-center " width="100%" border="0">
-            <thead>
-            <tr>
-              <th>Số thứ tự</th>
-              <th>Email</th>
-              <th>Tên Khách Hàng</th>
-              <th>Số Điện Thoạir</th>
-              <th>Tổng Tiền</th>
-              <th>Phân Quyền</th>
-              <th>Trạng Thái</th>
-              <th>Chi Tiết</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(list,index) in getListCustomer" :key="index">
-              <td>{{ index }}</td>
-              <td>{{ list.email }}</td>
-              <td>{{ list.fullName }}</td>
-              <td>{{ list.phoneNumber }}</td>
-              <td>{{ list.totalMoney }}</td>
-              <td>{{ list.role }}</td>
-              <td>{{ list.status }}</td>
-              <td>
-                <router-link :to="{name:'customer-detail' , params: {email: list.email}}" class="btn btn-primary btn-sm"
-                             tag='a'>
-                  Chi Tiết Khách Hàng
-                </router-link>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </b-container>
+  <v-container>
+    <v-card class="customer-page" elevation="10">
+      <v-card-title>
+        DANH SÁCH KHÁCH HÀNG
+      </v-card-title>
+      <v-data-table
+          :headers="headers"
+          :items="listCustomers"
+      >
+        <template v-slot:body="{items}">
+          <tbody>
+          <tr v-for="item in items" :key="item.email">
+            <td>{{ item.fullName }}</td>
+            <td>{{ item.phoneNumber }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.totalMoney }}</td>
+            <td>
+              <v-btn
+                  color="info"
+              >
+                <v-icon dark>
+                  mdi-clipboard-edit-outline
+                </v-icon>
 
+              </v-btn>
+            </td>
+          </tr>
+          </tbody>
+        </template>
+      </v-data-table>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -47,13 +39,34 @@ import {mapActions, mapGetters} from "vuex"
 
 export default {
   name: "AdminCustomer",
+  data() {
+    return {
+      headers: [
+        {text: 'Tên Khách Hàng', value: 'fullName'},
+        {text: 'Số Điện Thoại ', value: 'phoneNumber'},
+        {text: 'Trạng Thái', value: 'status'},
+        {text: 'Email', value: 'email'},
+        {text: 'Tổng Tiền', value: 'totalMoney'},
+        {text: 'Chi Tiết', value: 'actions', sortable: false}
+      ],
+      dialog: false
+    }
+  },
   computed: {
-    ...mapGetters(["getListCustomer"])
+    ...mapGetters({
+      listCustomers: 'getListCustomer'
+    })
   },
   methods: {
     ...mapActions({
-      getCustomers: 'getListCustomer'
+      getCustomers: 'getListCustomer',
+      getCustomerDetail: 'getCustomerDetail'
     }),
+    handleGetCustomerDetailByEmail(email) {
+      this.dialog = true
+      this.getCustomerDetail(email)
+    }
+    ,
     handleGetListCustomer() {
       this.getCustomers()
     }
@@ -65,5 +78,8 @@ export default {
 </script>
 
 <style scoped>
-
+.customer-page {
+  max-width: 100%;
+  margin: 0 auto;
+}
 </style>

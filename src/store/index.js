@@ -54,22 +54,22 @@ export default new Vuex.Store({
 
         async cancelBookingById(context, {bookingId = ''}) {
             try {
-               let data={
-                   bookingId
-               }
-               let config ={
-                   headers:{
-                       'Content-Type': 'application/json',
-                       'Authorization':'Bearer '+ localStorage.getItem(ACCESS_TOKEN_ADMIN)
-                   }
-               }
-                console.log('data: ',data )
+                let data = {
+                    bookingId
+                }
+                let config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
+                    }
+                }
+                console.log('data: ', data)
                 let result = await axiosInstance.post('/api/admin/cancel-booking-admin', data, config)
                 console.log('cancel: ', result)
                 if (result.data.status === 200) {
                     let resultListBooking = await context.dispatch('getBookingTableById', bookingId)
                     console.log('resultListBooking: ', resultListBooking.data)
-                    if (resultListBooking.data.status === 200){
+                    if (resultListBooking.data.status === 200) {
                         context.commit('LIST_BOOKING_TABLES', resultListBooking.data)
                     }
                     return {
@@ -77,10 +77,10 @@ export default new Vuex.Store({
                         data: result.data,
                         error: null
                     }
-                }else {
+                } else {
                     return {
-                        ok:false,
-                        error:result.data.error
+                        ok: false,
+                        error: result.data.error
                     }
                 }
 
