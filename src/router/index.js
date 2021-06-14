@@ -11,53 +11,60 @@ import CustomerInformation from "../views/customer/CustomerInformation.vue"
 import AdminPage from "../admin/pages/AdminPage";
 import AdminBooking from "../admin/components/admin-booking/AdminBooking";
 import AdminFood from "../admin/components/admin-food/AdminFood";
-import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDetail";
 import AdminCustomer from "../admin/components/admin-customer/AdminCustomer";
-import AdminFoodDetail from "../admin/components/admin-food/AdminFoodDetail";
-import AdminCustomerDetail from "../admin/components/admin-customer/AdminCustomerDetail";
+import CustomerPage from "../views/CustomerPage";
+import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDetail";
+import AdminBookingAddFood from "../admin/components/admin-booking/AdminBookingAddFood";
 
 Vue.use(VueRouter);
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
+        name: "customer",
+        component: CustomerPage,
+        children: [
+            {
+                path: '',
+                name: 'Home',
+                component: Home
+            },
+            {
+                path: "/Signin",
+                name: 'Đăng nhập',
+                component: CustomerSignIn,
+            },
+
+            {
+                path: "/register",
+                name: 'Đăng ký',
+                component: CustomerRegister
+            },
+            {
+                path: "/forgotpass",
+                name: 'Quên mật khẩu',
+                component: CustomerForgot
+            },
+            {
+                path: "/change-password",
+                name: "Đổi mật khẩu",
+                component: ChangePassWord
+            },
+            {
+                path: "/choose-foot",
+                name: "Chọn món ăn",
+                component: ChooseFoot
+            },
+
+            {
+                path: "/information",
+                name: "Thông tin",
+                component: CustomerInformation
+            }
+        ]
     },
 
     {
-        path: "/Signin",
-        name: 'Đăng nhập',
-        component: CustomerSignIn,
-    },
-
-    {
-        path: "/register",
-        name: 'Đăng ký',
-        component: CustomerRegister
-    },
-    {
-        path: "/forgotpass",
-        name: 'Quên mật khẩu',
-        component: CustomerForgot
-    },
-    {
-        path: "/change-password",
-        name: "Đổi mật khẩu",
-        component: ChangePassWord
-    },
-    {
-        path: "/choose-foot",
-        name: "Chọn món ăn",
-        component: ChooseFoot
-    },
-
-    {
-        path: "/information",
-        name: "Thông tin",
-        component: CustomerInformation
-    },
-    {
-        path: "/admin/",
+        path: "/admin",
         name: "admin",
         component: AdminPage,
         children: [
@@ -67,9 +74,14 @@ const routes = [
                 component: AdminBooking
             },
             {
-                path: 'booking-detail/:bookingId',
+                path: '/booking/:bookingId',
                 name: 'booking-detail',
                 component: AdminBookingDetail
+            },
+            {
+                path:'/booking/:bookingId/booking-add-food',
+                name: 'booking-add-food',
+                component: AdminBookingAddFood
             },
             {
                 path: 'foods',
@@ -77,19 +89,9 @@ const routes = [
                 component: AdminFood
             },
             {
-                path: 'food-detail/:foodId',
-                name: 'food-detail',
-                component: AdminFoodDetail
-            },
-            {
                 path: 'customers',
                 name: 'admin-customers',
                 component: AdminCustomer
-            },
-            {
-                path: 'customer-detail/:email',
-                name: 'customer-detail',
-                component: AdminCustomerDetail
             }
         ]
     }

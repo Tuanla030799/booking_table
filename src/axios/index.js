@@ -7,7 +7,7 @@ Vue.use(VueAxios, axios)
 
 const axiosInstance = axios.create({
     baseURL: `${process.env.VUE_APP_BASE_URL}`,
-    headers:{
+    headers: {
         'accept': 'application/json'
     }
 })

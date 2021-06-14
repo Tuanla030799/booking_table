@@ -1,29 +1,31 @@
 #content {
     position: absolute;
     top: 48px;
-    left: 175px;
-    right: 0px;
-    bottom: 0px;
-    background-color: #F4F5F6;
-    padding: 12px;
+    left: 200px;
+    right: 0;
+    bottom: 0;
+    background-color: #F5F5F5;
+    padding: 20px 50px;
 }
 
-#content .content-hea{
-    
+#content .content-hea {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 40px;
 }
-.content-hea .content-title{ 
+
+.content-hea .content-title {
     height: 36px;
-    
+
     font-size: 24px;
     color: #111111;
     text-align: center;
     font-weight: 600;
 }
-#content .content-table{
+
+#content .content-table {
     background-color: #ffffff;
     position: absolute;
     top: 64px;
@@ -31,12 +33,13 @@
     left: 12px;
     right: 12px;
 }
-.content-table .search-employee{
+
+.content-table .search-employee {
     height: 62px;
     align-items: center;
     margin-right: 12px;
     display: flex;
-    float: right; 
+    float: right;
 }
 
 /* .content-table .employee-search{
@@ -52,13 +55,16 @@
     margin-left: 15px;
     cursor: pointer;
 }
+
 .btn-edit {
     display: flex;
     align-items: center;
 }
+
 .editDialog {
     position: relative !important;
 }
+
 .button-table-text {
     outline: none !important;
     border: none !important;
@@ -66,6 +72,7 @@
     font-weight: 500 !important;
 
 }
+
 .arrow-icon {
     width: 16px;
     height: 16px;
@@ -83,40 +90,46 @@
     top: 60px;
     overflow-y: auto;
     /* background-color: #F8F8F8; */
-}   
-#tblEmployee th{
+}
+
+#tblEmployee th {
     background-color: #2085ce;
     font-weight: 400;
     color: #ffffff;
 }
-#tblEmployee td{
-    
+
+#tblEmployee td {
+
     border: 1px dashed #ddd;
     /* padding: 8px; */
 }
+
 #tblEmployee th {
     border-left: 1px solid #ddd;
 }
-.paging{
+
+.paging {
     position: absolute;
     bottom: 0;
     left: 16px;
     right: 16px;
     height: 50px;
 }
-.paging .page{
+
+.paging .page {
     width: 100%;
     height: 100%;
     justify-content: space-between;
     display: flex;
     align-items: center;
 }
+
 /* .m-row input, select{
     margin-top: 4px;
 } */
 
 /* dialog edit */
-.Edit .dialogEdit{
+.Edit .dialogEdit {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -124,8 +137,9 @@
     height: 94px;
     background-color: #ffffff;
     border: 1px solid #ccc;
-    
+
 }
+
 .btn-edittable {
     width: 100%;
     height: 31px;
@@ -137,10 +151,12 @@
     font-weight: 600px;
     cursor: pointer;
 }
+
 .btn-edittable:hover {
     color: #2CA01C;
     background-color: #f1f1f1;
 }
+
 /* .sua {
     width: 80px !important;
 } */
@@ -155,6 +171,7 @@
     font-weight: 600px;
     cursor: pointer;
 }
+
 .btn-text:hover {
     color: #111111;
 }

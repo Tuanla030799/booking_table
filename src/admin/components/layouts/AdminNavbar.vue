@@ -5,22 +5,38 @@
       <div class="logo"></div>
     </div>
     <div class="navbar-box">
-      <router-link to="/admin/booking" class="navbar-item" tag="a">
-        <div class="icon-nav navbar-icon "></div>
-        <div class="navbar-text">Booking Table</div>
+      <router-link to="/admin/booking" class="navbar-item" tag="div">
+        <v-icon color="grey lighten-5" class="pl-5">
+          mdi-clipboard-edit-outline
+        </v-icon>
+        <div class="navbar-text">
+          Đặt Bàn
+        </div>
       </router-link>
-      <router-link to="/admin/foods" class="navbar-item" tag="a">
-        <div class="icon-nav navbar-icon "></div>
-        <div class="navbar-text">Food</div>
+      <router-link class="navbar-item" to="/admin/customers" tag="div">
+        <v-icon color="grey lighten-5" class="pl-5">
+          mdi-account-details
+        </v-icon>
+        <div class="navbar-text">
+          Khách Hàng
+        </div>
       </router-link>
-      <router-link class="navbar-item" to="/admin/customers" tag="a">
-        <div class="icon-nav navbar-icon "></div>
-        <div class="navbar-text">Customer</div>
+      <router-link to="/admin/foods" class="navbar-item" tag="div">
+        <v-icon color="grey lighten-5" class="pl-5">
+          mdi-basket
+        </v-icon>
+        <div class="navbar-text">
+          Món Ăn
+        </div>
       </router-link>
-      <a class="navbar-item">
-        <div class="icon-nav navbar-icon "></div>
-        <div class="navbar-text">Export</div>
-      </a>
+        <router-link class="navbar-item" to="/admin/customers" tag="div">
+          <v-icon color="grey lighten-5" class="pl-5">
+            mdi-file-export-outline
+          </v-icon>
+          <div class="navbar-text">
+            Báo Cáo
+          </div>
+        </router-link>
     </div>
   </div>
 </template>

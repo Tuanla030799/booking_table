@@ -1,71 +1,99 @@
 <template>
-  <b-container>
-    <div class="content-hea">
-      <div class="content-title">Booking Table</div>
-      <div class="employee-table">
-        <div class="grid">
-          <table id="tblEmployee" class="table" width="100%" border="0">
-            <thead>
-            <tr>
-              <th>STT</th>
-              <th>Booking ID</th>
-              <th>Booking Time</th>
-              <th>Deposit</th>
-              <th>Money Pay</th>
-              <th>Booking Status</th>
-              <th>Detail</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="list in getBookingTables" :key="list.stt">
-              <td>{{ list.stt }}</td>
-              <td>{{ list.bookingId }}</td>
-              <td>{{ list.bookingTime }}</td>
-              <td>{{ list.deposit }}</td>
-              <td>{{ list.moneyPay }}</td>
-              <td>{{ list.bookingStatus }}</td>
-              <td>
-                <router-link :to="{name:'booking-detail', params:{bookingId: list.bookingId}}"
-                             class="btn btn-primary btn-sm" tag="a">
-                  Booking Detail
-                </router-link>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </b-container>
+  <v-container class="booking my-5" fluid>
+    <v-card elevation="10">
+      <v-card-title>
+        DANH SÁCH ĐẶT BÀN
+      </v-card-title>
+      <v-data-table
+          :headers="headers"
+          :items="listBooking"
+      >
+        <template v-slot:body="{items}">
+          <tbody>
+          <tr v-for="item in items" :key="item.bookingId">
+            <td>{{ item.bookingId }}</td>
+            <td>{{ item.deposit }}</td>
+            <td>{{ item.moneyPay }}</td>
+            <td>{{ item.bookingStatus }}</td>
+            <td>{{ item.bookingTime }}</td>
+            <td>{{ item.refund }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.phoneNumber }}</td>
+            <td>
+              <router-link :to="{name:'booking-detail', params:{bookingId:item.bookingId}}" tag="div">
+                <v-btn
+                    color="info"
+                    dark
+                >
+                  <v-icon dark>
+                    mdi-clipboard-edit-outline
+                  </v-icon>
+
+                </v-btn>
+              </router-link>
+
+            </td>
+          </tr>
+          </tbody>
+
+        </template>
+
+      </v-data-table>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-import {mapGetters, mapActions} from "vuex"
+import {mapActions, mapGetters} from "vuex"
 
 export default {
   name: "AdminBooking",
   data() {
-    return {}
+    return {
+      headers: [
+        {text: 'Mã Đặt Bàn', value: 'bookingId'},
+        {text: 'Tiền Đặt Cọc', value: 'deposit'},
+        {text: 'Tiền Đã Thanh Toán', value: 'moneyPay'},
+        {text: 'Trạng Thái', value: 'bookingStatus'},
+        {text: 'Thời Gian Đặt Bàn', value: 'bookingTime'},
+        {text: 'Hoàn Tiền', value: 'refund'},
+        {text: 'Email Khách Hàng', value: 'email'},
+        {text: 'Số Điện Thoại', value: 'phoneNumber'},
+        {text: 'Chi Tiết', value: 'actions', sortable: false},
+      ],
+    }
   },
   computed: {
-    ...mapGetters(['getBookingTables'])
+    ...mapGetters({
+      listBooking: 'getBookingTables',
+    }),
   },
-  methods:{
+
+  methods: {
     ...mapActions({
       getListBookingTables: 'getBookingTables'
     }),
-    handleGetListBookingTables(){
+    handleGetListBookingTables() {
       this.getListBookingTables()
-    },
+    }
   },
   created() {
     this.handleGetListBookingTables()
   }
-
-
 }
 </script>
 
 <style scoped>
 @import "../../../style/layout/content.css";
+
+.booking {
+  margin: 0 auto;
+  width: 100%;
+
+}
+
+.v-dialog > * {
+  width: 100%;
+  background-color: #FAFAFA;
+}
 </style>

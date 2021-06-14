@@ -1,4 +1,11 @@
 export default {
     listFoods: [],
-    foodDetail: []
+    foodDetail: [],
+    listFoodByBookingId:[],
+    addFood:{
+        bookingId:'',
+        foodList:[
+            {foodId:'',quantity:''}
+        ]
+    }
 }
