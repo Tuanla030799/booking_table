@@ -91,6 +91,22 @@ export default new Vuex.Store({
                 }
             }
 
+        },
+        async payBookingTableByBookingId(context, bookingId=''){
+            console.log('pay booking table by booking id : ', bookingId)
+            try{
+                let result = await axiosInstance.post(`/api/admin/pay-bill/${bookingId}`)
+                if (result.data.status === 200){
+                    return {
+                        ok : true,
+                        data:result.data,
+                        error: null
+                    }
+                }
+            }catch (e){
+                return e;
+            }
         }
-    }
+    },
+
 })

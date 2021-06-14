@@ -3,6 +3,7 @@
     <AdminHeader></AdminHeader>
     <AdminNavbar></AdminNavbar>
     <AdminContent></AdminContent>
+<!--    <AdminFooter></AdminFooter>-->
   </div>
 </template>
 
@@ -13,7 +14,7 @@ import AdminContent from "../components/layouts/AdminContent";
 
 export default {
   name: "AdminPage",
-  components: {AdminContent, AdminNavbar, AdminHeader},
+  components: { AdminContent, AdminNavbar, AdminHeader},
 }
 </script>
 

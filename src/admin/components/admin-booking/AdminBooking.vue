@@ -1,17 +1,8 @@
 <template>
-  <v-container class="booking">
+  <v-container class="booking my-5" fluid>
     <v-card elevation="10">
       <v-card-title>
-        Danh sách bàn đặt
-        <v-spacer></v-spacer>
-        <!--        <v-text-field-->
-        <!--            v-model="search"-->
-        <!--            append-icon="mdi-magnify"-->
-        <!--            label="Search"-->
-        <!--            single-line-->
-        <!--            hide-details-->
-        <!--        ></v-text-field>-->
-        <v-spacer></v-spacer>
+        DANH SÁCH ĐẶT BÀN
       </v-card-title>
       <v-data-table
           :headers="headers"
@@ -29,16 +20,18 @@
             <td>{{ item.email }}</td>
             <td>{{ item.phoneNumber }}</td>
             <td>
-              <v-btn
-                  color="info"
-                  dark
-                  @click="handleGetBookingDetail(item.bookingId)"
-              >
-                <v-icon dark>
-                  mdi-clipboard-edit-outline
-                </v-icon>
+              <router-link :to="{name:'booking-detail', params:{bookingId:item.bookingId}}" tag="div">
+                <v-btn
+                    color="info"
+                    dark
+                >
+                  <v-icon dark>
+                    mdi-clipboard-edit-outline
+                  </v-icon>
 
-              </v-btn>
+                </v-btn>
+              </router-link>
+
             </td>
           </tr>
           </tbody>
@@ -47,215 +40,6 @@
 
       </v-data-table>
     </v-card>
-    <v-dialog v-model="dialog" max-width="70%">
-      <v-container>
-        <v-card elevation="10">
-          <v-card-title>
-            Chi Tiết Đặt Bàn
-            <v-spacer></v-spacer>
-            <v-btn color="error" @click="handleCloseDialog">
-              <v-icon>
-                mdi-close-circle-outline
-              </v-icon>
-            </v-btn>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-                <v-row>
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        readonly
-                        rounded
-                        label="Mã Đặt Bàn"
-                        v-model="bookingDetail.bookingId"
-                    >
-                    </v-text-field>
-                  </v-col>
-
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        label="Bàn"
-                        rounded
-                        v-model="bookingDetail.tableName"
-                    >
-                    </v-text-field>
-                  </v-col>
-
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        rounded
-                        label="Tổng Số Người"
-                        v-model="bookingDetail.totalSet"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        rounded
-                        label="Tiền Đặt Cọc"
-                        v-model="bookingDetail.deposit"
-                    >
-                    </v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        rounded
-                        label="Phần Trăm"
-                        v-model="bookingDetail.percentSale"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        rounded
-                        label="Tổng Tiền Món Ăn "
-                        v-model="bookingDetail.sumMoneyFood"
-                    >
-                    </v-text-field>
-                  </v-col>
-
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        rounded
-                        label="Tổng Tiền"
-                        v-model="bookingDetail.totalMoney"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        rounded
-                        label="Thời Gian Thanh Toán"
-                        v-model="bookingDetail.payDate"
-                    >
-                    </v-text-field>
-                  </v-col>
-<!--                  <v-col cols="3" sm="3">-->
-<!--                    <v-text-field-->
-<!--                        rounded-->
-<!--                        label="Trạng Thái"-->
-<!--                        v-model="bookingDetail.status"-->
-<!--                    >-->
-<!--                    </v-text-field>-->
-<!--                  </v-col>-->
-                  <v-col cols="3" sm="3">
-                    <v-text-field
-                        rounded
-                        class="test"
-                        label="Thời Gian Đặt Bàn"
-                        v-model="bookingDetail.bookingTime"
-                    >
-                    </v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" sm="12">
-                    <v-container>
-                      <template v-if="bookingDetail.listFoodInBookings && bookingDetail.listFoodInBookings.length===0 ">
-                        <v-row >
-                          <v-col cols="10" sm="10">
-                            <v-card-title>
-                              KHÁCH HÀNG CHƯA ĐẶT MÓN ĂN
-                            </v-card-title>
-                          </v-col>
-                          <v-col cols="2" sm="2">
-                            <v-btn color="info">
-                              <v-icon>
-                                mdi-tag-plus
-                              </v-icon>
-                              THÊM MÓN ĂN
-                            </v-btn>
-                          </v-col>
-                        </v-row>
-                      </template>
-                      <template v-else>
-                        <v-row>
-                          <v-col cols="10" sm="10">
-                            <v-card-title>
-                              DANH SÁCH MÓN ĂN
-                            </v-card-title>
-                          </v-col>
-                          <v-spacer></v-spacer>
-                          <v-col cols="2" sm="2">
-                            <v-btn color="info">
-                              <v-icon>
-                                mdi-tag-plus
-                              </v-icon>
-                              THÊM MÓN ĂN
-                            </v-btn>
-                          </v-col>
-                        </v-row>
-                        <v-data-table
-                            :headers="headerFoods"
-                            :items="bookingDetail.listFoodInBookings"
-                            class="scroll-y-transition"
-                        >
-                          <template v-slot:body="{items}">
-                            <tbody>
-                            <tr v-for="item in items" :key="item.foodId">
-                              <td>{{ item.stt }}</td>
-                              <td>{{ item.foodName }}</td>
-                              <td>{{ item.price }}</td>
-                              <td>{{ item.set }}</td>
-                              <td>{{ item.money }}</td>
-                            </tr>
-                            </tbody>
-                          </template>
-                        </v-data-table>
-                      </template>
-                    </v-container>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="" sm="2">
-                    <v-btn color="error" left @click="handleOpenCancelBooking">
-                      <v-icon dark>
-                        mdi-cancel
-                      </v-icon>
-                      HỦY ĐẶT BÀN
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="2" sm="2">
-                    <v-btn color="info">
-                      <v-icon>
-                        mdi-checkbox-marked-circle
-                      </v-icon>
-                      THANH TOÁN
-                    </v-btn>
-                  </v-col>
-                </v-row>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-container>
-    </v-dialog>
-    <v-dialog v-model="dialogCancel" max-width="300px" class="dialog_cancel">
-      <v-card>
-        <v-card-title>
-          XÁC NHẬN HỦY ĐẶT BÀN
-        </v-card-title>
-        <v-card-actions >
-          <v-btn color="error"
-                 @click="handleCancelBookingByBookingId(bookingDetail.bookingId)">
-            <v-icon>
-              mdi-checkbox-marked-circle
-            </v-icon>
-            XÁC NHẬN
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="info"
-                 @click="handleCloseCancelBooking">
-
-            <v-icon>
-              mdi-minus-circle
-            </v-icon>
-            HỦY
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
@@ -266,16 +50,6 @@ export default {
   name: "AdminBooking",
   data() {
     return {
-
-      dialog: false,
-      dialogCancel: false,
-      headerFoods: [
-        {text: 'Số Thứ Tự', value: 'stt'},
-        {text: 'Tên Món Ăn', value: 'foodName'},
-        {text: 'Giá Món Ăn', value: 'price'},
-        {text: 'Số Lượng', value: 'set'},
-        {text: 'Thành Tiền', value: 'money'},
-      ],
       headers: [
         {text: 'Mã Đặt Bàn', value: 'bookingId'},
         {text: 'Tiền Đặt Cọc', value: 'deposit'},
@@ -292,52 +66,20 @@ export default {
   computed: {
     ...mapGetters({
       listBooking: 'getBookingTables',
-      bookingDetail: 'getBookingDetail'
     }),
   },
+
   methods: {
     ...mapActions({
-      getListBookingTables: 'getBookingTables',
-      getBookingDetails: 'getBookingTableById',
-      cancelBookingByBookingId: 'cancelBookingById'
+      getListBookingTables: 'getBookingTables'
     }),
-    handleCancelBookingByBookingId(bookingId) {
-      this.dialogCancel = false
-      this.dialog = false
-      this.cancelBookingByBookingId({bookingId})
-      this.loadPage()
-    },
     handleGetListBookingTables() {
       this.getListBookingTables()
-    },
-    async handleGetBookingDetail(bookingId) {
-      this.dialog = true
-      await this.getBookingDetails(bookingId)
-    },
-    loadPage() {
-      location.reload()
-    },
-    handleOpenCancelBooking() {
-      this.dialogCancel = true
-    },
-    handleCloseCancelBooking() {
-      this.dialogCancel = false
-    },
-    handleCloseDialog() {
-      this.dialog = false
-    },
-    handleRestForm() {
-      this.bookingDetail.deposit = ''
-      this.bookingDetail.bookingTime = ''
-      this.bookingDetail.totalSet = ''
-      this.bookingDetail.totalMoney = ''
     }
   },
   created() {
     this.handleGetListBookingTables()
   }
-
-
 }
 </script>
 
@@ -346,17 +88,12 @@ export default {
 
 .booking {
   margin: 0 auto;
-  width: 90%;
+  width: 100%;
 
-}
-
-.ct__datban {
-  text-transform: uppercase;
 }
 
 .v-dialog > * {
   width: 100%;
   background-color: #FAFAFA;
 }
-
 </style>

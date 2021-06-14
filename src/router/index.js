@@ -13,6 +13,8 @@ import AdminBooking from "../admin/components/admin-booking/AdminBooking";
 import AdminFood from "../admin/components/admin-food/AdminFood";
 import AdminCustomer from "../admin/components/admin-customer/AdminCustomer";
 import CustomerPage from "../views/CustomerPage";
+import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDetail";
+import AdminBookingAddFood from "../admin/components/admin-booking/AdminBookingAddFood";
 
 Vue.use(VueRouter);
 const routes = [
@@ -62,7 +64,7 @@ const routes = [
     },
 
     {
-        path: "/admin/",
+        path: "/admin",
         name: "admin",
         component: AdminPage,
         children: [
@@ -70,6 +72,16 @@ const routes = [
                 path: 'booking',
                 name: 'booking',
                 component: AdminBooking
+            },
+            {
+                path: '/booking/:bookingId',
+                name: 'booking-detail',
+                component: AdminBookingDetail
+            },
+            {
+                path:'/booking/:bookingId/booking-add-food',
+                name: 'booking-add-food',
+                component: AdminBookingAddFood
             },
             {
                 path: 'foods',

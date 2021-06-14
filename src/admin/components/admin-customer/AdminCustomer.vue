@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card class="customer-page" elevation="10">
+  <v-container id="customer" fluid class="my-5">
+    <v-card  elevation="10">
       <v-card-title>
         DANH SÁCH KHÁCH HÀNG
       </v-card-title>
@@ -78,8 +78,7 @@ export default {
 </script>
 
 <style scoped>
-.customer-page {
-  max-width: 100%;
+#customer {
   margin: 0 auto;
 }
 </style>
