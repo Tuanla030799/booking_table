@@ -45,9 +45,9 @@
       </div>
       <div class="bfoot-footer">
         <button class="btn-default btn-dTable" @click="hideBookingonClick()">Hủy</button>
-        <router-link class="cFoot" to="/choose-foot">
+        <!-- <router-link class="cFoot" to="/choose-foot"> -->
           <button class="btn-default btn-bTable" @click="BookingFootOnClick()">Đặt bàn</button> 
-        </router-link>    
+        <!-- </router-link>     -->
       </div>
       <div class="bfoot-footer-title">Hoặc gọi tới <span>19000009</span></div>
       <div class="bfoot-footer-title">để đặt chỗ và được tư vấn</div>
@@ -69,11 +69,12 @@ export default {
     return {
       InforBooking: {
         bookingTime : "",
-        totalSeats: 0,
-        note: ""
+        totalSeats: "",
+        note: "",
+        priceBooking: ""
       },
       base_url: process.env.VUE_APP_BASE_URL,
-      token2: localStorage.getItem("token"),
+      //token: sessionStorage.getItem("token"),
     }
   },
   methods: {
@@ -81,35 +82,45 @@ export default {
       this.$emit("hideBooking")
     },
     BookingFootOnClick(){
-      console.log(this.token2);
+     // console.log(this.token);
       axios({
         method: "post",
         url: `${this.base_url}/api/customer/get-deposit`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token2}`,
+          Authorization: `Bearer ${this.$cookie.get('token')}`,
         },
         data: {
-          bookingTime: Date.parse(this.InforBooking.bookingTime),
-          totalSeats: this.InforBooking.totalSeats,
+          bookingTime:  this.abookingTime,
+          totalSeats: parseInt(this.InforBooking.totalSeats) ,
           note: this.InforBooking.note,
         },
       })
         .then((response) => {
-          console.log(response.data.statusCode);
-          if (response.status == 200 && response.data.statusCode != 'SUCCESS') {
-            alert(response.data.message)
-            // this.$bvModal.show('bv-modal-example-4')
+          if (response.status == 200 && response.data.statusCode == 'SUCCESS') {
+            this.InforBooking.priceBooking = response.data.message;
+            console.log(this.InforBooking.priceBooking);
+            this.$emit("hideBooking")
+            this.$emit("showInforBooking", this.InforBooking)
           }
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log(error.response.data);
+          alert(error.response.data.message)
+
         });
       //console.log(url);
-      this.$emit("hideBooking")
-      this.$emit("showInforBooking", this.InforBooking)
+      
     }
   },
+  computed: {
+    abookingTime () {
+      let a = this.InforBooking.bookingTime
+      let b = a.slice(0,10)
+      let c = a.slice(11,16)
+      return b + " " + c +":00"
+    }
+  }
 };
 </script>
 
@@ -164,6 +175,7 @@ export default {
 .dialog-input {
   width: 272px !important;
   height: 32px !important;
+  margin-top: 25px;
 }
 
 .bfoot-footer {

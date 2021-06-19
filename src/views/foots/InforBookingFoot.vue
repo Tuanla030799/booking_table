@@ -7,18 +7,18 @@
         <div class="bfoot-item">Thời gian đặt bàn: {{ InforBookingFoot.bookingTime }}</div>
         <div class="bfoot-item">Số người: {{ InforBookingFoot.totalSeats }} </div>
         <div class="bfoot-item">Ghi Chú: {{ InforBookingFoot.note }} </div>
-        <div class="bfoot-item">Số tiền phải trả:</div>
+        <div class="bfoot-item">Số tiền phải trả: {{ InforBookingFoot.priceBooking }}</div>
       </div>
       <div class="bfoot-text">Bạn có đồng ý với số tiền đặt cọc này?</div>
       <div class="bfoot-footer">
         <button class="btn-default btn-dTable" @click="hideBookingFootonClick()">
           Hủy
         </button>
-        <router-link class="cFoot" to="/choose-foot">
+        <!-- <router-link class="cFoot" to="/choose-foot"> -->
           <button class="btn-default btn-bTable" @click="BookingFootOnClick()">
             Đồng ý
           </button>
-        </router-link>
+        <!-- </router-link> -->
       </div>
       <div class="bfoot-footer-title">Hoặc gọi tới <span>19000009</span></div>
       <div class="bfoot-footer-title">để đặt chỗ và được tư vấn</div>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "infor-booking-foot",
   props: {
@@ -40,16 +41,54 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      bookingId: "",
+      base_url: process.env.VUE_APP_BASE_URL,
+    };
   },
   methods: {
     hideBookingFootonClick() {
       this.$emit("hideBookingFoot");
     },
     BookingFootOnClick() {
-      this.$emit("hideBookingFoot");
+      axios({
+        method: "post",
+        url: `${this.base_url}/api/customer/booking`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$cookie.get('token')}`,
+        },
+        data: {
+          bookingTime:  this.abookingTime,
+          totalSeats: this.InforBookingFoot.totalSeats,
+        },
+      })
+        .then((response) => {
+          if (response.status == 200 && response.data.statusCode == 'SUCCESS') {
+            this.bookingId = response.data.message;
+            this.$emit("bookingId" , this.bookingId)
+            console.log(this.bookingId);
+            this.$router.push({ name: "Chọn món ăn" }).catch((err) => {
+              return err;
+            });
+            this.$emit("ChooseFootBooking");
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+         // console.log(this.abookingTime);
+        });
+      
     },
   },
+  computed: {
+    abookingTime () {
+      let a = this.InforBookingFoot.bookingTime
+      let b = a.slice(0,10)
+      let c = a.slice(11,16)
+      return b + " " + c +":00"
+    }
+  }
 };
 </script>
 
@@ -100,6 +139,7 @@ export default {
   align-items: center;
   padding: 12px 47px;
   margin-left: 10px;
+  font-size: small;
 }
 .dialog-input {
   width: 272px !important;

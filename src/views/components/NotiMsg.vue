@@ -55,7 +55,10 @@ export default {
     hideNotiErrorOnClick() {
       this.$emit("hideNotiError")
     }
-  }
+  },
+  //   beforeDestroy () {
+  //   localStorage.removeItem('message');
+  // },
 };
 </script>
 

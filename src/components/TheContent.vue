@@ -11,16 +11,17 @@
         </div>
       </div>
       <v-layout row wrap>
-        <v-col xs12 sm6 md4 lg3 v-for="(foot, index) in listFootss" :key="index">
-          <v-card flat class="text-xs-center ma-1 fluid">
-            <v-img :src="foot.foodImage" max-width="264px" height="288px">
+        <v-col cols="12"
+                md="3" xs12 sm6 md4 lg3 v-for="(foot, index) in listFootss" :key="index">
+          <v-card class="card">
+            <v-img :src="foot.foodImage" max-width="266px" height="288px" class="rounded-sm">
               <!-- <a href="">
                 <img :src="foot.foodImage" alt="" />
               </a> -->
             </v-img>
             <v-card-text>
-              <div class="title">
-                <a href="#" class="text-decoration-none">{{ foot.foodName }}</a>
+              <div class="title-foot"> 
+                <a href="#" class="text-decoration-none ">{{ foot.foodName }}</a>
               </div>
             </v-card-text>
           </v-card>
@@ -39,47 +40,6 @@ export default {
   },
   data() {
     return {
-      // listFoots: [
-      //   {
-      //     title: "ăn sập hà nội thì đi đâu?",
-      //     img:
-      //       "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
-      //   },
-      //   {
-      //     title: "sushi nhật bản món ăn giành cho giới thượng lưu?",
-      //     img:
-      //       "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
-      //   },
-      //   {
-      //     title: "thịt chó chấm mắm tôm, món ăn dân dã làng quê việt",
-      //     img: "/Capture.PNG",
-      //   },
-      //   {
-      //     title: "ăn sập hà nội thì đi đâu?",
-      //     img:
-      //       "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
-      //   },
-      //   {
-      //     title: "ăn sập hà nội thì đi đâu?",
-      //     img:
-      //       "https://drive.google.com/file/d/1324XiHreZo64NWJs2wBKRf6xT7vn7BjD/view?usp=sharing",
-      //   },
-      //   {
-      //     title: "sushi nhật bản món ăn giành cho giới thượng lưu?",
-      //     img:
-      //       "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
-      //   },
-      //   {
-      //     title: "sushi nhật bản món ăn giành cho giới thượng lưu?",
-      //     img:
-      //       "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
-      //   },
-      //   {
-      //     title: "thịt chó chấm mắm tôm, món ăn dân dã làng quê việt",
-      //     img:
-      //       "https://pasgo.vn/Upload/anh-bo-suu-tap/nha-hang-dat-tiec-10-3-o-ha-noi-300-169355280fd7fbb8-b589-4743-876c-2cc27f4e4c71.jpg",
-      //   },
-      // ],
       base_url: process.env.VUE_APP_BASE_URL,
       // token: localStorage.getItem("token"),
       listFootss: [],
@@ -143,5 +103,15 @@ export default {
   padding-left: 10px;
   color: red;
   border-left: 2px solid #555555;
+}
+.title-foot {
+  text-align: center;
+}
+.title-foot a:hover {
+  color: red;
+}
+.card{
+  padding-left: 3px !important;
+  padding-top: 3px !important;
 }
 </style>

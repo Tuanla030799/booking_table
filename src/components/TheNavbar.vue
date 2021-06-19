@@ -36,22 +36,6 @@
                   style="float: right"
                   class="ml-10"
                 >
-                  <!-- <v-list-item-content>
-                    <div class="overline mb-4">OVERLINE</div>
-                    <v-list-item-title class="headline mb-1">
-                      Headline 5
-                    </v-list-item-title>
-                    <v-list-item-subtitle
-                      >Greyhound divisely hello coldly
-                      fonwderfully</v-list-item-subtitle
-                    >
-                  </v-list-item-content>
-
-                  <v-list-item-avatar
-                    tile
-                    size="80"
-                    color="grey"
-                  ></v-list-item-avatar> -->
                 </v-list-item>
               </v-card>
             </div>
@@ -74,8 +58,7 @@
                       Headline 5
                     </v-list-item-title>
                     <v-list-item-subtitle
-                      >Greyhound divisely hello coldly
-                      fonwderfully</v-list-item-subtitle
+                      ></v-list-item-subtitle
                     >
                   </v-list-item-content>
 
@@ -90,7 +73,7 @@
             <div class="navbar-item test">
               <button class="btn-account">
                 <v-icon small>mdi-account</v-icon>
-                {{ Account }}
+                {{ this.isAccount }}
               </button>
 
               <v-card
@@ -101,7 +84,10 @@
               >
                 <v-list-item three-line class="accountFix">
                   <form action="/account" class="form-account">
-                    <div class="not-loggedIn" :class="hideLogged(this.logged)">
+                    <div
+                      class="not-loggedIn"
+                      :class="hideLogged(!checkLogged(this.isAccount))"
+                    >
                       <router-link class="nav-signin" to="/signin">
                         <button class="btn-login">Đăng nhập</button>
                       </router-link>
@@ -113,17 +99,38 @@
                         <button class="btn-login">Đăng Kí</button>
                       </router-link>
                     </div>
-                    <div class="loggedIn" :class="hideLogged(!this.logged)">
+                    <div
+                      class="loggedIn"
+                      :class="hideLogged(checkLogged(this.isAccount))"
+                    >
                       <ul>
-                        <router-link class="nav-information" to="/information">
+                        <router-link
+                          class="nav-information"
+                          to="/information"
+                          style="text-decoration: none"
+                        >
                           <li>Quản lí tài khoản</li>
                         </router-link>
-                        <router-link class="nav-changepass" to="/change-password" style="text-decoration: none">
+                        <router-link
+                          class="nav-changepass"
+                          to="/change-password"
+                          style="text-decoration: none"
+                        >
                           <li>Quản lí mật khẩu</li>
                         </router-link>
-                        <li>Lịch sử đặt chỗ</li>
+                        <router-link
+                          class="nav-history"
+                          to="/customer-history"
+                          style="text-decoration: none"
+                        >
+                          <li>Lịch sử đặt chỗ</li>
+                        </router-link>
+                        <div class="logout">
+                          <button class="btn-login" @click="btnOnClickLogout()">
+                        Đăng xuất
+                      </button>
+                        </div>
                       </ul>
-                      <button class="btn-login">Đăng xuất</button>
                     </div>
                   </form>
                 </v-list-item>
@@ -141,35 +148,60 @@
               </router-link>
             </v-app-bar-title>
           </div>
-
           <input
             type="text"
             class="input-search"
-            style="width: 40%"
+            ref="searchinput"
             placeholder="Tìm kiếm các món ăn..."
+            width="40%"
+            @input="FindFootOnClick($event)"
+            @focus="SearchFootOnClick()"
           />
-
-          <button class="btn-default" @click="BookingTable()">Đặt bàn</button>
+          <div class="btn-bookingtable">
+            <button class="btn-default" @click="BookingTable()">Đặt bàn</button>
+          </div>
         </div>
 
         <!-- <v-btn color="grey">
           Tai Khoan
           <v-icon>mdi-account</v-icon>
         </v-btn> -->
+        <search-foot :SearchFootActive="SearchFootClick"
+        :listFoots="Foots" />
       </div>
     </v-app-bar>
   </nav>
 </template>
 
 <script>
+import SearchFoot from "../views/components/SearchFoot.vue";
+import axios from "axios";
 export default {
   name: "the-navbar",
+  components: {
+    SearchFoot,
+  },
+  created() {
+    this.loadAccount();
+    this.getData();
+  },
   data() {
     return {
       active: false,
+      logged: true,
+      FindFoot: "",
+      SearchFootClick: "d-none",
+      base_url: process.env.VUE_APP_BASE_URL,
+      footSearch: "",
+      Foots: [],
+      isAccount: "Tài khoản"
     };
   },
   props: {
+    // isAccount: {
+    //   type: String,
+    //   default: "Tài khoản",
+    // },
     apHeight: {
       type: String,
       default: "0px",
@@ -178,21 +210,27 @@ export default {
       type: String,
       default: "",
     },
-    Account: {
-      type: String,
-      default: "Tài khoản",
-    },
-    logged: {
-      type: Boolean,
-      default: true,
-    },
+    // Account: {
+    //   type: String,
+    //   default: "Tài khoản",
+    // },
+    // logged: {
+    //   type: Boolean,
+    //   default: true,
+    // },
   },
   methods: {
+    SearchFootOnClick() {
+      this.SearchFootClick = "d-block";
+    },
+    FindFootOnClick(event) {
+      this.footSearch = `${event.target.value}`;
+    },
     onClickAccount() {
       this.$emit("hidePopup");
     },
     BookingTable() {
-      if (this.Account == "Tài khoản") {
+      if (this.isAccount == null) {
         this.$router.push({ name: "Đăng nhập" }).catch((err) => {
           return err;
         });
@@ -207,12 +245,93 @@ export default {
         return "d-none";
       }
     },
+    CheckAccout(accout) {
+      if (accout) {
+        return "Tài khoản";
+      } else {
+        return this.Account;
+      }
+    },
+    checkLogged(accout) {
+      if (accout == "Tài khoản") {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    btnOnClickLogout() {
+      //this.$cookie.delete("email");
+      axios({
+        method: "post",
+        url: `${this.base_url}/api/auth/logout`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$cookie.get("token")}`,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      this.$router.push({ name: "Home" }).catch((err) => {
+        return err;
+      });
+      this.isAccount = "Tài khoản";
+    },
+    loadAccount() {
+      //let Email = this.$cookie.get("email");
+      //console.log(Email);
+      //this.isAccount = Email
+      // if (this.Account == null){
+      //   return "Tài Khoản"
+      // } else {
+      //   return this.Account
+      // }
+      axios({
+        method: "get",
+        url: `${this.base_url}/api/user/get-user-detail`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$cookie.get("token")}`,
+        },
+      })
+        .then((response) => {
+          if (response.status == 200 && response.data.fullName != null) {
+            // console.log(response.data.fullName);
+            //  alert("ĐĂng nhập thành công")
+            this.isAccount = response.data.email;
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          this.isAccount = "Tài khoản";
+        });
+    },
+    getData() {
+
+        axios
+          .get(
+            `${this.base_url}/api/sunshine/search-food/${this.footSearch}`
+          )
+          .then((res) => {
+            this.Foots = res.data
+          })
+          .catch((res) => {
+            console.log(res);
+          });
+      }
   },
-  components: {},
   computed: {
     hideLoggedIn: function () {
       return this.hideLogged();
     },
+  },
+  watch: {
+    footSearch: function() {
+      this.getData()
+    }
   },
 };
 </script>
@@ -259,6 +378,7 @@ export default {
 .navbar-content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .navbar-content input {
@@ -295,5 +415,15 @@ export default {
 .loggedIn ul li:hover {
   color: red;
   cursor: pointer;
+}
+.btn-bookingtable {
+  float: right;
+}
+.input-search {
+  /* padding: 16px 0px !important; */
+  width: 400px;
+}
+.search-nav {
+  width: 400px;
 }
 </style>
