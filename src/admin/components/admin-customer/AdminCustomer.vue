@@ -1,5 +1,5 @@
 <template>
-  <v-container id="customer" fluid class="my-5">
+  <v-container id="customer" fluid >
     <v-card  elevation="10">
       <v-card-title>
         DANH SÁCH KHÁCH HÀNG
@@ -17,14 +17,16 @@
             <td>{{ item.email }}</td>
             <td>{{ item.totalMoney }}</td>
             <td>
-              <v-btn
-                  color="info"
-              >
-                <v-icon dark>
-                  mdi-clipboard-edit-outline
-                </v-icon>
+              <router-link :to="{name:'customer-detail', params:{email:item.email}}" tag="div">
+                <v-btn
+                    color="info"
+                >
+                  <v-icon dark>
+                    mdi-clipboard-edit-outline
+                  </v-icon>
 
-              </v-btn>
+                </v-btn>
+              </router-link>
             </td>
           </tr>
           </tbody>
@@ -60,13 +62,7 @@ export default {
   methods: {
     ...mapActions({
       getCustomers: 'getListCustomer',
-      getCustomerDetail: 'getCustomerDetail'
     }),
-    handleGetCustomerDetailByEmail(email) {
-      this.dialog = true
-      this.getCustomerDetail(email)
-    }
-    ,
     handleGetListCustomer() {
       this.getCustomers()
     }

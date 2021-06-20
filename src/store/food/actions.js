@@ -20,8 +20,8 @@ export default {
             return e
         }
     },
-    async addFoodToBookingByBookingId(context,{ bookingId, foodId, quantity}) {
-        console.log('booking Id : '+ bookingId+ 'foodId: '+ foodId+ 'quantity: ', quantity)
+    async addFoodToBookingByBookingId(context, {bookingId, foodId, quantity}) {
+        console.log('booking Id : ' + bookingId + 'foodId: ' + foodId + 'quantity: ', quantity)
         try {
             let foodList = [
                 {foodId, quantity}
@@ -50,17 +50,5 @@ export default {
             return e;
         }
 
-    }
-    // async getListFoodByBookingId(context, bookingId) {
-    //     try {
-    //         let result = await axiosInstance.get(`/api/sunshine/get-list-food?bookingId=${bookingId}`)
-    //         if (result.status === 200) {
-    //             context.commit('GET_LIST_FOOD_BY_BOOKING_ID', result.data)
-    //         }
-    //     } catch (e) {
-    //         return e
-    //     }
-    //
-    // },
-
+    },
 }

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="booking my-5" fluid>
+  <v-container  fluid>
     <v-card elevation="10">
       <v-card-title>
         DANH SÁCH ĐẶT BÀN
@@ -85,13 +85,6 @@ export default {
 
 <style scoped>
 @import "../../../style/layout/content.css";
-
-.booking {
-  margin: 0 auto;
-  width: 100%;
-
-}
-
 .v-dialog > * {
   width: 100%;
   background-color: #FAFAFA;

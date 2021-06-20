@@ -1,17 +1,14 @@
 <template>
-  <div id="header">
-    <div class="header-select">
-      <div class="icon-nav header-icon icon-stripes"></div>
-      <select id="restaurian">
-        <option value="biendong" selected>Trang Quản Lý Nhà Hàng</option>
-      </select>
-    </div>
-    <div class="header-gmail">
-      <div class="icon-nav header-icon icon-thongbao"></div>
-      <div class="header-icon icon-avatar"></div>
-      <div class="header-text">Admin</div>
-      <div class="icon-nav header-icon icon-option"></div>
-    </div>
+  <div class="app-bar">
+    <v-app-bar color="transparent">
+      <v-app-bar-title>Nhà Hàng Sunshine</v-app-bar-title>
+      <v-spacer></v-spacer>
+      <v-app-bar-title>Admin</v-app-bar-title>
+      <v-app-bar-title>
+        <v-app-bar-nav-icon>
+        </v-app-bar-nav-icon>
+      </v-app-bar-title>
+    </v-app-bar>
   </div>
 </template>
 
@@ -22,5 +19,16 @@ export default {
 </script>
 
 <style scoped>
-@import "../../../style/layout/header.css";
+.app-bar{
+  position: absolute;
+  left: 200px;
+  right: 0;
+  height: 48px;
+  top: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #393838;
+  border-left: 1px solid #ccc;
+  justify-content: space-between;
+  align-items: center;
+}
 </style>

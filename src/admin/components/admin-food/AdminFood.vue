@@ -1,5 +1,5 @@
 <template>
-  <v-container id="food" fluid class="my-5">
+  <v-container id="food" fluid>
     <v-card class="food-page" elevation="10">
       <v-card-title>
         DANH SÁCH MÓN ĂN
@@ -17,13 +17,15 @@
             <td>{{ item.quantity }}</td>
             <td>{{ item.describes }}</td>
             <td>
-              <v-btn
-                  color="info"
-              >
-                <v-icon dark>
-                  mdi-clipboard-edit-outline
-                </v-icon>
-              </v-btn>
+              <router-link :to="{name:'food-detail', params:{foodId:item.foodId}}" tag="div">
+                <v-btn
+                    color="info"
+                >
+                  <v-icon dark>
+                    mdi-clipboard-edit-outline
+                  </v-icon>
+                </v-btn>
+              </router-link>
             </td>
           </tr>
           </tbody>

@@ -5,7 +5,7 @@
       <div class="logo"></div>
     </div>
     <div class="navbar-box">
-      <router-link to="/admin/booking" class="navbar-item" tag="div">
+      <router-link to="/admin/bookings" class="navbar-item" tag="div">
         <v-icon color="grey lighten-5" class="pl-5">
           mdi-clipboard-edit-outline
         </v-icon>

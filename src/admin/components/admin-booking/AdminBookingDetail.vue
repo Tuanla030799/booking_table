@@ -221,6 +221,7 @@ export default {
     return {
       dialogCancel: false,
       dialogPay: false,
+      dialogNotification: true,
       headerFoods: [
         {text: 'Số Thứ Tự', value: 'stt'},
         {text: 'Tên Món Ăn', value: 'foodName'},
@@ -282,5 +283,16 @@ export default {
 </script>
 
 <style scoped>
+.notification-enter-active {
+  transition: all .3s ease;
+}
 
+.notification-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.notification-enter, .notification-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>
