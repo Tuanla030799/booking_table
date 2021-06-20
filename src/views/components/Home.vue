@@ -1,7 +1,8 @@
 <template>
     <div class="home">
     <the-header />
-    <the-content />
+    <the-content 
+    @foodDetail="foodDetail"/>
     <the-footer />
   </div>
 </template>
@@ -17,6 +18,11 @@ export default {
     TheContent,
     TheFooter,
   },
+  methods: {
+    foodDetail(listFoot) {
+      this.$emit("foodDetail", listFoot)
+    }
+  }
 };
 </script>
 

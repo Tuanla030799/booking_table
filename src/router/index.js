@@ -7,6 +7,10 @@ import CustomerSignIn from "../views/customer/CustomerSignIn.vue";
 import CustomerForgot from "../views/customer/CustomerForgot.vue";
 import CustomerRegister from "../views/customer/CustomerRegister.vue";
 import ChooseFoot from "../views/foots/ChooseFoot.vue";
+import CustomerInformation from "../views/customer/CustomerInformation.vue";
+import CustomerChat from "../views/customer/CustomerChat.vue";
+import CustomerHistory from "../views/customer/CustomerHistory.vue";
+import CustomerPage from "../views/components/CustomerPage.vue";
 import CustomerInformation from "../views/customer/CustomerInformation.vue"
 import AdminPage from "../admin/pages/AdminPage";
 import AdminBooking from "../admin/components/admin-booking/AdminBooking";
@@ -21,21 +25,16 @@ import AdminFooterDetail from "../admin/components/admin-food/AdminFooterDetail"
 Vue.use(VueRouter);
 const routes = [
     {
-        path: "/",
+        path: "/Customer",
         name: "customer",
         component: CustomerPage,
+        //redirect: '/defaultview',
         children: [
-            {
-                path: '',
-                name: 'Home',
-                component: Home
-            },
             {
                 path: "/Signin",
                 name: 'Đăng nhập',
                 component: CustomerSignIn,
             },
-
             {
                 path: "/register",
                 name: 'Đăng ký',
@@ -56,15 +55,28 @@ const routes = [
                 name: "Chọn món ăn",
                 component: ChooseFoot
             },
-
             {
                 path: "/information",
                 name: "Thông tin",
                 component: CustomerInformation
-            }
+            },
+            {
+                path: "/chat",
+                name: "chat",
+                component: CustomerChat
+            },
+            {
+                path: "/customer-history",
+                name: "lịch sử đặt bàn",
+                component: CustomerHistory
+            },
+            {
+                path: "/*",
+                name: 'Home',
+                component: Home,
+            },
         ]
     },
-
     {
         path: "/admin",
         name: "admin",

@@ -1,54 +1,247 @@
 <template>
-  <div class="CustomerInformation">
-    <div class="Information">
-      <div class="infor-text">
-        <router-link to="Home" style="text-decoration: none">
-          <span class="text-home">Trang chủ</span>
-        </router-link>
-        <span> > </span>
-        <span style="color: red">Thông tin tài khoản</span>
-      </div>
-      <div class="cInfor">
-        <div class="cInfor-left">
-          <div class="cInfor1">
-            <div class="cInfor-avatar">
-              <div class="avatar-infor">
-                <v-avatar color="#ccc" size="100">
-                  <img v-if="url" :src="url" />
-                </v-avatar>
-              </div>
-              <!-- <button type="file" class="btn-default" @change="onFileChange">Chọn ảnh</button> -->
-              <label>
+    <div class="CustomerInformation">
+      <div class="Information">
+        <div class="infor-text">
+          <router-link to="Home" style="text-decoration: none">
+            <span class="text-home">Trang chủ</span>
+          </router-link>
+          <span> > </span>
+          <span style="color: red">Thông tin tài khoản</span>
+        </div>
+        <div class="cInfor">
+          <div class="cInfor-left">
+            <div class="cInfor1">
+              <div class="cInfor-avatar">
+                <div class="avatar-infor">
+                  <v-avatar color="#ccc" size="105">
+                    <img v-if="url" :src="url" />
+                    <img v-else :src="Customer.image" />
+                  </v-avatar>
+                </div>
+                <!-- <button type="file" class="btn-default" @change="onFileChange">Chọn ảnh</button> -->
+                <!-- <label>
                   <input type="file" @change="onFileChange" />
                   "chọn ảnh"
-              </label>
+              </label> -->
+                <form ref="uploadForm" @submit.prevent="submit">
+                  <input
+                    type="file"
+                    ref="uploadImage"
+                    @change="onFileChange"
+                    class="inputfile"
+                    id="file"
+                  />
+                  <label for="file">Chọn ảnh</label>
+                </form>
+              </div>
+              <div class="infor-notfix">
+                <div class="infor-notEmail">
+                  <span>Email: </span>{{ this.Customer.email }}
+                </div>
+                <div class="infor-notEmail">
+                  <span>Level: </span>{{ this.Customer.level }}
+                </div>
+                <div class="infor-notEmail">
+                  <span>Status: </span>{{ this.Customer.status }}
+                </div>
+                <div class="infor-notEmail">
+                  <span>Price: </span>{{ this.Customer.totalMoney }}
+                </div>
+              </div>
             </div>
-            <div class="infor-notfix"></div>
+            <router-link
+              class="nav-information"
+              to="/information"
+              style="text-decoration: none"
+            >
+              <div class="cInfor2">
+                <v-icon dense class="mb-1">mdi-account</v-icon>
+                <span>Thông tin tài khoản</span>
+                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+              </div>
+            </router-link>
+            <router-link
+              class="nav-changepass"
+              to="/change-password"
+              style="text-decoration: none"
+            >
+              <div class="cInfor2">
+                <v-icon dense class="mb-1">mdi-camera-account</v-icon>
+                <span>Quản lí mật khẩu</span>
+                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+              </div>
+            </router-link>
+            <router-link
+              class="nav-history"
+              to="/customer-history"
+              style="text-decoration: none"
+            >
+              <div class="cInfor2">
+                <v-icon dense class="mb-1">mdi-history</v-icon>
+                <span>Lịch sử đặt chỗ</span>
+                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+              </div>
+            </router-link>
+            <router-link class="nav-home" to="/" style="text-decoration: none">
+              <div class="cInfor2">
+                <v-icon dense class="mb-1">mdi-exit-to-app</v-icon>
+                <span>Thoát</span>
+                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+              </div>
+            </router-link>
           </div>
-          <div class="cInfor2">Thông tin tài khoản</div>
-          <div class="cInfor2">Quản lí mật khẩu</div>
-          <div class="cInfor2">Lịch sử đặt chỗ</div>
-          <div class="cInfor2">Thoát</div>
+          <div class="cInfor-right">
+            <div class="InforAccount">THÔNG TIN TÀI KHOẢN</div>
+            <div class="inputGroupAccout">
+              <div class="input-group">
+                <div class="text-input">Họ Tên:</div>
+                <input
+                  type="text"
+                  class="Infor-input"
+                  v-model="Customer.fullName"
+                />
+              </div>
+
+              <div class="input-group">
+                <div class="text-input">Số điện thoại:</div>
+                <input
+                  type="text"
+                  class="Infor-input"
+                  v-model="Customer.phoneNumber"
+                />
+              </div>
+
+              <div class="input-group">
+                <div class="text-input">Ngày sinh:</div>
+                <input
+                  type="date"
+                  class="Infor-input"
+                  v-model="Customer.dateOfBirth"
+                />
+              </div>
+              <div class="input-group">
+                <div class="text-input">Giới tính:</div>
+                <div class="radio-input">
+                  <input
+                    type="radio"
+                    id="nam"
+                    name="gender"
+                    value="1"
+                    v-model="Customer.sex"
+                  />
+                  <label for="nam">Nam</label>
+                  <input
+                    type="radio"
+                    id="nu"
+                    name="gender"
+                    value="0"
+                    class="genderNu"
+                    v-model="Customer.sex"
+                  />
+                  <label for="nam">Nữ</label>
+                </div>
+              </div>
+            </div>
+            <div class="UpdateInfor">
+              <button class="btn-default" @click="updateCustomer()">
+                Cập nhật
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="cInfor-right"></div>
       </div>
     </div>
-  </div>
+  <!-- </v-app> -->
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "c-information",
+  created() {
+    this.loadCustomer();
+  },
   data() {
     return {
       url: null,
+      formData: null,
+      Customer: {},
+      base_url: process.env.VUE_APP_BASE_URL,
+      File: null
     };
   },
   methods: {
     onFileChange(e) {
-      const file = e.target.files[0];
-      this.url = URL.createObjectURL(file);
-      console.log("D:/HocTap/" + file.name);
+      const fileUp = e.target.files[0];
+      this.url = URL.createObjectURL(fileUp);
+      // console.log("D:/HocTap/" + file.name);
+      let file = this.$refs.uploadImage.files[0];
+      this.File = file;
+      // console.log(file);
+      // console.log(this.File);
+      
+      
+      // console.log(this.formData);
+    },
+    loadCustomer() {
+      axios({
+        method: "get",
+        url: `${this.base_url}/api/user/get-user-detail`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$cookie.get("token")}`,
+        },
+      })
+        .then((response) => {
+          if (response.status == 200) {
+            this.Customer = response.data;
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    },
+    updateCustomer() {
+      this.formData = new FormData();
+      if ( this.File == null) {
+      this.formData.append("dateOfBirth", this.Customer.dateOfBirth);
+      this.formData.append("fullName", this.Customer.fullName);
+      this.formData.append("sex", this.Customer.sex);
+      this.formData.append("phoneNumber", this.Customer.phoneNumber);
+      } else {
+        this.formData.append("file", this.File);
+      this.formData.append("dateOfBirth", this.Customer.dateOfBirth);
+      this.formData.append("fullName", this.Customer.fullName);
+      this.formData.append("sex", this.Customer.sex);
+      this.formData.append("phoneNumber", this.Customer.phoneNumber);
+      }
+      
+      axios({
+        method: "put",
+        url: `${this.base_url}/api/user/update-user`,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "mutipart/form-data",
+          Authorization: `Bearer ${this.$cookie.get("token")}`,
+        },
+        data: this.formData
+          // sex: this.Customer.sex,
+          // dateOfBirth: this.Customer.dateOfBirth,
+          // // file: this.formData,
+          // phoneNumber: this.Customer.phoneNumber,
+          // fullName: this.Customer.fullName,
+          
+      })
+        .then((response) => {
+          if (response.status == 200) {
+            alert(response.data.message)
+            this.loadCustomer()
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+        
     },
   },
 };
@@ -60,7 +253,8 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  /* bottom: 0; */
+  height: 660px;
   background: #eee;
 }
 .Information {
@@ -69,6 +263,12 @@ export default {
   height: 620px;
   padding: 20px 50px;
   background: #ffffff;
+}
+@media only screen and (max-width: 1200px) {
+  .Information {
+    width: 100%;
+  margin: 20px 0;
+  }
 }
 .infor-text {
   width: 100%;
@@ -110,35 +310,144 @@ export default {
 .avatar-infor {
   width: 125px;
   height: 125px;
-  padding: 10px;
+  padding-right: 5px;
   /*     */
 }
-.btn-default {
+/* .btn-default {
   height: 32px !important;
   line-height: 32px !important;
   border-radius: 10px !important;
   padding: 0 15px !important;
   background: #3d7ff8;
   margin-left: 18px;
-}
+} */
 .infor-notfix {
   width: 250px;
   height: 156px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
+  align-items: center;
+  padding: 5px;
 }
-
+.infor-notEmail {
+  /* margin-top: 10px; */
+  padding: 5px 0px;
+  font-size: small;
+  color: #000000;
+}
+.infor-notEmail span {
+  color: #808080;
+  /* font-weight: 500; */
+  font-size: small;
+}
 .cInfor-left .cInfor2 {
   width: 100%;
   height: 50.5px;
   align-items: center;
+  justify-content: center;
   padding-top: 12px;
   padding: 14px;
   border-bottom: 1px solid #ccc;
+}
+.cInfor2 span {
+  margin-left: 5px;
+  color: black;
+  /* float: left; */
 }
 .cInfor-right {
   margin-left: 1%;
   width: 66%;
   height: 100%;
   background: rgba(0, 0, 0, 0.02);
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  font-size: 13px;
+  color: white;
+  background-color: #3d7ff8;
+  display: inline-block;
+  cursor: pointer;
+  padding: 4px 5px;
+  border-radius: 4px;
+  margin-left: 25px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #4d9ff9;
+}
+/* .btn-cInfor2 {
+  width: 100%;
+  height: 100%;
+}
+.btn-cInfor2:hover,.icon-infor:hover {
+  color: red;
+} */
+.nav-history:hover {
+  color: red !important;
+}
+
+.InforAccount {
+  text-align: center;
+  padding: 40px 0;
+  font-size: large;
+  font-weight: 700;
+  color: #000000;
+  font-size: 20px;
+}
+.inputGroupAccout {
+  padding: 30px;
+  width: 100%;
+  height: 325px;
+  /* border: 1px solid red; */
+}
+.input-group {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+.input-group .text-input {
+  /* margin-right: 40px; */
+  color: #000000;
+  width: 150px;
+}
+.select-group {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.Infor-input {
+  width: 50% !important;
+  /* margin-right: 100px; */
+}
+.radio-input {
+  width: 338px;
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+.radio-input label {
+  padding: 10px;
+}
+.radio-input .genderNu {
+  margin-left: 20px;
+}
+.UpdateInfor {
+  margin-top: 10px;
+  width: 100%;
+  height: 80px;
+  text-align: center;
+  padding: 20px;
 }
 </style>

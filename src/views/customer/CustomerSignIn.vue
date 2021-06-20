@@ -29,13 +29,17 @@
           type="text"
           class="input username"
           placeholder="Username or SDT"
+          required
           v-model="email"
+          autocomplete="on"
         />
         <input
           type="password"
           class="input passwd"
           placeholder="Password"
+          required
           v-model="password"
+          autocomplete="on"
         />
         <button class="btn-login btn-default" @click="btnOnClickLogin()">
           Login
@@ -92,10 +96,15 @@ export default {
       })
         .then((response) => {
           console.log(response);
-          const token = response.data.token;
+          let token = response.data.token;
+          let email = response.data.email
           if (response.status == 200) {
-            localStorage.setItem("token", token);
+            // sessionStorage.setItem("token", token);
+            this.$cookie.set('token',token);
+
             if (response.data.role == "USERS") {
+              this.$cookie.set('email',email);
+              localStorage.setItem('email',email)
               console.log(token);
               this.Account = response.data.email
               this.$emit("AcountEmail", this.Account)
@@ -115,19 +124,20 @@ export default {
           }
         })
         .catch((error) => {
-          this.message = error.response.data.message;
-          localStorage.setItem("message", error.response.data.message);
+          // this.message = error.response.data.message;
           if (error.response) {
             // this.$bvModal.show("bv-modal-example-error-login");
             // console.log(this.message);
+            localStorage.setItem("message", error.response.data.message);
+            localStorage.setItem("isIcon", "error");
             this.$emit("showMessage", this.showMessageError)
           }
         });
     },
   },
-    beforeDestroy () {
-    localStorage.removeItem('token');
-  },
+  //   beforeDestroy () {
+  //   localStorage.removeItem('message');
+  // },
   data() {
     return {
       email: "",

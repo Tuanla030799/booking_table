@@ -9,7 +9,7 @@
     <div class="carousel">
       <v-app id="inspire">
         <v-carousel
-          height="350px !important"
+          height="400px !important"
           cycle
           hide-delimiter-background
           show-arrows-on-hover
@@ -29,13 +29,15 @@
         <div class="title-infomation">Thông tin khuyến mãi</div>
       <div class="lists-infomation">
         <div class="list-infomation" v-for="(info, i) in infomations" :key="i">
-          <div class="image-info">
-            <v-img :src="info.saleImage" width="83px" height="50px"></v-img>
+          <a href="#">
+            <div class="image-info">
+            <v-img :src="info.saleImage" width="83px" height="50px" class="rounded-sm"></v-img>
             <!-- <img :src="info.saleImage" alt="" /> -->
           </div>
           <div class="text-infor">
             {{ info.saleDetail }}
           </div>
+          </a>
         </div>
       </div>
       </v-container>
@@ -160,8 +162,11 @@ export default {
 .infomation {
   position: absolute;
   top: 0;
-  height: 350px;
+  height: 400px;
+  padding-right: 5px;
+  border-bottom: 1px solid #ccc;
   right: 0;
+  left: 75.5%;
   width: 24%;
 
   /* border-bottom: 1px solid #ccc; */
@@ -179,15 +184,25 @@ export default {
 
 .list-infomation {
   width: 100%;
-  height: 51px;
+  height: 65px;
+  /* padding: 3px 0px !important; */
   /* border: 1px solid #ccc; */
   padding: 0 10px 0 10px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   display: flex;
-  border-bottom: 1px solid #ccc;
+  align-items: center;
+  /* border-bottom: 1px solid #ccc; */
+}
+.list-infomation a{
+   display: flex;
+   text-decoration: none;
+}
+.list-infomation:hover {
+  background-color: #ccc;
+  
 }
 .lists-infomation {
-  height: 290px;
+  height: 325px;
 }
 .image-info img {
   width: 83px;
@@ -197,14 +212,18 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+  /* margin-top: 3px !important; */
 }
 .text-infor {
   margin-left: 10px;
-  font-size: 13px;
+  font-size: small;
   padding: 2px 2px 0 0;
   text-align: justify;
-  height: 36px;
+  height: 40px;
   overflow: hidden;
   -webkit-line-clamp: 2;
+}
+.text-infor:hover{
+  color: red;
 }
 </style>

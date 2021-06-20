@@ -2,13 +2,15 @@
   <div class="ChooseFoot-bum">
     <div class="ChooseFoot">
       <div class="ChooseFoot-title">Vui Lòng Chọn Món Ăn</div>
-      <div class="ChooseFoot-text">Đặt món cho hóa đơn số:</div>
+      <div class="ChooseFoot-text">
+        Đặt món cho hóa đơn số: {{ this.bookingFootId }}
+      </div>
       <div class="listfoots">
         <v-item-group multiple>
           <v-container>
             <v-row>
               <v-col
-                v-for="(listFoot) in listFoots"
+                v-for="listFoot in listFoots"
                 :key="listFoot.stt"
                 cols="12"
                 md="4"
@@ -17,19 +19,31 @@
                   <v-card height="200px">
                     <div class="foot-header d-flex">
                       <div class="foot-img">
-                        <v-img :src="listFoot.foodImage" width="150px" height="150px"  >
+                        <v-img
+                          :src="listFoot.foodImage"
+                          width="140px"
+                          height="115px"
+                        >
                           <!-- <a href="">
                             <img :src="listFoot.foodImage" alt="" />
                           </a> -->
                         </v-img>
+                        <div class="foot-price">{{ listFoot.foodPrice }}</div>
                         <!-- <img :src="listFoot.foodImage" alt="" /> -->
                       </div>
-                      <div class="foot-title">{{ listFoot.describes }}</div>
+                      <div class="foot-title">
+                        <div class="title-foot">{{ listFoot.foodName }}</div>
+                        <div class="foot-text">{{ listFoot.describes }}</div>
+                      </div>
                     </div>
                     <div class="foot-footer">
-                      <div class="sub-quantity"><button @click="subOnclick(listFoot.stt)">-</button></div>
-                      <div class="quantity"> {{ listFoot.quantity }} </div>
-                      <div class="add-quantity"><button @click="addOnclick(listFoot.stt)">+</button></div>
+                      <div class="sub-quantity">
+                        <button @click="subOnclick(listFoot.stt)">-</button>
+                      </div>
+                      <div class="quantity">{{ listFoot.quantity }}</div>
+                      <div class="add-quantity">
+                        <button @click="addOnclick(listFoot.stt)">+</button>
+                      </div>
                     </div>
                   </v-card>
                 </v-item>
@@ -39,10 +53,12 @@
         </v-item-group>
       </div>
       <div class="footer">
-        <button class="btn-default btn-dTable">Hủy</button>
-        <router-link class="cFoot" to="/">
-          <button class="btn-default btn-bTable">Đặt bàn</button>
-        </router-link>
+        <button class="btn-default btn-dTable">Đặt món sau</button>
+        <!-- <router-link class="cFoot" to="/"> -->
+        <button class="btn-default btn-bTable" @click="bookingfootOnClick()">
+          Đặt món
+        </button>
+        <!-- </router-link> -->
       </div>
     </div>
   </div>
@@ -60,13 +76,42 @@ export default {
       base_url: process.env.VUE_APP_BASE_URL,
       listFoots: [],
       quantity: 0,
+      list: [
+        // "bookingtId" = `${this.bookingFootId}`,
+        // {
+        //   "footId": `${this.listFoot.stt}`,
+        //   "quantity": `${this.listFoot.quantity}`
+        // }
+      ],
+      // listFoot: {
+      //   bookingId: `${this.bookingFootId}`,
+      //   foodList: [
+      //     {
+      //       quantity: 1,
+      //       foodId: 10,
+      //     },
+      //     {
+      //       quantity: 2,
+      //       foodId: 5,
+      //     },
+      //   ],
+
+      // },
     };
+  },
+  props: {
+    bookingFootId: {
+      type: String,
+      default: "",
+    },
   },
   methods: {
     loadListFoots() {
       axios({
         method: "get",
-        url: `${this.base_url}/api/sunshine/get-list-food`,
+        url:
+          `${this.base_url}/api/sunshine/get-list-food?bookingId=` +
+          this.bookingFootId,
       })
         .then((response) => {
           this.listFoots = response.data;
@@ -76,38 +121,54 @@ export default {
           console.log(error.response);
         });
     },
-
-
-    // loadFoot(stt) {
-    //   axios({
-    //     method: "get",
-    //     url: `${this.base_url}/api/sunshine/get-food/
-    //     ` + stt,
-    //   })
-    //     .then((response) => {
-    //       this.quantity = response.data.quantity;
-    //       //console.log(this.items);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error.response);
-    //     });
-    // },
-
+    bookingfootOnClick() {
+      let chooseList = this.listFoots.filter((person) => person.quantity > 0);
+      axios({
+        method: "post",
+        url: `${this.base_url}/api/customer/order-food`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$cookie.get("token")}`,
+        },
+        data: {
+          bookingId: `${this.bookingFootId}`,
+          foodList: chooseList,
+        },
+      })
+        .then((response) => {
+          if (
+            response.status == 200 &&
+            response.data.statusCode == "ADD_FOOD_SUCCESS"
+          ) {
+            this.$router.push({ name: "lịch sử đặt bàn" }).catch((err) => {
+              return err;
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          alert(error.response.data.message);
+        });
+    },
     // thêm món
-    addOnclick(stt){
+    addOnclick(stt) {
       var a = stt - 1;
       //this.loadFoot(stt)
       // this.listFoots.forEach(element => {
-        
+
       // });
       //console.log(a);
-      this.listFoots[a].quantity++
+      this.listFoots[a].quantity++;
     },
     //giảm món
     subOnclick(stt) {
       var a = stt - 1;
-      this.listFoots[a].quantity--
-    }
+      if (this.listFoots[a].quantity <= 0) {
+        this.listFoots[a].quantity = 0;
+      } else {
+        this.listFoots[a].quantity--;
+      }
+    },
   },
 };
 </script>
@@ -162,7 +223,7 @@ export default {
 .listfoots {
   margin-top: 10px;
   width: 100%;
-  height: 79% ;
+  height: 79%;
   border: 1px solid #ccc;
   overflow-y: scroll;
 }
@@ -172,25 +233,43 @@ export default {
   height: 150px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain ;
-
+  background-size: contain;
+  padding: 5px;
 }
-
+.foot-img .foot-price {
+  width: 140px;
+  height: 20px;
+  text-align: center;
+  color: red;
+  font-family: initial;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 5px;
+}
 .listfoots .foot-title {
   padding: 5px;
   width: 213px;
   height: 150px;
 }
-
+.title-foot{
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #dedede;
+}
+.foot-text{
+  font-size: medium;
+  padding: 5px;
+}
 .listfoots .foot-footer {
   width: 100%;
   height: 50px;
-  border: 1px solid #ccc;
+  border: 1px solid #dedede;
   display: flex;
   align-items: center;
 }
 
-.foot-footer .sub-quantity button, .foot-footer .add-quantity button{
+.foot-footer .sub-quantity button,
+.foot-footer .add-quantity button {
   width: 50px;
   height: 50px;
   border: 1px solid #ccc;
@@ -201,7 +280,7 @@ export default {
   height: 50px;
   text-align: center;
   margin-top: 22px;
-} 
+}
 
 .footer {
   position: relative;

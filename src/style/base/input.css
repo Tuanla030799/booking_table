@@ -58,7 +58,7 @@ input[type=checkbox] {
 } 
 
 
-input[type="file"] {
+/* input[type="file"] {
     appearance: none;
     background-color: initial;
     cursor: default;
@@ -70,4 +70,4 @@ input[type="file"] {
     padding: initial;
     border: initial;
     overflow: hidden !important;
-}
+} */
