@@ -17,6 +17,7 @@
         :logged="hidelogged"
         @SearchFootOnClick="SearchFootOnClick"
         :isAccount="Acount"
+        @foodDetail="foodDetail"
       />
       <!-- <search-foot 
       :SearchFootActive="SearchFoot"/> -->
@@ -29,13 +30,17 @@
         @showMessage="showMessage"
         :bookingFootId="idBooking"
         @footBooking="footBooking"
+        @detailFood="detailFood"
       />
 
-      <noti-msg :hideNotiError="hideNoti" @hideNotiError="hideNotiError" />
+      <noti-msg 
+      :hideNotiError="hideNoti" 
+      @hideNotiError="hideNotiError" />
       <booking-foot
         :hideBookingFoots="showPopup"
         @hideBooking="hideBooking"
         @showInforBooking="showInforBooking"
+        @showMessage="showMessage"
       />
       <infor-booking-foot
         :hideinforBookingFoot="hideinforBooking"
@@ -43,6 +48,11 @@
         @hideBookingFoot="hideBookingFoot"
         @ChooseFootBooking="ChooseFootBooking"
         @bookingId="bookingId"
+        />
+      <detail-foot 
+      :detailFoot="footDetail"
+      @closeDetailFood="closeDetailFood"
+      :Id="IdFoodDetail"
       />
     </v-main>
   </v-app>
@@ -52,6 +62,7 @@ import TheNavbar from "../../components/TheNavbar.vue";
 import NotiMsg from "./NotiMsg.vue";
 import BookingFoot from "../foots/BookingFoot.vue";
 import InforBookingFoot from "../foots/InforBookingFoot.vue";
+import DetailFoot from "../foots/DetailFoot.vue"
 // import SearchFoot from './SearchFoot.vue';
 export default {
   created() {
@@ -63,6 +74,7 @@ export default {
     NotiMsg,
     BookingFoot,
     InforBookingFoot,
+    DetailFoot
     // SearchFoot,
   },
 
@@ -73,6 +85,7 @@ export default {
     showMessage(show) {
       //this.Message = message;
       this.hideNoti = show;
+      this.showPopup = false;
       console.log(this.hideNoti);
     },
     hideBooking() {
@@ -122,6 +135,20 @@ export default {
       this.SearchFoot = true;
       console.log(Find);
     },
+    // hide detail food 
+    closeDetailFood() {
+      this.footDetail = false
+    },
+    // show detailFood
+    foodDetail(Id) {
+      this.footDetail = true
+      this.IdFoodDetail = Id
+    },
+    detailFood(Id) {
+      console.log("A");
+      this.footDetail = true
+      this.IdFoodDetail = Id
+    },
     aaaaa() {
       // console.log(this.aHeight);
       // console.log(this.hideNavbar);
@@ -141,6 +168,8 @@ export default {
     InforBooking: {},
     idBooking: "",
     SearchFoot: false,
+    footDetail: false,
+    IdFoodDetail: {}
   }),
 };
 </script>

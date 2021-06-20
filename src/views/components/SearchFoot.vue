@@ -2,8 +2,9 @@
   <v-dialog-transition v-model="SearchFootActive" hide-overlay scrollable >
     <div id="Search-foot" :class="SearchFootActive">
       <!-- <router-link to="/register" class="dish-search"> -->
-        <div class="dish" v-for="listFoot in listFoots" :key="listFoot.foodName">
-          <div class="dish-image">
+        <div class="dish" v-for="listFoot in listFoots" :key="listFoot.foodId">
+          <a href="#" @click="foodDetail(listFoot.foodId)">
+            <div class="dish-image">
               <v-img 
               :src="listFoot.foodImage"
               width="70px"
@@ -15,6 +16,7 @@
             <div class="dish-title"> {{ listFoot.foodName }} </div>
             <div class="dish-price">{{ listFoot.foodPrice }}</div>
           </div>
+          </a>
         </div>
       <!-- </router-link>  -->
     </div>
@@ -22,6 +24,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "search-foot",
   props: {
@@ -36,9 +39,26 @@ export default {
   },
   data() {
     return {
-      
+      listFoot: {},
+      base_url: process.env.VUE_APP_BASE_URL,
     };
   },
+  methods: {
+    foodDetail(Id) {
+      axios({
+        method: "get",
+        url: `${this.base_url}/api/sunshine/get-food/${Id}`,
+      })
+        .then((response) => {
+          this.listFoot = response.data;
+          console.log(this.listFoot);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      this.$emit("DetailFood" , this.listFoot)
+    }
+  }
 };
 </script>
 
@@ -64,7 +84,15 @@ export default {
   border-bottom: 1px solid #ccc;
   display: flex;
   padding: 5px 10px;
+  cursor: pointer;
   
+}
+.dish a{
+  display: flex;
+  text-decoration: none;
+}
+.dish:hover {
+  background-color: #dedede;
 }
 .dish-image {
   width: 70px;

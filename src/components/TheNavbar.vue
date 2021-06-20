@@ -167,7 +167,8 @@
           <v-icon>mdi-account</v-icon>
         </v-btn> -->
         <search-foot :SearchFootActive="SearchFootClick"
-        :listFoots="Foots" />
+        :listFoots="Foots"
+        @DetailFood="DetailFood" />
       </div>
     </v-app-bar>
   </nav>
@@ -230,7 +231,7 @@ export default {
       this.$emit("hidePopup");
     },
     BookingTable() {
-      if (this.isAccount == null) {
+      if (this.isAccount == "Tài khoản") {
         this.$router.push({ name: "Đăng nhập" }).catch((err) => {
           return err;
         });
@@ -321,7 +322,12 @@ export default {
           .catch((res) => {
             console.log(res);
           });
-      }
+      },
+    // click food detail
+    DetailFood(listFoot) {
+      this.SearchFootClick = "d-none"
+      this.$emit("detailFood", listFoot)
+    }
   },
   computed: {
     hideLoggedIn: function () {

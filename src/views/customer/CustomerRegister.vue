@@ -31,12 +31,30 @@
         placeholder="Password"
         v-model="customerRegister.password"
       />
-      <!-- <input
-          type="password"
-          id="txtPasswordAgain"
-          class="input"
-          placeholder="Password Again"
-        /> -->
+      <input type="date" id="txtDateOfBirth" class="input" v-model="customerRegister.dateOfBirth"/>
+      <div class="input-group">
+        <div class="text-input">Giới tính:</div>
+        <div class="radio-input">
+          <input
+            type="radio"
+            id="nam"
+            name="gender"
+            value="1"
+            class="genderNam"
+            v-model="customerRegister.sex"
+          />
+          <label for="nam">Nam</label>
+          <input
+            type="radio"
+            id="nu"
+            name="gender"
+            value="0"
+            class="genderNu"
+            v-model="customerRegister.sex"
+          />
+          <label for="nam">Nữ</label>
+        </div>
+      </div>
       <button class="btn-login btn-default" @click="btnOnClickRegister()">
         Đăng kí
       </button>
@@ -55,9 +73,18 @@ export default {
         .post("http://localhost:9000/api/auth/create", this.customerRegister)
         .then((res) => {
           console.log(res);
+          localStorage.setItem("message", res.data.message);
+          localStorage.setItem("isIcon", "susccess");
+          this.$emit("showMessage", this.showMessageError)
+          this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
         })
         .catch((error) => {
           console.log(error.response);
+          localStorage.setItem("message", error.response.data.message);
+          this.$emit("showMessage", this.showMessageError)
+          localStorage.setItem("isIcon", "error");
         });
     },
   },
@@ -68,13 +95,16 @@ export default {
         email: "",
         password: "",
         phoneNumber: "",
+        dateOfBirth: "",
+        sex: null
       },
+      showMessageError: "d-block"
     };
   },
 };
 </script>
 
-<style>
+<style scoped>
 #register {
   position: absolute;
   top: 0;
@@ -91,5 +121,30 @@ export default {
   height: 80%;
   border-radius: 4px;
   background-color: #ffffff;
+}
+.input {
+  margin-top: 2px;
+}
+.input-group {
+  display: flex;
+  height: 24px;
+  align-items: center;
+  margin-bottom: 25px;
+  margin-left: 68px
+}
+.radio-input {
+  width: 338px;
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+.radio-input label {
+  padding: 10px;
+}
+.radio-input .genderNu {
+  margin-left: 20px;
+}
+.radio-input .genderNam {
+  margin-left: 20px;
 }
 </style>

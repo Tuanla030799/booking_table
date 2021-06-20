@@ -166,7 +166,7 @@ export default {
   padding-right: 5px;
   border-bottom: 1px solid #ccc;
   right: 0;
-  left: 916px;
+  left: 75.5%;
   width: 24%;
 
   /* border-bottom: 1px solid #ccc; */

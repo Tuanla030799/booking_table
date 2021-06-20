@@ -1,11 +1,13 @@
 <template>
+<v-dialog-transition>
   <div id="bv-modal-example-error-login" class="NotiMsg" :class="hideNotiError">
     <div class="model"></div>
     <div class="delete-content">
       <div class="dialog-body">
-        <div class="icon-nav dialog-item icon-noti-delete"></div>
+        <!-- <div class="icon-nav dialog-item icon-noti-delete"></div> -->
+        <v-icon class="mb-4" x-large color="red">{{ this.iconnoti() }}</v-icon>
         <div class="dialog-text">
-          {{ this.message }}
+          {{ this.message() }}
         </div>
       </div>
       <div class="dialog-footer-delete">
@@ -21,6 +23,7 @@
       </div>
     </div>
   </div>
+  </v-dialog-transition>
 
 
 <!-- <b-modal id="bv-modal-example-error-login" hide-footer hide-header >
@@ -48,17 +51,32 @@ export default {
   },
   data() {
     return {
-      message: localStorage.getItem("message"),
+      
     }
   },
   methods: {
+    message() {
+      let noti = localStorage.getItem("message")
+      return noti
+    },
+    iconnoti() {
+      let iconnotisuccess = localStorage.getItem("isIcon")
+      if (iconnotisuccess == "susccess") {
+        return "mdi-source-commit"
+      } else if (iconnotisuccess == "error") {
+        return "mdi-alert-outline"
+      }
+      console.log(iconnotisuccess);
+    },
     hideNotiErrorOnClick() {
       this.$emit("hideNotiError")
+      // this.message =  ""
     }
   },
   //   beforeDestroy () {
   //   localStorage.removeItem('message');
   // },
+
 };
 </script>
 
@@ -69,7 +87,7 @@ export default {
   top: 38%;
   left: 40%;
   width: 380px;
-  height: 139px;
+  height: 159px;
   border-radius: 4px;
   background-color: #ffffff;
 }
@@ -100,13 +118,14 @@ export default {
   height: 48px;
 }
 .dialog-body .dialog-text {
-  margin-top: 5px;
+  margin-top: 24px;
   margin-left: 10px;
   font-weight: 600px !important;
-  font-size: 15px !important;
+  font-size: small !important
   /* margin-bottom: 64px; */
 }
 .btn-commit {
+  margin-top: 10px;
   float: right;
 }
 .destroy {

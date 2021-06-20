@@ -73,6 +73,7 @@ export default {
         note: "",
         priceBooking: ""
       },
+      showMessageError: "d-block",
       base_url: process.env.VUE_APP_BASE_URL,
       //token: sessionStorage.getItem("token"),
     }
@@ -106,7 +107,10 @@ export default {
         })
         .catch((error) => {
           console.log(error.response.data);
-          alert(error.response.data.message)
+          //alert(error.response.data.message)
+          localStorage.setItem("message", error.response.data.message);
+          localStorage.setItem("isIcon", "error");
+          this.$emit("showMessage", this.showMessageError)
 
         });
       //console.log(url);

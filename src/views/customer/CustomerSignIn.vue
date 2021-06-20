@@ -126,6 +126,7 @@ export default {
             // this.$bvModal.show("bv-modal-example-error-login");
             // console.log(this.message);
             localStorage.setItem("message", error.response.data.message);
+            localStorage.setItem("isIcon", "error");
             this.$emit("showMessage", this.showMessageError)
           }
         });

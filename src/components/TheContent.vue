@@ -11,20 +11,37 @@
         </div>
       </div>
       <v-layout row wrap>
-        <v-col cols="12"
-                md="3" xs12 sm6 md4 lg3 v-for="(foot, index) in listFootss" :key="index">
-          <v-card class="card">
-            <v-img :src="foot.foodImage" max-width="266px" height="288px" class="rounded-sm">
+        <v-col
+        class="col"
+          cols="12"
+          md="3"
+          xs12
+          sm6
+          md4
+          lg3
+          v-for="(foot) in listFootss"
+          :key="foot.foodId"
+          
+        >
+          <a href="#" @click="foodDetailClick(foot.foodId)">
+            <v-card class="card">
+            <v-img
+              :src="foot.foodImage"
+              max-width="266px"
+              height="288px"
+              class="rounded-sm"
+            >
               <!-- <a href="">
                 <img :src="foot.foodImage" alt="" />
               </a> -->
             </v-img>
             <v-card-text>
-              <div class="title-foot"> 
-                <a href="#" class="text-decoration-none ">{{ foot.foodName }}</a>
+              <div class="title-foot">
+                <a href="#" class="text-decoration-none" >{{ foot.foodName }}</a>
               </div>
             </v-card-text>
           </v-card>
+          </a>
         </v-col>
       </v-layout>
     </v-container>
@@ -32,7 +49,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 export default {
   name: "the-content",
   created() {
@@ -43,6 +60,7 @@ export default {
       base_url: process.env.VUE_APP_BASE_URL,
       // token: localStorage.getItem("token"),
       listFootss: [],
+      listFoot: {}
     };
   },
   methods: {
@@ -53,13 +71,26 @@ export default {
       })
         .then((response) => {
           this.listFootss = response.data.foodHomeRes;
-        //  console.log(response.data.foodHomeRes);
+          //  console.log(response.data.foodHomeRes);
         })
         .catch((error) => {
           console.log(error.response);
         });
+    },
+    foodDetailClick(Id) {
+      axios({
+        method: "get",
+        url: `${this.base_url}/api/sunshine/get-food/${Id}`,
+      })
+        .then((response) => {
+          this.listFoot = response.data;
+          console.log(this.listFoot);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      this.$emit("foodDetail" , this.listFoot)
     }
-
   },
 };
 </script>
@@ -110,8 +141,11 @@ export default {
 .title-foot a:hover {
   color: red;
 }
-.card{
+.card {
   padding-left: 3px !important;
   padding-top: 3px !important;
+}
+.col:hover{
+  cursor: pointer;
 }
 </style>
