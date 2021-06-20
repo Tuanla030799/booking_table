@@ -7,10 +7,8 @@ import CustomerSignIn from "../views/customer/CustomerSignIn.vue";
 import CustomerForgot from "../views/customer/CustomerForgot.vue";
 import CustomerRegister from "../views/customer/CustomerRegister.vue";
 import ChooseFoot from "../views/foots/ChooseFoot.vue";
-import CustomerInformation from "../views/customer/CustomerInformation.vue";
 import CustomerChat from "../views/customer/CustomerChat.vue";
 import CustomerHistory from "../views/customer/CustomerHistory.vue";
-import CustomerPage from "../views/components/CustomerPage.vue";
 import CustomerInformation from "../views/customer/CustomerInformation.vue"
 import AdminPage from "../admin/pages/AdminPage";
 import AdminBooking from "../admin/components/admin-booking/AdminBooking";
@@ -24,6 +22,49 @@ import AdminFooterDetail from "../admin/components/admin-food/AdminFooterDetail"
 
 Vue.use(VueRouter);
 const routes = [
+    {
+        path: "/admin",
+        name: "admin",
+        component: AdminPage,
+        children: [
+            {
+                path: 'bookings',
+                name: 'booking',
+                component: AdminBooking
+            },
+            {
+                path: '/bookings/:bookingId',
+                name: 'booking-detail',
+                component: AdminBookingDetail
+            },
+            {
+                path: '/bookings/:bookingId/booking-add-food',
+                name: 'booking-add-food',
+                component: AdminBookingAddFood
+            },
+            {
+                path: 'foods',
+                name: 'foods',
+                component: AdminFood
+            },
+            {
+                path: 'foods/:foodId',
+                name: 'food-detail',
+                component: AdminFooterDetail
+            },
+            {
+                path: 'customers',
+                name: 'admin-customers',
+                component: AdminCustomer
+            }
+            ,
+            {
+                path: '/customers/:email',
+                name: 'customer-detail',
+                component: AdminCustomerDetail
+            }
+        ]
+    },
     {
         path: "/Customer",
         name: "customer",
@@ -77,49 +118,7 @@ const routes = [
             },
         ]
     },
-    {
-        path: "/admin",
-        name: "admin",
-        component: AdminPage,
-        children: [
-            {
-                path: 'bookings',
-                name: 'booking',
-                component: AdminBooking
-            },
-            {
-                path: '/bookings/:bookingId',
-                name: 'booking-detail',
-                component: AdminBookingDetail
-            },
-            {
-                path: '/bookings/:bookingId/booking-add-food',
-                name: 'booking-add-food',
-                component: AdminBookingAddFood
-            },
-            {
-                path: 'foods',
-                name: 'foods',
-                component: AdminFood
-            },
-            {
-                path: 'foods/:foodId',
-                name: 'food-detail',
-                component: AdminFooterDetail
-            },
-            {
-                path: 'customers',
-                name: 'admin-customers',
-                component: AdminCustomer
-            }
-            ,
-            {
-                path: '/customers/:email',
-                name: 'customer-detail',
-                component: AdminCustomerDetail
-            }
-        ]
-    }
+
 ];
 
 const router = new VueRouter({
