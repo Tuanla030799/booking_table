@@ -23,7 +23,7 @@
           :key="foot.foodId"
           
         >
-          <a href="#" @click="foodDetailClick(foot.foodId)">
+          <a href="#" style="text-decoration: none;" @click="foodDetailClick(foot.foodId)">
             <v-card class="card">
             <v-img
               :src="foot.foodImage"
@@ -37,7 +37,7 @@
             </v-img>
             <v-card-text>
               <div class="title-foot">
-                <a href="#" class="text-decoration-none" >{{ foot.foodName }}</a>
+                <a href="#" style="text-decoration: none;" >{{ foot.foodName }}</a>
               </div>
             </v-card-text>
           </v-card>
@@ -84,12 +84,12 @@ export default {
       })
         .then((response) => {
           this.listFoot = response.data;
-          console.log(this.listFoot);
+          this.$emit("foodDetail" , this.listFoot)
         })
         .catch((error) => {
           console.log(error.response);
         });
-      this.$emit("foodDetail" , this.listFoot)
+      
     }
   },
 };
@@ -103,6 +103,7 @@ export default {
   width: 80%;
   background: #ffffff;
   margin-bottom: 10px;
+  
   /* max-height: 1000px; */
 }
 

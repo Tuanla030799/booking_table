@@ -109,21 +109,21 @@
                           to="/information"
                           style="text-decoration: none"
                         >
-                          <li>Quản lí tài khoản</li>
+                          <li @click="loader()">Quản lí tài khoản</li>
                         </router-link>
                         <router-link
                           class="nav-changepass"
                           to="/change-password"
                           style="text-decoration: none"
                         >
-                          <li>Quản lí mật khẩu</li>
+                          <li @click="loader()">Quản lí mật khẩu</li>
                         </router-link>
                         <router-link
                           class="nav-history"
                           to="/customer-history"
                           style="text-decoration: none"
                         >
-                          <li>Lịch sử đặt chỗ</li>
+                          <li @click="loader()">Lịch sử đặt chỗ</li>
                         </router-link>
                         <div class="logout">
                           <button class="btn-login" @click="btnOnClickLogout()">
@@ -144,7 +144,7 @@
             <v-app-bar-title>
               <router-link class="text-decoration-none nav-home" to="/">
                 <!-- <span class="font-weight-light">Booking</span> -->
-                <span class="black--text">BookingTable</span>
+                <span class="black--text"><a href="#" style="text-decoration: none;" @click="loader()">BookingTable</a></span>
               </router-link>
             </v-app-bar-title>
           </div>
@@ -219,6 +219,7 @@ export default {
     //   type: Boolean,
     //   default: true,
     // },
+    
   },
   methods: {
     SearchFootOnClick() {
@@ -326,7 +327,10 @@ export default {
     // click food detail
     DetailFood(listFoot) {
       this.SearchFootClick = "d-none"
-      this.$emit("detailFood", listFoot)
+      this.$emit("foodDetail", listFoot)
+    },
+    loader() {
+      this.$emit("isLoader")
     }
   },
   computed: {
@@ -364,6 +368,7 @@ export default {
   right: 0;
   top: 0;
   display: flex;
+  
 }
 
 .navbar-item {

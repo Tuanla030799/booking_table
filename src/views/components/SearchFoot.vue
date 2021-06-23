@@ -52,11 +52,12 @@ export default {
         .then((response) => {
           this.listFoot = response.data;
           console.log(this.listFoot);
+          this.$emit("DetailFood" , this.listFoot)
         })
         .catch((error) => {
           console.log(error.response);
         });
-      this.$emit("DetailFood" , this.listFoot)
+      
     }
   }
 };

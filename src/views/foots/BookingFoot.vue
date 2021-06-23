@@ -81,6 +81,7 @@ export default {
   methods: {
     hideBookingonClick(){
       this.$emit("hideBooking")
+      this.InforBooking = {}
     },
     BookingFootOnClick(){
      // console.log(this.token);
@@ -103,6 +104,7 @@ export default {
             console.log(this.InforBooking.priceBooking);
             this.$emit("hideBooking")
             this.$emit("showInforBooking", this.InforBooking)
+            this.InforBooking = {}
           }
         })
         .catch((error) => {
@@ -132,7 +134,7 @@ export default {
 .bookingfoot {
   padding: 5px;
   position: fixed;
-  top: 30%;
+  top: 25%;
   left: 40%;
   width: 400px;
   height: 450px;

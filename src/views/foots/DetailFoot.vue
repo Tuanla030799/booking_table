@@ -9,7 +9,7 @@
         <div class="food-text"> - {{ Id.describes }}... </div>
         <div class="food-price">{{ Id.foodPrice }}</div>
         <div class="button-food">
-            <button class="btn-default">Đặt bàn Ngay</button>
+            <button class="btn-default" @click="bookingfoodNow()">Đặt bàn Ngay</button>
             <button class="btn-default" @click="closeDetailFood()">Đóng</button>
         </div>
       </div>
@@ -41,6 +41,9 @@ export default {
       closeDetailFood() {
           this.$emit("closeDetailFood")
       },
+      bookingfoodNow() {
+        this.$emit("bookingfood")
+      }
   }
 };
 </script>

@@ -96,7 +96,11 @@
           </div>
           <div class="text-hoadon giamgia">
             Giảm giá:
-            <div class="text-money"><span style="color:red">{{ this.cHistoryDetail.percentSale }}</span></div>
+            <div class="text-money">
+              <span style="color: red">{{
+                this.cHistoryDetail.percentSale
+              }}</span>
+            </div>
           </div>
           <div class="text-hoadon">
             Tổng thu:
@@ -104,9 +108,27 @@
           </div>
         </div>
         <div class="button-bot">
-          <button class="btn-default btn-destroy" :class="statusBooking" @click="destroyOnClick()">Hủy đặt bàn</button>
-          <button class="btn-default btn-bill" :class="PayBillBooking" @click="payBillOnClick()">Thanh Toán</button>
-          <button class="btn-default btn-bookingfoot" :class="statusBooking" @click="bookingFootOnClick()">Đặt món</button>
+          <button
+            class="btn-default btn-destroy"
+            :class="statusBooking"
+            @click="destroyOnClick()"
+          >
+            Hủy đặt bàn
+          </button>
+          <button
+            class="btn-default btn-bill"
+            :class="PayBillBooking"
+            @click="payBillOnClick()"
+          >
+            Thanh Toán
+          </button>
+          <button
+            class="btn-default btn-bookingfoot"
+            :class="statusBooking"
+            @click="bookingFootOnClick()"
+          >
+            Đặt món
+          </button>
           <button class="btn-default btn-close" @click="btnCloseOnClick()">
             Đóng
           </button>
@@ -140,12 +162,12 @@ export default {
       default: null,
     },
     statusBooking: {
-        type: String,
-        default: "d-block"
+      type: String,
+      default: "d-block",
     },
     PayBillBooking: {
-        type: String,
-        default: "d-block"
+      type: String,
+      default: "d-block",
     },
   },
   methods: {
@@ -154,7 +176,7 @@ export default {
       console.log(this.cHistoryDetail);
     },
     payBillOnClick() {
-       axios({
+      axios({
         method: "post",
         url: `${this.base_url}/api/customer/pay-bill`,
         headers: {
@@ -174,14 +196,13 @@ export default {
         .catch((error) => {
           console.log(error.response.data);
         });
-      
     },
-    destroyOnClick(){
+    destroyOnClick() {
       this.$emit("cDialogNoti");
     },
     bookingFootOnClick() {
-        this.$emit("bookingFoot", this.cHistoryDetail.bookingId)
-    }
+      this.$emit("bookingFoot", this.cHistoryDetail.bookingId);
+    },
   },
 };
 </script>
@@ -227,6 +248,12 @@ export default {
   } */
   .hoadon-content {
     width: 607px;
+  }
+  .hoadon-table {
+    width: 537px !important;
+  }
+  table {
+    width: 527px !important;
   }
 }
 .hoadon-infor {
@@ -275,20 +302,19 @@ export default {
   text-align: left;
   padding: 10px 5px;
 }
-.sophieu{
-    width: 48%;
+.sophieu {
+  width: 48%;
 }
 .ngay {
-    width: 48%;
+  width: 48%;
 }
 .hoten {
-    width: 100px;
+  width: 100px;
   /* margin-left: 20%; */
-  
 }
-.tenban{
-    width: 100px;
-    margin-left: 50px;
+.tenban {
+  width: 100px;
+  margin-left: 50px;
 }
 .nhanvien {
   /* margin-left: calc(20% + 20px); */
@@ -307,7 +333,7 @@ export default {
   position: relative;
   top: 175px;
   left: 40px;
-  width: 537px;
+  width: 484px;
   height: 241px;
   margin-top: 10px;
   overflow-y: auto;
@@ -326,7 +352,7 @@ export default {
 
 table {
   border-collapse: collapse;
-  width: 527px;
+  width: 474px;
   font-size: small;
 }
 
@@ -378,13 +404,13 @@ table tr:hover {
 }
 .button-bot {
   position: relative;
-  top: 200px;
+  top: 190px;
   right: 0px;
   height: 50px;
   left: 0px;
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  /* margin-top: 10px; */
 }
 .btn-default {
   margin: 0 5px;
