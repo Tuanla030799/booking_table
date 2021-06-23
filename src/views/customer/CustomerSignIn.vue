@@ -116,7 +116,7 @@ export default {
               localStorage.setItem(ACCESS_TOKEN_ADMIN, token)
               this.$emit("appHeight", this.aHeight)
               this.$emit("hideNav")
-              this.$router.push({ name: "booking" }).catch((err) => {
+              this.$router.push({ name: "bookings" }).catch((err) => {
               return err;
             });
             }

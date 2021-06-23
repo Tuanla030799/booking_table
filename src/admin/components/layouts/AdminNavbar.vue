@@ -29,12 +29,12 @@
           Món Ăn
         </div>
       </router-link>
-        <router-link class="navbar-item" to="/admin/customers" tag="div">
+        <router-link class="navbar-item" to="/admin/sales" tag="div">
           <v-icon color="grey lighten-5" class="pl-5">
             mdi-file-export-outline
           </v-icon>
           <div class="navbar-text">
-            Báo Cáo
+            Chương trình khuyến mại
           </div>
         </router-link>
     </div>

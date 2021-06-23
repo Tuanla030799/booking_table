@@ -6,7 +6,7 @@ export default {
         try {
             let result = await axiosInstance.get("/api/admin/list-user")
             console.log('result list customer : ', result.data)
-            if (result.status === 200){
+            if (result.status === 200) {
                 context.commit('GET_LIST_CUSTOMER', result.data)
             }
         } catch (e) {
@@ -17,14 +17,14 @@ export default {
         try {
             let result = await axiosInstance.get(`/api/admin/user-detail/${email}`)
             console.log(result)
-            if(result.status === 200){
+            if (result.status === 200) {
                 context.commit('GET_CUSTOMER_DETAIL', result.data)
             }
         } catch (e) {
             return e
         }
     },
-    async paymentMoneyForCustomer(context, {email='', money=0}) {
+    async paymentMoneyForCustomer(context, {email = '', money = 0}) {
 
         try {
             let request = {
@@ -60,13 +60,13 @@ export default {
             return e
         }
     },
-    async lockAccountCustomerByEmail(context, email=''){
+    async lockAccountCustomerByEmail(context, email = '') {
         console.log('email lock : ', email)
         let result = await axiosInstance.get(`/api/admin/disable-customer/${email}`)
-        console.log('result lock account : ',result);
-        if (result.status === 200){
+        console.log('result lock account : ', result);
+        if (result.status === 200) {
             return {
-                ok:true,
+                ok: true,
             }
         }
     }

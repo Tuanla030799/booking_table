@@ -3,6 +3,7 @@ import Vuex from "vuex"
 import axiosInstance from "../axios";
 import customer from './customer'
 import food from "./food"
+import sale from './sale'
 import {ACCESS_TOKEN_ADMIN} from "../constants";
 
 Vue.use(Vuex)
@@ -10,7 +11,8 @@ export default new Vuex.Store({
     strict: true,
     modules: {
         customer,
-        food
+        food,
+        sale
     },
     // state
     state: {
@@ -66,10 +68,10 @@ export default new Vuex.Store({
                 console.log('data: ', data)
                 let result = await axiosInstance.post('/api/admin/cancel-booking-admin', data, config)
                 console.log('cancel: ', result)
-                if (result.data.status === 200) {
+                if (result.status === 200) {
                     let resultListBooking = await context.dispatch('getBookingTableById', bookingId)
                     console.log('resultListBooking: ', resultListBooking.data)
-                    if (resultListBooking.data.status === 200) {
+                    if (resultListBooking.status === 200) {
                         context.commit('LIST_BOOKING_TABLES', resultListBooking.data)
                     }
                     return {
@@ -92,19 +94,28 @@ export default new Vuex.Store({
             }
 
         },
-        async payBookingTableByBookingId(context, bookingId=''){
+        async payBookingTableByBookingId(context, bookingId = '') {
             console.log('pay booking table by booking id : ', bookingId)
-            try{
+            try {
                 let result = await axiosInstance.post(`/api/admin/pay-bill/${bookingId}`)
-                if (result.data.status === 200){
+                if (result.data.status === 200) {
                     return {
-                        ok : true,
-                        data:result.data,
+                        ok: true,
+                        data: result.data,
                         error: null
                     }
                 }
-            }catch (e){
+            } catch (e) {
                 return e;
+            }
+        },
+        async exportBillForCustomerByBookingId(context, bookingId = '') {
+            console.log('export bill by bookingID: ', bookingId)
+            let result = await axiosInstance.get(`/api/admin/export-bill/${bookingId}`)
+            if (result.status === 200) {
+                return {
+                    ok: true
+                }
             }
         }
     },

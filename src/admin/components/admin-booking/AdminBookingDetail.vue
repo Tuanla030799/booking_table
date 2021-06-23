@@ -99,7 +99,7 @@
                       <router-link tag="div"
                                    :to="{name:'booking-add-food', params:{bookingId:bookingDetail.bookingId}}">
                         <v-btn color="info"
-                               v-bind:disabled="bookingDetail.status === 'Đã thanh toán' || bookingDetail.status === 'Đã hủy'">
+                               v-bind:disabled="bookingDetail.status === 'Đã thanh toán' || bookingDetail.status === 'Đã hủy' || bookingDetail.status === 'Chờ admin xác nhận'">
                           <v-icon>
                             mdi-tag-plus
                           </v-icon>
@@ -147,6 +147,15 @@
               mdi-checkbox-marked-circle
             </v-icon>
             THANH TOÁN
+          </v-btn>
+          <v-btn color="info" class="ml-5" right
+                 v-bind:disabled="bookingDetail.status === 'Đã thanh toán' || bookingDetail.status === 'Đã hủy'"
+                 @click="handleExportBill"
+          >
+            <v-icon class="pr-3">
+              mdi-checkbox-marked-circle
+            </v-icon>
+            XUẤT HÓA ĐƠN
           </v-btn>
           <router-link :to="{name:'booking'}" tag="div">
             <v-btn color="info" class="ml-5" right>
@@ -250,8 +259,12 @@ export default {
     ...mapActions({
       getBookingDetailByBookingId: 'getBookingTableById',
       cancelByBookingId: 'cancelBookingById',
-      payByBookingId: 'payBookingTableByBookingId'
+      payByBookingId: 'payBookingTableByBookingId',
+      exportBill: 'exportBillForCustomerByBookingId'
     }),
+    handleExportBill() {
+      this.exportBill(this.bookingId)
+    },
     handleOpenPayByBookingId() {
       this.dialogPay = true
     },
