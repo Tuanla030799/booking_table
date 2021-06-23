@@ -34,7 +34,7 @@
             <v-img :src="info.saleImage" width="83px" height="50px" class="rounded-sm"></v-img>
             <!-- <img :src="info.saleImage" alt="" /> -->
           </div>
-          <div class="text-infor">
+          <div class="text-infor" >
             {{ info.saleDetail }}
           </div>
           </a>
@@ -216,7 +216,7 @@ export default {
 }
 .text-infor {
   margin-left: 10px;
-  font-size: small;
+  font-size: smaller !important;
   padding: 2px 2px 0 0;
   text-align: justify;
   height: 40px;

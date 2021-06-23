@@ -47,6 +47,9 @@
                 <div class="infor-notEmail">
                   <span>Price: </span>{{ this.Customer.totalMoney }}
                 </div>
+                <div class="deposit">
+                  <button class="btn-default btn-deposit" @click="depositOnClick()">Nạp tiền</button>
+                </div>
               </div>
             </div>
             <router-link
@@ -120,7 +123,7 @@
                 />
               </div>
               <div class="input-group">
-                <div class="text-input">Giới tính:</div>
+                <div class="text-input sex">Giới tính:</div>
                 <div class="radio-input">
                   <input
                     type="radio"
@@ -149,15 +152,26 @@
             </div>
           </div>
         </div>
+        <customer-deposit 
+        :depositDialog="isDeposit"
+        @closeDeposit="closeDeposit"
+        :dataObj="Customer"
+        />
       </div>
+
     </div>
+
   <!-- </v-app> -->
 </template>
 
 <script>
+import CustomerDeposit from "../customer/CustomerDeposit.vue"
 import axios from "axios";
 export default {
   name: "c-information",
+  components: {
+    CustomerDeposit
+  },
   created() {
     this.loadCustomer();
   },
@@ -167,7 +181,9 @@ export default {
       formData: null,
       Customer: {},
       base_url: process.env.VUE_APP_BASE_URL,
-      File: null
+      File: null,
+      isDeposit: false,
+      showMessageError: "d-block"
     };
   },
   methods: {
@@ -202,6 +218,7 @@ export default {
         });
     },
     updateCustomer() {
+      this.$emit("isLoader")
       this.formData = new FormData();
       if ( this.File == null) {
       this.formData.append("dateOfBirth", this.Customer.dateOfBirth);
@@ -215,7 +232,7 @@ export default {
       this.formData.append("sex", this.Customer.sex);
       this.formData.append("phoneNumber", this.Customer.phoneNumber);
       }
-      
+      //this.$emit("isLoadder")
       axios({
         method: "put",
         url: `${this.base_url}/api/user/update-user`,
@@ -234,7 +251,9 @@ export default {
       })
         .then((response) => {
           if (response.status == 200) {
-            alert(response.data.message)
+            // alert(response.data.message)
+            localStorage.setItem("message",response.data.message);
+            this.$emit("showMessage", this.showMessageError)
             this.loadCustomer()
           }
         })
@@ -242,6 +261,12 @@ export default {
           console.log(error.response);
         });
         
+    },
+    depositOnClick() {
+      this.isDeposit = true
+    },
+    closeDeposit() {
+      this.isDeposit =false
     },
   },
 };
@@ -377,7 +402,7 @@ export default {
   cursor: pointer;
   padding: 4px 5px;
   border-radius: 4px;
-  margin-left: 25px;
+  margin-left: 19px;
 }
 
 .inputfile:focus + label,
@@ -449,5 +474,20 @@ export default {
   height: 80px;
   text-align: center;
   padding: 20px;
+}
+.btn-deposit{
+  margin-top: 4px;
+  color: #fff !important;
+  padding: 0px 5px !important; 
+  height: 27px;
+  line-height: 27px;
+  background-color: #3d7ff8 !important;
+  text-align: center !important;
+}
+.btn-deposit:hover {
+  background-color: #4d9ff9 !important;
+}
+.sex {
+  margin-left: 34px;
 }
 </style>

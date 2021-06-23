@@ -10,7 +10,7 @@
       </div>
       <div class="cHistory">
         <div class="cHistory-table">
-          <div class="grid">
+          <div class="grid-table">
             <table id="tblHistory" class="table" width="100%" border="0">
               <thead>
                 <tr>
@@ -192,14 +192,19 @@ export default {
         .catch((error) => {
           console.log(error.response.data);
         });
+        
+        
       // this.historyDetailId = Id
       // console.log(this.historyDetailId);
     },
     closeDialog() {
       this.dialogdetail = false;
+      this.$emit("isLoader")
+      this.loadBookingHistory();
     },
     payBill() {
       this.dialogdetail = false;
+      this.$emit("isLoader")
       this.loadBookingHistory();
     },
     cDialogNoti() {
@@ -235,7 +240,8 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  /* bottom: 0; */
+  height: 660px;
   background: #eee;
 }
 .CustomerHistory {
@@ -284,7 +290,7 @@ export default {
   /* background: rgba(0, 0, 0, 0.02); */
 }
 
-.grid {
+.grid-table {
   width: 100%;
   height: 481px;
   overflow-y: auto;

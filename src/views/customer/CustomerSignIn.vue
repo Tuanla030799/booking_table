@@ -112,6 +112,7 @@ export default {
               this.$router.push({ name: "Home" }).catch((err) => {
               return err;
             });
+            location.reload()
             } else if (response.data.role == "ADMIN") {
               localStorage.setItem(ACCESS_TOKEN_ADMIN, token)
               this.$emit("appHeight", this.aHeight)

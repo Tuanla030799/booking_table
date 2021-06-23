@@ -14,7 +14,7 @@ import AdminPage from "../admin/pages/AdminPage";
 import AdminBooking from "../admin/components/admin-booking/AdminBooking";
 import AdminFood from "../admin/components/admin-food/AdminFood";
 import AdminCustomer from "../admin/components/admin-customer/AdminCustomer";
-import CustomerPage from "../views/CustomerPage";
+import CustomerPage from "../views/components/CustomerPage.vue";
 import AdminBookingDetail from "../admin/components/admin-booking/AdminBookingDetail";
 import AdminBookingAddFood from "../admin/components/admin-booking/AdminBookingAddFood";
 import AdminCustomerDetail from "../admin/components/admin-customer/AdminCustomerDetail";

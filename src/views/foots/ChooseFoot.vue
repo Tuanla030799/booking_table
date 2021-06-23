@@ -53,7 +53,7 @@
         </v-item-group>
       </div>
       <div class="footer">
-        <button class="btn-default btn-dTable">Đặt món sau</button>
+        <!-- <button class="btn-default btn-dTable">Đặt món sau</button> -->
         <!-- <router-link class="cFoot" to="/"> -->
         <button class="btn-default btn-bTable" @click="bookingfootOnClick()">
           Đặt món
@@ -123,6 +123,7 @@ export default {
     },
     bookingfootOnClick() {
       let chooseList = this.listFoots.filter((person) => person.quantity > 0);
+      this.$emit("isLoader")
       axios({
         method: "post",
         url: `${this.base_url}/api/customer/order-food`,
@@ -140,6 +141,7 @@ export default {
             response.status == 200 &&
             response.data.statusCode == "ADD_FOOD_SUCCESS"
           ) {
+            
             this.$router.push({ name: "lịch sử đặt bàn" }).catch((err) => {
               return err;
             });

@@ -18,6 +18,8 @@
         @SearchFootOnClick="SearchFootOnClick"
         :isAccount="Acount"
         @foodDetail="foodDetail"
+        @isLoader="isLoader"
+        
       />
       <!-- <search-foot 
       :SearchFootActive="SearchFoot"/> -->
@@ -30,7 +32,8 @@
         @showMessage="showMessage"
         :bookingFootId="idBooking"
         @footBooking="footBooking"
-        @detailFood="detailFood"
+        @dishDetail="dishDetail"
+        @isLoader="isLoader"
       />
 
       <noti-msg 
@@ -52,8 +55,11 @@
       <detail-foot 
       :detailFoot="footDetail"
       @closeDetailFood="closeDetailFood"
+      @bookingfood="bookingfood"
       :Id="IdFoodDetail"
       />
+      <loader 
+      :isShowLoader="ShowLoader"/>
     </v-main>
   </v-app>
 </template>
@@ -63,10 +69,11 @@ import NotiMsg from "./NotiMsg.vue";
 import BookingFoot from "../foots/BookingFoot.vue";
 import InforBookingFoot from "../foots/InforBookingFoot.vue";
 import DetailFoot from "../foots/DetailFoot.vue"
+import Loader from "../components/Loader.vue"
 // import SearchFoot from './SearchFoot.vue';
 export default {
   created() {
-    this.Acount;
+    this.showLoad();
   },
   name: "CustomerPage",
   components: {
@@ -74,7 +81,8 @@ export default {
     NotiMsg,
     BookingFoot,
     InforBookingFoot,
-    DetailFoot
+    DetailFoot,
+    Loader
     // SearchFoot,
   },
 
@@ -139,15 +147,42 @@ export default {
     closeDetailFood() {
       this.footDetail = false
     },
+    bookingfood() {
+      this.footDetail = false
+      this.showPopup = true
+    },
     // show detailFood
     foodDetail(Id) {
-      this.footDetail = true
-      this.IdFoodDetail = Id
+      this.showLoad() 
+      if(!this.ShowLoader) {
+        this.footDetail = true
+        this.IdFoodDetail = Id
+      }
+      
+      
     },
-    detailFood(Id) {
-      console.log("A");
+    dishDetail(dish) {
+      //alert("A")
+      this.showLoad() 
+      if(!this.ShowLoader) {
+      this.IdFoodDetail = dish
       this.footDetail = true
-      this.IdFoodDetail = Id
+      }
+        
+    },
+    // load dữ liệu
+    showLoad() {
+      setTimeout(() => {
+        this.ShowLoader = true;
+        setTimeout(() => this.redirect(), 1000);
+      });
+    },
+
+    redirect() {
+      this.ShowLoader = false;
+    },
+    isLoader() {
+      this.showLoad()
     },
     aaaaa() {
       // console.log(this.aHeight);
@@ -169,7 +204,8 @@ export default {
     idBooking: "",
     SearchFoot: false,
     footDetail: false,
-    IdFoodDetail: {}
+    IdFoodDetail: {},
+    ShowLoader: false
   }),
 };
 </script>

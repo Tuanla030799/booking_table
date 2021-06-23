@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     foodDetail(listFoot) {
-      this.$emit("foodDetail", listFoot)
+      this.$emit("dishDetail", listFoot)
     }
   }
 };
