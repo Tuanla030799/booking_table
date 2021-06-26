@@ -253,6 +253,7 @@ export default {
           if (response.status == 200) {
             // alert(response.data.message)
             localStorage.setItem("message",response.data.message);
+            localStorage.setItem("isIcon", "susccess");
             this.$emit("showMessage", this.showMessageError)
             this.loadCustomer()
           }

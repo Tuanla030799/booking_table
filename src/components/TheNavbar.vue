@@ -144,7 +144,7 @@
             <v-app-bar-title>
               <router-link class="text-decoration-none nav-home" to="/">
                 <!-- <span class="font-weight-light">Booking</span> -->
-                <span class="black--text"><a href="#" style="text-decoration: none;" @click="loader()">BookingTable</a></span>
+                <span class="black--text"><a href="#" style="text-decoration: none;" @click="readload()">BookingTable</a></span>
               </router-link>
             </v-app-bar-title>
           </div>
@@ -331,6 +331,14 @@ export default {
     },
     loader() {
       this.$emit("isLoader")
+
+    },
+    readload() {
+      this.$emit("isLoader")
+      this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
+      location.reload()
     }
   },
   computed: {

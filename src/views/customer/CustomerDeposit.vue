@@ -12,10 +12,15 @@
         <div class="from-deposit">
           <div class="text-depo">Mã code:</div>
           <div class="input-deposit">
-            <input type="text" class="input-deposit">
+            <input 
+            type="text" 
+            class="input-deposit" 
+            v-model="code" 
+            ref="txtCode">
           </div>
         </div>
       </div>
+      <div class="text-tutorial">Mã code là: SR + số tiền muốn nạp</div>
       <div class="footer-noti">
         <button class="btn-default" @click="depositOnclick()">Nạp</button>
         <button class="btn-default" @click="CloseOnClick()">Hủy</button>
@@ -25,10 +30,14 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "customer-deposit",
   data() {
-    return {};
+    return {
+      code: "SR",
+      base_url: process.env.VUE_APP_BASE_URL,
+    };
   },
   props: {
     depositDialog: {
@@ -43,6 +52,39 @@ export default {
   methods: {
     CloseOnClick() {
       this.$emit("closeDeposit");
+    },
+    depositOnclick() {
+      axios({
+        method: "post",
+        url: `${this.base_url}/api/customer/charging`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$cookie.get("token")}`,
+        },
+        data: {
+          phoneNumer: this.dataObj.phoneNumber,
+          code: this.code
+        }
+      })
+        .then((response) => {
+          if (response.status == 200) {
+            alert(response.data.message)
+            console.log(this.dataObj.phoneNumber);
+            console.log(this.code);
+          }
+        })
+        .catch((error) => {
+          alert(error.data.message)
+        });
+    }  
+  },
+  watch: {
+    depositDialog: function () {
+     // if (val) {
+        this.$nextTick(function () {
+          this.$refs.txtCode.focus();
+        });
+     // }
     },
   },
 };
@@ -92,5 +134,12 @@ export default {
   margin: 10px;
   height: 32px !important;
   line-height: 32px !important;
+}
+.text-tutorial {
+  width: 100%;
+  text-align: center;
+  font-size:smaller;
+  color: red;
+  margin-bottom: 15px;
 }
 </style>
