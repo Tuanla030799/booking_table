@@ -76,9 +76,9 @@ export default {
           localStorage.setItem("message", res.data.message);
           localStorage.setItem("isIcon", "susccess");
           this.$emit("showMessage", this.showMessageError)
-          this.$router.push({ name: "Home" }).catch((err) => {
+          this.$router.push({ name: "Đăng nhập" }).catch((err) => {
               return err;
-            });
+            });                   
         })
         .catch((error) => {
           console.log(error.response);

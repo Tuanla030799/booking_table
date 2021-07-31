@@ -6,7 +6,9 @@
         <div class="from-deposit">
           <div class="text-depo">Số điện thoại:</div>
           <div class="input-deposit">
-            <input type="text" class="input-deposit" v-model="dataObj.phoneNumber">
+            <input type="text"
+             class="input-deposit" 
+             v-model="dataObj.phoneNumber">
           </div>
         </div>
         <div class="from-deposit">
@@ -20,7 +22,7 @@
           </div>
         </div>
       </div>
-      <div class="text-tutorial">Mã code là: SR + số tiền muốn nạp</div>
+      <!-- <div class="text-tutorial">Mã code là: SR + số tiền muốn nạp</div> -->
       <div class="footer-noti">
         <button class="btn-default" @click="depositOnclick()">Nạp</button>
         <button class="btn-default" @click="CloseOnClick()">Hủy</button>
@@ -37,6 +39,7 @@ export default {
     return {
       code: "SR",
       base_url: process.env.VUE_APP_BASE_URL,
+      phone: "0969346205"
     };
   },
   props: {
@@ -62,15 +65,16 @@ export default {
           Authorization: `Bearer ${this.$cookie.get("token")}`,
         },
         data: {
-          phoneNumer: this.dataObj.phoneNumber,
+          phoneNumber: this.dataObj.phoneNumber,
           code: this.code
         }
       })
         .then((response) => {
           if (response.status == 200) {
             alert(response.data.message)
-            console.log(this.dataObj.phoneNumber);
+            console.log(this.phoneNumber);
             console.log(this.code);
+            this.$emit("closeDeposit");
           }
         })
         .catch((error) => {

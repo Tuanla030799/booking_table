@@ -29,7 +29,7 @@ export default {
   methods: {
     btnClickFormatPass() {
       axios({
-        method: "get",
+        method: "post",
         url: `${this.base_url}/api/user/forgot-password/${this.email}`,
         headers: {
           "Content-Type": "application/json",

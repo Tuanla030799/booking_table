@@ -155,17 +155,18 @@ export default {
       })
         .then((response) => {
           // console.log(response.data.statusCode);
-          if (response.status == 200 && response.data.statusCode != 'SUCCESS') {
-            alert(response.data.message)
-            console.log(response.data);
+          if (response.status == 200 && response.data.statusCode == 'SUCCESS') {
+            alert("Đổi mật khẩu thành công")
+            this.$cookie.set('token',response.data.message);
             this.newPassAgain = "",
             this.newPass = "",
             this.oldPass = ""
           }
         })
         .catch((error) => {
-          console.log(error);
-          alert("sai")
+          console.log(error.data);
+          // alert(error.data.message)
+          alert(error.data.message)
         });
      } else {
        alert("Mật khẩu bạn vừa nhập không giống nhau")
