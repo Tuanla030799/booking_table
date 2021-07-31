@@ -5,7 +5,7 @@ export default {
     GET_FOOD_DETAIL(state, data) {
         state.foodDetail = data
     },
-    GET_LIST_FOOD_BY_BOOKING_ID(state, data) {
+    GET_LIST_FOOD_BY_BOOKINGID(state, data){
         state.listFoodByBookingId = data
     }
 }

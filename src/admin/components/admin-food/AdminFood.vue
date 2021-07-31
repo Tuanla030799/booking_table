@@ -7,6 +7,7 @@
       <v-data-table
           :headers="headers"
           :items="listFoods"
+          :items-per-page="5"
       >
         <template v-slot:body="{items}">
           <tbody>

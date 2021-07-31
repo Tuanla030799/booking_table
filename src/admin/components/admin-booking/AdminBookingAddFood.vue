@@ -1,84 +1,67 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col cols="4" sm="4">
-        <v-card>
-          <v-card-title>
-            Danh sách món ăn {{ bookingDetail.tableName }}
-          </v-card-title>
-          <v-data-table
-              :headers="headerFoods"
-              :items="bookingDetail.listFoodInBookings"
-          >
-            <template v-slot:body="{items}">
-              <tbody>
-              <tr v-for="item in items" :key="item.foodId">
-                <td>{{ item.stt }}</td>
-                <td>{{ item.foodName }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.set }}</td>
-                <td>{{ item.money }}</td>
-              </tr>
-              </tbody>
-            </template>
-
-          </v-data-table>
-        </v-card>
-      </v-col>
-      <v-col cols="8" sm="8">
-        <v-card>
-          <v-card-title>
-            Danh Sách Món Ăn Của Nhà Hàng
-          </v-card-title>
+  <div class="ChooseFoot-bum">
+    <div class="ChooseFoot">
+      <div class="ChooseFoot-title">Vui Lòng Chọn Món Ăn</div>
+      <div class="ChooseFoot-text">
+        Đặt món cho hóa đơn số: {{ this.bookingFootId }}
+      </div>
+      <div class="listfoots">
+        <v-item-group multiple>
           <v-container>
-            <v-row >
-              <v-col cols="3" v-for="item in listFoods" :key="item.foodId">
-                <v-card>
-                  <v-img
-                      :src="item.foodImage"
-                      class="white--text align-end"
-                      gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                      height="150px"
-                  >
-                    <v-card-title v-text="item.foodName">
-                    </v-card-title>
-                  </v-img>
-                  <v-card-actions>
-                    <v-btn color="primary" @click="handleGetFoodDetailByFoodId(item.foodId)">
-                      <v-icon class="mr-2">
-                        mdi-cart-arrow-down
-                      </v-icon>
-                      THÊM
-                    </v-btn>
-                    <v-card-text v-text="item.foodPrice"></v-card-text>
-                  </v-card-actions>
-                </v-card>
+            <v-row>
+              <v-col
+                  v-for="listFoot in foods"
+                  :key="listFoot.stt"
+                  cols="12"
+                  md="4"
+              >
+                <v-item>
+                  <v-card height="200px">
+                    <div class="foot-header d-flex">
+                      <div class="foot-img">
+                        <v-img
+                            :src="listFoot.foodImage"
+                            width="140px"
+                            height="115px"
+                        >
+                          <!-- <a href="">
+                            <img :src="listFoot.foodImage" alt="" />
+                          </a> -->
+                        </v-img>
+                        <div class="foot-price">{{ listFoot.foodPrice }}</div>
+                        <!-- <img :src="listFoot.foodImage" alt="" /> -->
+                      </div>
+                      <div class="foot-title">
+                        <div class="title-foot">{{ listFoot.foodName }}</div>
+                        <div class="foot-text">{{ listFoot.describes }}</div>
+                      </div>
+                    </div>
+                    <div class="foot-footer">
+                      <div class="sub-quantity">
+                        <button @click="subFood(listFoot.foodId)">-</button>
+                      </div>
+                      <div class="quantity">{{ listFoot.quantity }}</div>
+                      <div class="add-quantity">
+                        <button @click="addFood(listFoot.foodId)">+</button>
+                      </div>
+                    </div>
+                  </v-card>
+                </v-item>
               </v-col>
             </v-row>
           </v-container>
-
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-dialog v-model="dialogAdd" max-width="400px">
-      <v-card>
-        <v-card-title>
-          Thêm Món ăn
-        </v-card-title>
-        <v-card >
-          <v-card-text>
-            <v-text-field label="Số Lượng" v-model.number="quantity"></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-                @click="handleAddFoodToBooking(bookingId, foodDetail.foodId,quantity)">
-              XÁC NHẬN
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-card>
-    </v-dialog>
-  </v-container>
+        </v-item-group>
+      </div>
+      <div class="footer">
+        <!-- <button class="btn-default btn-dTable">Đặt món sau</button> -->
+        <!-- <router-link class="cFoot" to="/"> -->
+        <button class="btn-default btn-bTable">
+          Đặt món
+        </button>
+        <!-- </router-link> -->
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -88,44 +71,29 @@ export default {
   name: "AdminBookingAddFood",
   data() {
     return {
-      dialogAdd: false,
-      headerFoods: [
-        {text: 'Số Thứ Tự', value: 'stt'},
-        {text: 'Tên Món Ăn', value: 'foodName'},
-        {text: 'Giá Món Ăn', value: 'price'},
-        {text: 'Số Lượng', value: 'set'},
-        {text: 'Thành Tiền', value: 'money'},
-      ],
       bookingId: this.$route.params.bookingId,
-      foodId: '',
-      quantity: ''
+      listFood: [
+        {
+          foodId:0,
+          quantity:0
+        }
+      ],
     }
   },
   computed: {
     ...mapGetters({
-      bookingDetail: 'getBookingDetail',
-      listFoods: 'getListFoods',
-      foodDetail: 'getFoodDetail'
+      foods: 'getListFoods',
+      foodOfBooking: 'getListFoodByBookingId'
     }),
   },
   methods: {
     ...mapActions({
-      getBookingDetails: 'getBookingTableById',
-      getListFoods: 'getListFoods',
-      getFoodDetail: 'getFoodDetail',
+      getFoods: 'getListFoods',
+      getFoodOfBookingByBookingId: 'getFoodOfBookingByBookingId',
       addFoodToBooking: 'addFoodToBookingByBookingId'
     }),
-    handleGetBookingDetailByBookingId() {
-      console.log('bookingId food : ', this.bookingId)
-      this.getBookingDetails(this.bookingId)
-      this.getListFoods()
-    },
-    handleGetFoodDetailByFoodId(foodId) {
-      console.log('foodId: ', foodId)
-      this.foodId = foodId
-      console.log('foodId page: ', foodId)
-      this.dialogAdd = true
-      this.getFoodDetail(foodId)
+    handleGetFoods() {
+      this.getFoods()
     },
     handleAddFoodToBooking(bookingId, foodId, quantity) {
       bookingId = this.bookingId
@@ -135,14 +103,172 @@ export default {
       quantity = this.quantity
       console.log('quantity ', quantity)
       this.addFoodToBooking({bookingId, foodId, quantity})
+    },
+    handleGetFoodOfBookingByBookingId() {
+      this.getFoodOfBookingByBookingId(this.bookingId)
+    },
+    addFood(foodId) {
+      this.listFood=this.foodOfBooking
+      this.listFood[foodId - 1].quantity++
+    },
+    subFood(foodId) {
+      if (this.listFood[foodId - 1].quantity <= 0) {
+        this.listFood[foodId - 1].quantity = 0
+      } else {
+        this.listFood[foodId - 1].quantity--
+      }
     }
   },
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    '$route'(to, from) {
+      this.bookingId = to.params.bookingId
+      console.log('bookingId add food to booking: ', this.bookingId)
+    }
+  }
+  ,
   created() {
-    this.handleGetBookingDetailByBookingId()
+    this.handleGetFoods()
+    this.handleGetFoodOfBookingByBookingId()
   }
 }
 </script>
 
 <style scoped>
+.ChooseFoot-bum {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  bottom: 0;
+  background: #cccccc;
+}
+
+.ChooseFoot {
+  position: absolute;
+  left: 10%;
+  top: 3px;
+  width: 80%;
+  bottom: 0;
+  background: #ffffff;
+  padding: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+  /* For mobile phones: */
+  .ChooseFoot {
+    left: 0.1%;
+  }
+
+  .ChooseFoot {
+    right: 0.1%;
+  }
+
+  .ChooseFoot {
+    width: 99.8%;
+  }
+}
+
+.ChooseFoot-title {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  padding: 5px;
+  font-family: initial;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ChooseFoot-text {
+  width: 100%;
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.listfoots {
+  margin-top: 10px;
+  width: 100%;
+  height: 79%;
+  border: 1px solid #ccc;
+  overflow-y: scroll;
+}
+
+.listfoots .foot-img {
+  width: 150px;
+  height: 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 5px;
+}
+
+.foot-img .foot-price {
+  width: 140px;
+  height: 20px;
+  text-align: center;
+  color: red;
+  font-family: initial;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.listfoots .foot-title {
+  padding: 5px;
+  width: 213px;
+  height: 150px;
+}
+
+.title-foot {
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #dedede;
+}
+
+.foot-text {
+  font-size: medium;
+  padding: 5px;
+}
+
+.listfoots .foot-footer {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #dedede;
+  display: flex;
+  align-items: center;
+}
+
+.foot-footer .sub-quantity button,
+.foot-footer .add-quantity button {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
+}
+
+.foot-footer .quantity {
+  width: 260px;
+  height: 50px;
+  text-align: center;
+  margin-top: 22px;
+}
+
+.footer {
+  position: relative;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  height: 45px;
+  float: right;
+}
+
+.btn-default {
+  float: right;
+  margin-right: 10px;
+}
+
+.btn-bTable {
+  margin-right: 40px;
+}
 
 </style>

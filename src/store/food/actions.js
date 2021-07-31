@@ -4,8 +4,10 @@ import {ACCESS_TOKEN_ADMIN} from "../../constants";
 export default {
     async getListFoods(context) {
         try {
-            let data = (await axiosInstance.get("/api/sunshine/get-list-food")).data
-            context.commit("GET_LIST_FOODS", data)
+            let result = await axiosInstance.get("/api/sunshine/get-list-food")
+            if (result.status === 200) {
+                context.commit("GET_LIST_FOODS", result.data)
+            }
         } catch (e) {
             return e;
         }
@@ -15,6 +17,18 @@ export default {
             let result = await axiosInstance.get(`/api/sunshine/get-food/${foodId}`)
             if (result.status === 200) {
                 context.commit('GET_FOOD_DETAIL', result.data)
+            }
+        } catch (e) {
+            return e
+        }
+    },
+    // get food of booking id
+    async getFoodOfBookingByBookingId(context, bookingId) {
+        console.log('get food of booking by bookingId :', bookingId)
+        try {
+            let result = await axiosInstance.get(`/api/sunshine/get-list-food?bookingId=${bookingId}`)
+            if (result.status === 200) {
+                context.commit('GET_LIST_FOOD_BY_BOOKINGID', result.data)
             }
         } catch (e) {
             return e
@@ -39,12 +53,8 @@ export default {
             }
             console.log('data add food to booking Id : ', response)
             let result = await axiosInstance.post('/api/admin/add-food-in-booking', response, config)
-            if (result.data.status === 200) {
-                return {
-                    ok: true,
-                    data: result.data,
-                    error: null
-                }
+            if (result.status === 200) {
+                await context.dispatch('getBookingTableById', bookingId)
             }
         } catch (e) {
             return e;

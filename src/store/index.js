@@ -4,6 +4,8 @@ import axiosInstance from "../axios";
 import customer from './customer'
 import food from "./food"
 import sale from './sale'
+import pay from './payment'
+import exportFile from './export-file'
 import {ACCESS_TOKEN_ADMIN} from "../constants";
 
 Vue.use(Vuex)
@@ -12,7 +14,9 @@ export default new Vuex.Store({
     modules: {
         customer,
         food,
-        sale
+        sale,
+        pay,
+        exportFile
     },
     // state
     state: {
@@ -34,9 +38,11 @@ export default new Vuex.Store({
     actions: {
         async getBookingTables(context) {
             try {
-                let result = (await axiosInstance.get("/api/admin/get-list-booking")).data
-                console.log('result list booking table : ', result)
-                context.commit("LIST_BOOKING_TABLES", result)
+                let result = (await axiosInstance.get("/api/admin/get-list-booking"))
+                console.log('result list booking table : ', result.data)
+                if (result.status === 200) {
+                    context.commit('LIST_BOOKING_TABLES', result.data)
+                }
             } catch (e) {
                 return e
             }
@@ -46,7 +52,7 @@ export default new Vuex.Store({
                 let result = await axiosInstance.get(`/api/customer/booking-history-detail/${bookingId}`)
                 console.log("result ", result)
                 if (result.status === 200) {
-                    context.commit("BOOKING_DETAIL", result.data)
+                    context.commit('BOOKING_DETAIL', result.data)
                 }
             } catch (e) {
                 return e
@@ -98,12 +104,8 @@ export default new Vuex.Store({
             console.log('pay booking table by booking id : ', bookingId)
             try {
                 let result = await axiosInstance.post(`/api/admin/pay-bill/${bookingId}`)
-                if (result.data.status === 200) {
-                    return {
-                        ok: true,
-                        data: result.data,
-                        error: null
-                    }
+                if (result.status === 200) {
+                    await context.dispatch('getBookingTableById', bookingId)
                 }
             } catch (e) {
                 return e;

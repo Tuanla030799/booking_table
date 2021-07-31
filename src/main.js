@@ -1,14 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
+import Notifications from 'vue-notification'
 import vuetify from './plugins/vuetify';
 import router from './router'
 import VueRouter from 'vue-router'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 import VueCookie from 'vue-cookie'
 //import * as localA from "../src/assets/main.js";
 import Vuex from 'vuex';
-import LoadScript from 'vue-plugin-load-script';Vue.use(LoadScript);
+import LoadScript from 'vue-plugin-load-script';
 import store from './store/index'
+
+Vue.use(LoadScript);
+Vue.use(Notifications)
 
 Vue.config.productionTip = false
 // Make BootstrapVue available throughout your project

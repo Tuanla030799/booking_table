@@ -21,7 +21,7 @@ export default {
 <style scoped>
 .app-bar{
   position: absolute;
-  left: 200px;
+  left: 300px;
   right: 0;
   height: 48px;
   top: 0;

@@ -1,5 +1,5 @@
 <template>
-  <v-container  fluid>
+  <v-container fluid>
     <v-card elevation="10">
       <v-card-title>
         DANH SÁCH ĐẶT BÀN
@@ -7,6 +7,7 @@
       <v-data-table
           :headers="headers"
           :items="listBooking"
+          :items-per-page="5"
       >
         <template v-slot:body="{items}">
           <tbody>
@@ -85,6 +86,7 @@ export default {
 
 <style scoped>
 @import "../../../style/layout/content.css";
+
 .v-dialog > * {
   width: 100%;
   background-color: #FAFAFA;

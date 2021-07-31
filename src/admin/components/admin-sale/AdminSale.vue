@@ -1,16 +1,40 @@
 <template>
   <v-container fluid>
     <v-card class="food-page" elevation="10">
-      <v-card-title>
-        DANH SÁCH CHƯƠNG TRÌNH KHUYẾN MẠI
-      </v-card-title>
+      <v-row>
+        <v-card-title class="ml-3">
+          Danh sách chương trình khuyến mãi
+        </v-card-title>
+        <v-spacer></v-spacer>
+        <v-card-actions class="mr-10">
+          <v-btn color="info" @click="handleOpenAddSale">
+            <v-icon class="mr-2">
+              mdi-plus
+            </v-icon>
+            Thêm
+          </v-btn>
+          <v-dialog v-model="dialogAdd" max-width="600px">
+            <v-form>
+              <v-card>
+                <v-card-text>
+                  <v-text-field
+                  >
+                    Demo
+                  </v-text-field>
+                </v-card-text>
+              </v-card>
+            </v-form>
+          </v-dialog>
+        </v-card-actions>
+      </v-row>
       <v-data-table
           :headers="headers"
           :items="listSaleForAdmin"
+          :items-per-page="5"
       >
         <template v-slot:body="{items}">
           <tbody>
-          <tr v-for="item in items" :key="item.saleId">
+          <tr v-for="item in items" :key="item.saleId" class="align-center">
             <td>{{ item.saleId }}</td>
             <td>
               <v-img :src="item.saleImage" max-width="100px" max-height="100px"></v-img>
@@ -20,12 +44,12 @@
             <td>{{ item.percentDiscount }}</td>
             <td>{{ item.beneficiary }}</td>
             <td>
-              <router-link :to="{name:'sale-detail' , params:{saleId:item.saleId}}" tag="div">
+              <router-link :to="{name:'sale-detail',params:{saleId:item.saleId}}" tag="div">
                 <v-btn
                     color="info"
                 >
                   <v-icon dark>
-                    mdi-delete
+                    mdi-clipboard-edit-outline
                   </v-icon>
                 </v-btn>
               </router-link>
@@ -46,6 +70,7 @@ export default {
   data() {
     return {
       saleId: '',
+      dialogAdd: false,
       headers: [
         {text: 'Mã Sale', value: 'saleId'},
         {text: 'Ảnh Sale', value: 'saleImage'},
@@ -53,7 +78,7 @@ export default {
         {text: 'Trạng thái', value: 'saleStatus'},
         {text: 'Phần Trăm', value: 'percentDiscount'},
         {text: 'Đối Tượng', value: 'beneficiary'},
-        {text: 'Xóa', value: 'actions', sortable: false},
+        {text: 'Chi tiết', value: 'actions', sortable: false},
       ]
     }
   },
@@ -64,6 +89,9 @@ export default {
     handleGetListSales() {
       this.getListSalesForAdmin();
     },
+    handleOpenAddSale() {
+      this.dialogAdd = true
+    }
   },
   computed: {
     ...mapGetters({

@@ -54,8 +54,16 @@
             NẠP TIỀN
           </v-btn>
         </v-card-actions>
-        <v-card-actions>
-          <v-btn color="error" class="ml-4" @click="handleLockAccount">
+        <v-card-actions v-if="customerDetail.status ==='Đã bị khóa'">
+          <v-btn color="error" class="ml-4" @click="handleOpenLock" disabled >
+            <v-icon class="mr-3">
+              mdi-delete
+            </v-icon>
+            Khóa Tài Khoản
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions v-else>
+          <v-btn color="error" class="ml-4" @click="handleOpenLock"  >
             <v-icon class="mr-3">
               mdi-delete
             </v-icon>
@@ -99,6 +107,74 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="dialogLockAccount" max-width="300px" transition>
+      <v-card elevation="10">
+        <v-card-text>
+          <h3>Khóa tài khoản khách hàng {{ customerDetail.fullName }}</h3>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary ml-5" @click="handleLockAccount">
+            <v-icon class="mr-2">
+              mdi-checkbox-marked-circle
+            </v-icon>
+            Khóa
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="error mr-8" @click="handleCloseLock">
+            <v-icon class="mr-2">
+              mdi-minus-circle
+            </v-icon>
+            Hủy
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-snackbar
+        v-model="snackbar.status"
+        :timeout="snackbar.timeout"
+        :color="snackbar.color"
+        top
+        right
+        :transition="snackbar.transition"
+        vertical
+    >
+      {{ snackbar.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            dark
+            text
+            v-bind="attrs"
+            @click="snackbar.status = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar
+        v-model="snackbarLock.status"
+        :timeout="snackbarLock.timeout"
+        :color="snackbarLock.color"
+        top
+        right
+        :transition="snackbarLock.transition"
+        vertical
+        absolute
+        shaped
+    >
+      {{ snackbarLock.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            dark
+            text
+            v-bind="attrs"
+            @click="snackbarLock.status = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -110,8 +186,23 @@ export default {
   data() {
     return {
       email: this.$route.params.email,
-      money: null,
-      dialogInput: false
+      money: 0,
+      dialogInput: false,
+      dialogLockAccount: false,
+      snackbar: {
+        status: false,
+        text: 'Nạp tiền thành công !',
+        color: 'success',
+        timeout: '5000',
+        transition: 'fab-transition'
+      },
+      snackbarLock: {
+        status: false,
+        text: 'Khóa tài khoản khách hàng thành công !',
+        color: 'success',
+        timeout: '5000',
+        transition: 'fab-transition'
+      }
     }
   },
   watch: {
@@ -129,20 +220,28 @@ export default {
     ...mapActions({
       customerDetailByEmail: 'getCustomerDetail',
       paymentMoney: 'paymentMoneyForCustomer',
-      lockAccount:'lockAccountCustomerByEmail'
+      lockAccount: 'lockAccountCustomerByEmail'
     }),
-    handleLockAccount(){
+    handleOpenLock() {
+      this.dialogLockAccount = true
+    },
+    handleCloseLock() {
+      this.dialogLockAccount = false
+    },
+    handleLockAccount() {
+      console.log('email lock : ', this.email)
       this.lockAccount(this.email)
+      this.dialogLockAccount = false
+      this.snackbarLock.status = true
     },
     handlePayment(email, money) {
       email = this.email
       money = this.money
       console.log('email : ' + email + ' money : ' + money)
       this.paymentMoney({email, money})
-      alert("NẠP TIỀN THÀNH CÔNG")
       this.dialogInput = false
-      this.reloadPage()
-      money = ''
+      this.snackbar.status = true
+      this.money = ''
     },
     handleGetCustomerDetailByEmail() {
       this.customerDetailByEmail(this.email)

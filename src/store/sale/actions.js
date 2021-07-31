@@ -33,8 +33,15 @@ export default {
      * */
     async removeSaleInSunshine(context, saleId = '') {
         let result = await axiosInstance.post(`/api/admin/disable-sale/${saleId}`)
+        console.log('result remove: ', result)
         if (result.status === 200) {
             await context.dispatch('getSaleDetailForAdmin')
+            return{
+                ok:true
+            }
         }
-    }
+    },
+
+    // chua co response ban len
+    // async addSaleInSunshine(context, )
 }

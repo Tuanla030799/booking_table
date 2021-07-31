@@ -21,6 +21,9 @@ import AdminCustomerDetail from "../admin/components/admin-customer/AdminCustome
 import AdminFooterDetail from "../admin/components/admin-food/AdminFooterDetail";
 import AdminSale from "../admin/components/admin-sale/AdminSale";
 import AdminSaleDetail from "../admin/components/admin-sale/AdminSaleDetail";
+import AdminPaymentCustomer from "../admin/components/admin-pay/AdminPaymentCustomer";
+import AdminNotFound from "../admin/components/admin-notfound/AdminNotFound";
+import AdminExportFile from "../admin/components/admin-export/AdminExportFile";
 
 Vue.use(VueRouter);
 const routes = [
@@ -74,6 +77,21 @@ const routes = [
                 path: '/sales/:saleId',
                 name: 'sale-detail',
                 component: AdminSaleDetail
+            },
+            {
+                path: 'payments',
+                name: 'payments',
+                component: AdminPaymentCustomer
+            },
+            {
+                path:'exports',
+                name:'exports',
+                component: AdminExportFile
+            },
+            {
+                path: "*",
+                name: 'admin-notfound',
+                component: AdminNotFound
             }
         ]
     },

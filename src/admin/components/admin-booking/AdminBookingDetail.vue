@@ -157,7 +157,7 @@
             </v-icon>
             XUẤT HÓA ĐƠN
           </v-btn>
-          <router-link :to="{name:'booking'}" tag="div">
+          <router-link :to="{name:'bookings'}" tag="div">
             <v-btn color="info" class="ml-5" right>
               <v-icon class="pr-3">
                 mdi-arrow-left-thin-circle-outline
@@ -218,6 +218,27 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-snackbar
+        v-model="snackbar.status"
+        :timeout="snackbar.timeout"
+        :color="snackbar.color"
+        top
+        right
+        :transition="snackbar.transition"
+    >
+      {{ snackbar.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            dark
+            text
+            v-bind="attrs"
+            @click="snackbar.status = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -231,6 +252,13 @@ export default {
       dialogCancel: false,
       dialogPay: false,
       dialogNotification: true,
+      snackbar: {
+        status: false,
+        text: 'Huỷ đặt bàn thành công !',
+        color: 'success',
+        timeout: '5000',
+        transition: 'fab-transition'
+      },
       headerFoods: [
         {text: 'Số Thứ Tự', value: 'stt'},
         {text: 'Tên Món Ăn', value: 'foodName'},
@@ -280,6 +308,7 @@ export default {
     },
     handleCancelBookingByBookingId(bookingId) {
       this.cancelByBookingId({bookingId})
+      this.snackbar.status = true
       this.dialogCancel = false
     },
     handleGetBookingDetailByBookingId() {
