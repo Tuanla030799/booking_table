@@ -144,7 +144,7 @@
             <v-app-bar-title>
               <router-link class="text-decoration-none nav-home" to="/">
                 <!-- <span class="font-weight-light">Booking</span> -->
-                <span class="black--text"><a href="#" style="text-decoration: none;" @click="loader()">BookingTable</a></span>
+                <span class="black--text"><a href="#" style="text-decoration: none;" @click="readload()">BookingTable</a></span>
               </router-link>
             </v-app-bar-title>
           </div>
@@ -155,10 +155,11 @@
             placeholder="Tìm kiếm các món ăn..."
             width="40%"
             @input="FindFootOnClick($event)"
+            @click="ListFootOnClick()"
             @focus="SearchFootOnClick()"
           />
           <div class="btn-bookingtable">
-            <button class="btn-default" @click="BookingTable()">Đặt bàn</button>
+            <button class="btn-default btn-booking" @click="BookingTable()">Đặt bàn</button>
           </div>
         </div>
 
@@ -312,8 +313,8 @@ export default {
         });
     },
     getData() {
-
-        axios
+      if (this.footSearch != "") {
+         axios
           .get(
             `${this.base_url}/api/sunshine/search-food/${this.footSearch}`
           )
@@ -323,6 +324,24 @@ export default {
           .catch((res) => {
             console.log(res);
           });
+          // console.log(this.footSearch);
+          // console.log(typeof(this.footSearch));
+          
+      }
+      },
+      ListFootOnClick() {
+        axios
+          .get(
+            `${this.base_url}/api/sunshine/home`
+          )
+          .then((res) => {
+            this.Foots = res.data.foodHomeRes
+          })
+          .catch((res) => {
+            console.log(res);
+          });
+          console.log(this.Foots);
+          console.log(typeof(this.footSearch));
       },
     // click food detail
     DetailFood(listFoot) {
@@ -331,6 +350,13 @@ export default {
     },
     loader() {
       this.$emit("isLoader")
+    },
+    readload() {
+      this.$emit("isLoader")
+      this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
+      location.reload()
     }
   },
   computed: {
@@ -352,6 +378,19 @@ export default {
   left: 10%;
   right: 10%;
   height: 100%;
+}
+@media only screen and (max-width: 1200px) {
+  /* For mobile phones: */
+
+  .navbar {
+    left: 1%;
+  }
+  .navbar {
+    right: 1%;
+  }
+  .navbar {
+    width: 98%;
+  }
 }
 .navbar .navbar-header {
   display: flex;
@@ -427,8 +466,8 @@ export default {
   color: red;
   cursor: pointer;
 }
-.btn-bookingtable {
-  float: right;
+.btn-booking {
+  width: 92.8px !important;
 }
 .input-search {
   /* padding: 16px 0px !important; */

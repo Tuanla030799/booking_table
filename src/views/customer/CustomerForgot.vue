@@ -6,8 +6,8 @@
       <input type="text" 
       id="txtforgot" class="input" 
       placeholder="Email" 
-      v-model="this.customerForgot.email"/>
-      <button class="btn-login btn-default " @click="btnClickForgotPass">Lấy lại mật khẩu</button>
+      v-model="email"/>
+      <button class="btn-login btn-default " @click="btnClickFormatPass()">Lấy lại mật khẩu</button>
     </div>
   </div>
 </template>
@@ -21,23 +21,35 @@ export default {
   },
   data() {
     return {
-      customerForgot: {
-        email: ''
-      },
-      token: localStorage.getItem('token')
+      email: '',
+      base_url: process.env.VUE_APP_BASE_URL,
+      showMessageError: "d-block"
     }
   },
   methods: {
     btnClickFormatPass() {
-      axios.post("" ,this.customerForgot)
-      .then((res)=>{
-        console.log(res)
-
+      axios({
+        method: "get",
+        url: `${this.base_url}/api/user/forgot-password/${this.email}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((res)=>{
-        console.log(res)
-      })
-    }
+        .then((response) => {
+          if (response.status == 200) {
+           // alert(`${response.data.message}. Mật khẩu đã gửi về email của bạn`)
+          localStorage.setItem("message", `${response.data.message}. Mật khẩu đã gửi về email của bạn`);
+          localStorage.setItem("isIcon", "susccess");
+          this.$emit("showMessage", this.showMessageError)
+            this.$router.push({ name: "Đăng nhập" }).catch((err) => {
+              return err;
+            });
+          }
+        })
+        .catch((error) => {
+          alert(error.data.message)
+        });
+    },
   },
 };
 </script>
