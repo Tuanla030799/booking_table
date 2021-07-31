@@ -190,7 +190,7 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             this.$emit("payBill");
-            console.log(this.cHistoryDetail.bookingId);
+            console.log(response.data);
           }
         })
         .catch((error) => {

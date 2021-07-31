@@ -105,6 +105,7 @@ export default {
             this.$emit("hideBooking")
             this.$emit("showInforBooking", this.InforBooking)
             this.InforBooking = {}
+
           }
         })
         .catch((error) => {
@@ -113,6 +114,7 @@ export default {
           localStorage.setItem("message", error.response.data.message);
           localStorage.setItem("isIcon", "error");
           this.$emit("showMessage", this.showMessageError)
+          //alert(error.response.data.message)
 
         });
       //console.log(url);

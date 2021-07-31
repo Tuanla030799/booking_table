@@ -23,6 +23,7 @@ export default {
     return {
       email: '',
       base_url: process.env.VUE_APP_BASE_URL,
+      showMessageError: "d-block"
     }
   },
   methods: {
@@ -36,8 +37,11 @@ export default {
       })
         .then((response) => {
           if (response.status == 200) {
-            alert(`${response.data.message}. Mật khẩu đã gửi về email của bạn`)
-            this.$router.push({ name: "Home" }).catch((err) => {
+           // alert(`${response.data.message}. Mật khẩu đã gửi về email của bạn`)
+          localStorage.setItem("message", `${response.data.message}. Mật khẩu đã gửi về email của bạn`);
+          localStorage.setItem("isIcon", "susccess");
+          this.$emit("showMessage", this.showMessageError)
+            this.$router.push({ name: "Đăng nhập" }).catch((err) => {
               return err;
             });
           }

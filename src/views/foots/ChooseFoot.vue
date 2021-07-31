@@ -14,6 +14,7 @@
                 :key="listFoot.stt"
                 cols="12"
                 md="4"
+                xs="1"
               >
                 <v-item>
                   <v-card height="200px">
@@ -141,7 +142,7 @@ export default {
             response.status == 200 &&
             response.data.statusCode == "ADD_FOOD_SUCCESS"
           ) {
-            
+
             this.$router.push({ name: "lịch sử đặt bàn" }).catch((err) => {
               return err;
             });

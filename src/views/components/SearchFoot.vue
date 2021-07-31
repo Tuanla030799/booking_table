@@ -1,5 +1,5 @@
 <template>
-  <v-dialog-transition v-model="SearchFootActive" hide-overlay scrollable >
+  <v-dialog-transition v-model="SearchFootActive" hide-overlay scrollable hide-on-leave>
     <div id="Search-foot" :class="SearchFootActive">
       <!-- <router-link to="/register" class="dish-search"> -->
         <div class="dish" v-for="listFoot in listFoots" :key="listFoot.foodId">
