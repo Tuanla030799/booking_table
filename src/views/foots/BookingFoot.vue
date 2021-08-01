@@ -9,7 +9,7 @@
           <input
               type="datetime-local"
               id="DateBooking"
-              class="dialog-input"
+              class="inputType dialog-input"
               v-model="InforBooking.bookingTime"
         />
         </div>
@@ -17,7 +17,7 @@
           <input
               type="text"
               id="NumberPeople"
-              class="dialog-input"
+              class="inputType dialog-input"
               placeholder="Số lượng người"
               v-model="InforBooking.totalSeats"
             />
@@ -34,7 +34,7 @@
            <input
               type="text"
               id="txtNote"
-              class="dialog-input note"
+              class="inputType dialog-input note"
               placeholder="Ghi chú"
               v-model="InforBooking.note"
               

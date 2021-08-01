@@ -15,11 +15,11 @@
               <thead>
                 <tr>
                   <th>Stt</th>
-                  <th>BookingId</th>
-                  <th>BookingTime</th>
-                  <th>Deposit</th>
-                  <th>MoneyPay</th>
-                  <th>BookingStatus</th>
+                  <th>Mã đặt bàn</th>
+                  <th>Thời gian đặt</th>
+                  <th>Tiền cọc</th>
+                  <th>Tổng hóa đơn</th>
+                  <th>Trạng thái</th>
                   <th>Chức năng</th>
                 </tr>
               </thead>

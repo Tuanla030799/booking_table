@@ -5,7 +5,7 @@
     <div class="delete-content">
       <div class="dialog-body">
         <!-- <div class="icon-nav dialog-item icon-noti-delete"></div> -->
-        <v-icon class="mb-4" x-large color="red">{{ this.iconnoti() }}</v-icon>
+        <v-icon class="mb-4" x-large :color="iscolor">{{ this.iconnoti() }}</v-icon>
         <div class="dialog-text">
           {{ this.message() }}
         </div>
@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      
+      iscolor: "red"
     }
   },
   methods: {
@@ -62,8 +62,10 @@ export default {
     iconnoti() {
       let iconnotisuccess = localStorage.getItem("isIcon")
       if (iconnotisuccess == "susccess") {
-        return "mdi-source-commit"
+        this.iscolor = "green"
+        return "mdi-check-all"
       } else if (iconnotisuccess == "error") {
+        this.iscolor = "red"
         return "mdi-alert-outline"
       }
       console.log(iconnotisuccess);

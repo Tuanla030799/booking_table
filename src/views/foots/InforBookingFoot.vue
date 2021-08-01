@@ -4,7 +4,7 @@
     <div class="bookingfoot">
       <div class="bfoot-title">Thông Tin Đặt Bàn</div>
       <div class="bfoot-content">
-        <div class="bfoot-item">Thời gian đặt bàn: {{ InforBookingFoot.bookingTime }}</div>
+        <div class="bfoot-item">Thời gian đặt bàn: {{ abookingTime }}</div>
         <div class="bfoot-item">Số người: {{ InforBookingFoot.totalSeats }} </div>
         <div class="bfoot-item">Ghi Chú: {{ InforBookingFoot.note }} </div>
         <div class="bfoot-item">Số tiền phải trả: {{ InforBookingFoot.priceBooking }}</div>

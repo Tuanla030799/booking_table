@@ -7,16 +7,16 @@
           <div class="text-depo">Số điện thoại:</div>
           <div class="input-deposit">
             <input type="text"
-             class="input-deposit" 
+             class="inputType input-deposit" 
              v-model="dataObj.phoneNumber">
           </div>
         </div>
         <div class="from-deposit">
           <div class="text-depo">Mã code:</div>
-          <div class="input-deposit">
+          <div class=" input-deposit">
             <input 
             type="text" 
-            class="input-deposit" 
+            class="inputType input-deposit" 
             v-model="code" 
             ref="txtCode">
           </div>
@@ -37,7 +37,7 @@ export default {
   name: "customer-deposit",
   data() {
     return {
-      code: "SR",
+      code: "",
       base_url: process.env.VUE_APP_BASE_URL,
       phone: "0969346205"
     };
