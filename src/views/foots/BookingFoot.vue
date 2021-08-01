@@ -82,6 +82,7 @@ export default {
     hideBookingonClick(){
       this.$emit("hideBooking")
       this.InforBooking = {}
+      
     },
     BookingFootOnClick(){
      // console.log(this.token);
@@ -106,9 +107,11 @@ export default {
             this.$emit("showInforBooking", this.InforBooking)
             this.InforBooking = {}
 
+
           }
         })
         .catch((error) => {
+          console.log(this.abookingTime);
           console.log(error.response.data);
           //alert(error.response.data.message)
           localStorage.setItem("message", error.response.data.message);
@@ -117,8 +120,6 @@ export default {
           //alert(error.response.data.message)
 
         });
-      //console.log(url);
-      
     }
   },
   computed: {

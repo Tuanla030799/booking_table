@@ -190,11 +190,14 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             this.$emit("payBill");
-            console.log(response.data);
+            this.$emit("payBillSuss" , response.data.message)
+            //console.log(response.data);
           }
         })
         .catch((error) => {
           console.log(error.response.data);
+          this.$emit("payBill");
+          this.$emit("payBillError" , error.response.data.message)
         });
     },
     destroyOnClick() {

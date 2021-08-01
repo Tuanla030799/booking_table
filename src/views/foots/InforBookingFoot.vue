@@ -4,7 +4,7 @@
     <div class="bookingfoot">
       <div class="bfoot-title">Thông Tin Đặt Bàn</div>
       <div class="bfoot-content">
-        <div class="bfoot-item">Thời gian đặt bàn: {{ abookingTime }}</div>
+        <div class="bfoot-item">Thời gian đặt bàn: {{ bookingDateTime(InforBookingFoot.bookingTime) }}</div>
         <div class="bfoot-item">Số người: {{ InforBookingFoot.totalSeats }} </div>
         <div class="bfoot-item">Ghi Chú: {{ InforBookingFoot.note }} </div>
         <div class="bfoot-item">Số tiền phải trả: {{ InforBookingFoot.priceBooking }}</div>
@@ -59,7 +59,7 @@ export default {
           Authorization: `Bearer ${this.$cookie.get('token')}`,
         },
         data: {
-          bookingTime:  this.abookingTime,
+          bookingTime:  this.bbookingTime,
           totalSeats: this.InforBookingFoot.totalSeats,
         },
       })
@@ -80,9 +80,15 @@ export default {
         });
       
     },
+    bookingDateTime (datetime) {
+      let a = datetime
+      let b = a.slice(0,10)
+      let c = a.slice(11,16)
+      return b + " " + c +":00"
+    }
   },
   computed: {
-    abookingTime () {
+    bbookingTime () {
       let a = this.InforBookingFoot.bookingTime
       let b = a.slice(0,10)
       let c = a.slice(11,16)

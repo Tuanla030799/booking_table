@@ -101,6 +101,8 @@
       @payBill="payBill"
       @bookingFoot="bookingFoot"
       @cDialogNoti="cDialogNoti"
+      @payBillSuss="payBillSuss"
+      @payBillError="payBillError"
     />
     <CustomerValiDestroy
     :dialogNoti="notiDialog"
@@ -140,7 +142,8 @@ export default {
       BillBooking: "d-none",
       notiDialog: false,
       notificationDialog: false,
-      notificationMessage: ""
+      notificationMessage: "",
+      showMessageError: "d-block"
     };
   },
   methods: {
@@ -230,6 +233,16 @@ export default {
         return err;
       });
     },
+    payBillSuss(BillSuss) {
+      localStorage.setItem("message",BillSuss);
+      localStorage.setItem("isIcon", "susccess");
+      this.$emit("showMessage", this.showMessageError)
+    },
+    payBillError(BillErorr) {
+      localStorage.setItem("message",BillErorr);
+      localStorage.setItem("isIcon", "error");
+      this.$emit("showMessage", this.showMessageError)
+    }
   },
 };
 </script>
