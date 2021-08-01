@@ -3,7 +3,7 @@
     <div id="Noti-Customer">
       <div class="noti-text">
         <v-icon large class="mb-1 px-3" color="red">mdi-alert</v-icon>
-        <div class="text-noti">Bạn có muốn hủy đặt bàn này ?</div>
+        <div class="text-noti">Bạn sẽ mất 70% tiền cọc<br>Bạn có muốn hủy đặt bàn này ?</div>
       </div>
       <div class="footer-noti">
         <button class="btn-default" @click="destroyBooking()">Có</button>
