@@ -30,10 +30,10 @@
                 >
                   <td>{{ listHistory.stt }}</td>
                   <td>{{ listHistory.bookingId }}</td>
-                  <td>{{ listHistory.bookingTime }}</td>
+                  <td >{{ listHistory.bookingTime }}</td>
                   <td>{{ listHistory.deposit }}</td>
                   <td>{{ listHistory.moneyPay }}</td>
-                  <td>{{ listHistory.bookingStatus }}</td>
+                  <td :style="colorStatus(listHistory.bookingStatus)">{{ listHistory.bookingStatus }}</td>
                   <!-- <td>
                     <div class="Edit">
                       <div class="btn-edit">
@@ -143,7 +143,8 @@ export default {
       notiDialog: false,
       notificationDialog: false,
       notificationMessage: "",
-      showMessageError: "d-block"
+      showMessageError: "d-block",
+      color: "color:red"
     };
   },
   methods: {
@@ -159,6 +160,7 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             this.ListHistorys = response.data;
+            console.log(this.ListHistorys);
           }
         })
         .catch((error) => {
@@ -242,6 +244,17 @@ export default {
       localStorage.setItem("message",BillErorr);
       localStorage.setItem("isIcon", "error");
       this.$emit("showMessage", this.showMessageError)
+    },
+    colorStatus(status) {
+      if (status == "Chưa thánh toán") {
+        return this.color = "color:black"
+      } else if (status == "Chờ admin xác nhận") {
+        return this.color = "color:blue"
+      } else if (status == "Đã thanh toán") {
+        return this.color = "color:green"
+      } else {
+        return this.color = "color:red"
+      }
     }
   },
 };
