@@ -4,7 +4,7 @@
       <div class="text-header">Nhập email đăng kí của bạn</div>
       <br />
       <input type="text" 
-      id="txtforgot" class="input" 
+      id="txtforgot" class="inputType input" 
       placeholder="Email" 
       v-model="email"/>
       <button class="btn-login btn-default " @click="btnClickFormatPass()">Lấy lại mật khẩu</button>
@@ -29,7 +29,7 @@ export default {
   methods: {
     btnClickFormatPass() {
       axios({
-        method: "post",
+        method: "get",
         url: `${this.base_url}/api/user/forgot-password/${this.email}`,
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,10 @@ export default {
           }
         })
         .catch((error) => {
-          alert(error.data.message)
+          //alert(error.response.data.message)
+          localStorage.setItem("message", error.response.data.message);
+          localStorage.setItem("isIcon", "error");
+          this.$emit("showMessage", this.showMessageError)
         });
     },
   },

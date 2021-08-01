@@ -4,7 +4,7 @@
       <v-card-title>
         DANH SÁCH ĐẶT BÀN
       </v-card-title>
-      <v-data-table
+      <v-data-table class="elevation-1"
           :headers="headers"
           :items="listBooking"
           :items-per-page="5"
@@ -90,5 +90,8 @@ export default {
 .v-dialog > * {
   width: 100%;
   background-color: #FAFAFA;
+}
+.elevation-1 tbody td {
+    font-size: smaller !important;
 }
 </style>

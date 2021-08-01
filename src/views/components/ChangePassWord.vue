@@ -80,32 +80,65 @@
           <div class="inputGroupAccout">
             <div class="input-group">
               <div class="text-input">Mật khẩu cũ(<span>*</span>):</div>
-              <input
+              <div class="passW">
+                <input
+                  :type="typeOldPassword"
+                  class="inputPass"
+                  placeholder="Nhập mật khẩu cũ"
+                  v-model="oldPass"
+                />
+                <v-icon small class="mb-1 ml-1" @click="iconOldPassOnClick()">{{
+                  this.iconOldEye
+                }}</v-icon>
+              </div>
+              <!-- <input
                 type="password"
                 class="Infor-input"
                 placeholder="Nhập mật khẩu cũ"
                 v-model="oldPass"
-              />
+              /> -->
             </div>
 
             <div class="input-group">
               <div class="text-input">Mật khẩu mới(<span>*</span>):</div>
-              <input
+              <div class="passW">
+                <input
+                  :type="typePassword"
+                  class="inputPass"
+                  placeholder="Nhập mật khẩu mới"
+                  v-model="newPass"
+                />
+                <v-icon small class="mb-1 ml-1" @click="iconPassOnClick()">{{
+                  this.iconEye
+                }}</v-icon>
+              </div>
+              <!-- <input
                 type="password"
                 class="Infor-input"
                 placeholder="Nhập mật khẩu mới"
                 v-model="newPass"
-              />
+              /> -->
             </div>
 
             <div class="input-group">
               <div class="text-input">Nhập lại mật khẩu(<span>*</span>):</div>
-              <input
+              <div class="passW">
+                <input
+                  :type="typeRePassword"
+                  class="inputPass"
+                  placeholder="Nhập lại mật khẩu mới"
+                  v-model="newPassAgain"
+                />
+                <v-icon small class="mb-1 ml-1" @click="iconRePassOnClick()">{{
+                  this.iconReEye
+                }}</v-icon>
+              </div>
+              <!-- <input
                 type="password"
                 class="Infor-input"
                 placeholder="Nhập lại mật khẩu mới"
                 v-model="newPassAgain"
-              />
+              /> -->
             </div>
           </div>
           <div class="UpdateInfor">
@@ -135,42 +168,86 @@ export default {
       url: null,
       formData: null,
       Customer: {},
-      File: null
+      File: null,
+      iconEye: "mdi-eye-off",
+      iconReEye: "mdi-eye-off",
+      iconOldEye: "mdi-eye-off",
+      typeOldPassword: "password",
+      typePassword: "password",
+      typeRePassword: "password",
+      showMessageError: "d-block"
     };
   },
   methods: {
+    iconPassOnClick() {
+      if (this.iconEye == "mdi-eye-off") {
+        this.iconEye = "mdi-eye"
+        this.typePassword = "text"
+      } else {
+        this.iconEye = "mdi-eye-off"
+        this.typePassword = "password"
+      }
+    },
+    iconRePassOnClick() {
+      if (this.iconReEye == "mdi-eye-off") {
+        this.iconReEye = "mdi-eye"
+        this.typeRePassword = "text"
+      } else {
+        this.iconReEye = "mdi-eye-off"
+        this.typeRePassword = "password"
+      }
+    },
+    iconOldPassOnClick() {
+      if (this.iconOldEye == "mdi-eye-off") {
+        this.iconOldEye = "mdi-eye"
+        this.typeOldPassword = "text"
+      } else {
+        this.iconOldEye = "mdi-eye-off"
+        this.typeOldPassword = "password"
+      }
+    },
     handleChangePass() {
-     if (this.newPass == this.newPassAgain) {
+      if (this.newPass == this.newPassAgain) {
         axios({
-        method: "put",
-        url: `${this.base_url}/api/user/change-password`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.$cookie.get("token")}`,
-        },
-        data: {
-          newPass: this.newPass,
-          oldPass: this.oldPass,
-        },
-      })
-        .then((response) => {
-          // console.log(response.data.statusCode);
-          if (response.status == 200 && response.data.statusCode == 'SUCCESS') {
-            alert("Đổi mật khẩu thành công")
-            this.$cookie.set('token',response.data.message);
-            this.newPassAgain = "",
-            this.newPass = "",
-            this.oldPass = ""
-          }
+          method: "put",
+          url: `${this.base_url}/api/user/change-password`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$cookie.get("token")}`,
+          },
+          data: {
+            newPass: this.newPass,
+            oldPass: this.oldPass,
+          },
         })
-        .catch((error) => {
-          console.log(error.data);
-          // alert(error.data.message)
-          alert(error.data.message)
-        });
-     } else {
-       alert("Mật khẩu bạn vừa nhập không giống nhau")
-     }
+          .then((response) => {
+            // console.log(response.data.statusCode);
+            if (
+              response.status == 200 &&
+              response.data.statusCode == "SUCCESS"
+            ) {
+            localStorage.setItem("message","Đổi mật khẩu thành công!");
+            localStorage.setItem("isIcon", "susccess");
+            this.$emit("showMessage", this.showMessageError)
+              this.$cookie.set("token", response.data.message);
+              (this.newPassAgain = ""),
+                (this.newPass = ""),
+                (this.oldPass = "");
+            }
+          })
+          .catch((error) => {
+            console.log(error.response);
+            localStorage.setItem("message",error.response.data.message);
+            localStorage.setItem("isIcon", "error");
+            this.$emit("showMessage", this.showMessageError)
+            //alert(error.data.message);
+          });
+      } else {
+        localStorage.setItem("message","Mật khẩu bạn vừa nhập không giống nhau");
+        localStorage.setItem("isIcon", "error");
+        this.$emit("showMessage", this.showMessageError)
+        // alert("Mật khẩu bạn vừa nhập không giống nhau");
+      }
     },
     loadCustomer() {
       axios({
@@ -268,7 +345,6 @@ export default {
   margin-left: 18px;
 } */
 .infor-notfix {
-  
   width: 220px;
   height: 96px;
   /* border: 1px solid #ccc; */
@@ -400,5 +476,16 @@ export default {
   height: 80px;
   text-align: center;
   padding: 20px;
+}
+.passW {
+  /* margin-left: 10%; */
+  width: 50% !important;
+  margin-left: 0px !important;
+  margin-top: 17px;
+  margin-bottom: 20px;
+  font-size: small;
+}
+.inputPass {
+  width: 90%;
 }
 </style>

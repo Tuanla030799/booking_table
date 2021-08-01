@@ -1,18 +1,18 @@
-input[type] {
+input[type].inputType {
     height: 40px;
     border: 1px solid #bbbbbb;
     padding-left: 16px;
     padding-right: 16px;
-    border-radius: 50px;
+    border-radius: 6px;
     outline: none;
     box-sizing: border-box;
 }
 
-input[type]:hover {
+input[type].inputType:hover {
     border-color: #019160;
 }
 
-input[type=text].input-search {
+ input[type=text].input-search {
     background-image: url('../../assets/icon/search.png');
     background-repeat: no-repeat;
     background-position-y: center;
@@ -20,18 +20,39 @@ input[type=text].input-search {
     background-size: 20px;
     padding-left: 40px;
     font-size: 12px;
+} 
+
+.inputPass {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    float: left !important;
+    padding-left: 16px;
+    box-sizing: border-box;
+} 
+
+.passW {
+    height: 40px;
+    border: 1px solid #bbbbbb;
+    border-radius: 6px;
+    box-sizing: border-box;
+    padding: 10px 0px;  
 }
 
+.passW:hover {
+    border-color: #019160;
+}
 
-input[type=text].dialog-input {
+ input[type=text].dialog-input {
     height: 32px;
     width: 254px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 12px;
     color: #000000;
-    
-}
+     
+} 
 
 input[type=datetime-local].dialog-input {
     height: 32px;

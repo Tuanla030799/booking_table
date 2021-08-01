@@ -150,7 +150,7 @@
           </div>
           <input
             type="text"
-            class="input-search"
+            class="inputType input-search"
             ref="searchinput"
             placeholder="Tìm kiếm các món ăn..."
             width="40%"

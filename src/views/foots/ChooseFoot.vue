@@ -54,9 +54,9 @@
         </v-item-group>
       </div>
       <div class="footer">
-        <!-- <button class="btn-default btn-dTable">Đặt món sau</button> -->
+        <button  class="btn-default btn-dTable" @click="bookingZerofootOnClick()" >Đặt món sau</button>
         <!-- <router-link class="cFoot" to="/"> -->
-        <button class="btn-default btn-bTable" @click="bookingfootOnClick()">
+        <button  class="btn-default btn-bTable" @click="bookingfootOnClick()">
           Đặt món
         </button>
         <!-- </router-link> -->
@@ -84,20 +84,8 @@ export default {
         //   "quantity": `${this.listFoot.quantity}`
         // }
       ],
-      // listFoot: {
-      //   bookingId: `${this.bookingFootId}`,
-      //   foodList: [
-      //     {
-      //       quantity: 1,
-      //       foodId: 10,
-      //     },
-      //     {
-      //       quantity: 2,
-      //       foodId: 5,
-      //     },
-      //   ],
-
-      // },
+      isBtn: true,
+      isFoots: []
     };
   },
   props: {
@@ -152,6 +140,36 @@ export default {
           console.log(error.response.data);
           alert(error.response.data.message);
         });
+        console.log(chooseList);
+    },
+    bookingZerofootOnClick() {
+      axios({
+        method: "post",
+        url: `${this.base_url}/api/customer/order-food`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$cookie.get("token")}`,
+        },
+        data: {
+          bookingId: `${this.bookingFootId}`,
+          foodList: [],
+        },
+      })
+        .then((response) => {
+          if (
+            response.status == 200 &&
+            response.data.statusCode == "ADD_FOOD_SUCCESS"
+          ) {
+
+            this.$router.push({ name: "lịch sử đặt bàn" }).catch((err) => {
+              return err;
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          alert(error.response.data.message);
+        });
     },
     // thêm món
     addOnclick(stt) {
@@ -162,6 +180,7 @@ export default {
       // });
       //console.log(a);
       this.listFoots[a].quantity++;
+      // this.isFoots.push("s")
     },
     //giảm món
     subOnclick(stt) {
@@ -172,6 +191,26 @@ export default {
         this.listFoots[a].quantity--;
       }
     },
+    // hideBtn(isBtn) {
+    //   if(isBtn == true) {
+    //     return "d-block"
+    //   } else {
+    //     return "d-none"
+    //   }
+    // },
+    // checkHideBtn() {
+    //   this.isFoots = this.listFoots.filter((person) => person.quantity > 0);
+    //   if(this.isFoots == []) {
+    //     this.isBtn = false
+    //   } else {
+    //     this.isBtn = true
+    //   }
+    // }
+  },
+  watch: {
+    // isFoots:function() {
+    //   this.checkHideBtn()
+    // }
   },
 };
 </script>

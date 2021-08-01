@@ -14,53 +14,61 @@
                     rounded
                     label="Mã Đặt Bàn"
                     v-bind:value="bookingDetail.bookingId"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     label="Bàn"
                     rounded
                     v-bind:value="bookingDetail.tableName"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     rounded
                     label="Tổng Số Người"
                     v-bind:value="bookingDetail.totalSet"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     rounded
                     label="Tiền Đặt Cọc"
                     v-bind:value="bookingDetail.deposit"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     rounded
                     label="Phần Trăm"
                     v-bind:value="bookingDetail.percentSale"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     rounded
                     label="Tổng Tiền Món Ăn "
                     v-bind:value="bookingDetail.sumMoneyFood"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     rounded
                     label="Tổng Tiền"
                     v-bind:value="bookingDetail.totalMoney"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     rounded
                     label="Thời Gian Thanh Toán"
                     v-bind:value="bookingDetail.payDate"
+                    class="font-weight"
                 >
                 </v-text-field>
                 <v-text-field
                     rounded
-                    class="test"
+                    class="test font-weight"
                     label="Thời Gian Đặt Bàn"
                     v-bind:value="bookingDetail.bookingTime"
                 >
@@ -108,7 +116,7 @@
                       </router-link>
                     </v-card-actions>
                   </v-card-title>
-                  <v-data-table
+                  <v-data-table class="elevation-1"
                       :headers="headerFoods"
                       :items="bookingDetail.listFoodInBookings"
                   >
@@ -120,6 +128,7 @@
                         <td>{{ item.price }}</td>
                         <td>{{ item.set }}</td>
                         <td>{{ item.money }}</td>
+                        <td colspan="4"></td>
                       </tr>
                       </tbody>
                     </template>
@@ -336,5 +345,11 @@ export default {
 .notification-enter, .notification-leave-to {
   transform: translateX(10px);
   opacity: 0;
+}
+.font-weight {
+  font-size: small;
+}
+.elevation-1 tbody td {
+    font-size: smaller !important;
 }
 </style>

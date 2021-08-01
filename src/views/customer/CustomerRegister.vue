@@ -6,32 +6,49 @@
       <input
         type="text"
         id="txtFullName"
-        class="input"
+        class="inputType input"
         placeholder="Full Name"
         v-model="customerRegister.fullName"
       />
       <input
         type="text"
         id="txtEmail"
-        class="input"
+        class="inputType input"
         placeholder="Email"
         v-model="customerRegister.email"
       />
       <input
         type="text"
         id="txtPhoneNumber"
-        class="input"
+        class="inputType input"
         placeholder="Phone Number"
         v-model="customerRegister.phoneNumber"
       />
+      <div class="passW" >
+        <input
+          :type="typePassword"
+          class="inputPass"
+          placeholder="Password"
+          v-model="customerRegister.password"
+        />
+        <v-icon small class="mb-1 ml-1" @click="iconPassOnClick()">{{ this.iconEye }}</v-icon>
+      </div>
+      <div class="passW" >
+        <input
+          :type="typeRePassword"
+          class="inputPass"
+          placeholder="retypePassword"
+          v-model="customerRegister.retypePassword"
+        />
+        <v-icon small class="mb-1 ml-1" @click="iconRePassOnClick()">{{ this.iconReEye }}</v-icon>
+      </div>
+
       <input
-        type="password"
-        id="txtPasswordRegister"
-        class="input"
-        placeholder="Password"
-        v-model="customerRegister.password"
+        type="date"
+        id="txtDateOfBirth"
+        class="inputType input"
+        v-model="customerRegister.dateOfBirth"
       />
-      <input type="date" id="txtDateOfBirth" class="input" v-model="customerRegister.dateOfBirth"/>
       <div class="input-group">
         <div class="text-input">Giới tính:</div>
         <div class="radio-input">
@@ -69,24 +86,50 @@ export default {
   created() {},
   methods: {
     btnOnClickRegister() {
-      axios
-        .post("http://localhost:9000/api/auth/create", this.customerRegister)
-        .then((res) => {
-          console.log(res);
-          localStorage.setItem("message", res.data.message);
-          localStorage.setItem("isIcon", "susccess");
-          this.$emit("showMessage", this.showMessageError)
-          this.$router.push({ name: "Đăng nhập" }).catch((err) => {
+      if (
+        this.customerRegister.password == this.customerRegister.retypePassword
+      ) {
+        axios
+          .post("http://localhost:9000/api/auth/create", this.customerRegister)
+          .then((res) => {
+            console.log(res);
+            localStorage.setItem("message", res.data.message);
+            localStorage.setItem("isIcon", "susccess");
+            this.$emit("showMessage", this.showMessageError);
+            this.$router.push({ name: "Đăng nhập" }).catch((err) => {
               return err;
-            });                   
-        })
-        .catch((error) => {
-          console.log(error.response);
-          localStorage.setItem("message", error.response.data.message);
-          this.$emit("showMessage", this.showMessageError)
-          localStorage.setItem("isIcon", "error");
-        });
+            });
+          })
+          .catch((error) => {
+            console.log(error.response);
+            localStorage.setItem("message", error.response.data.message);
+            this.$emit("showMessage", this.showMessageError);
+            localStorage.setItem("isIcon", "error");
+          });
+      } else {
+        localStorage.setItem("message", "mật khẩu nhập lại không giống nhau!");
+        this.$emit("showMessage", this.showMessageError);
+        localStorage.setItem("isIcon", "error");
+      }
     },
+    iconPassOnClick() {
+      if (this.iconEye == "mdi-eye-off") {
+        this.iconEye = "mdi-eye"
+        this.typePassword = "text"
+      } else {
+        this.iconEye = "mdi-eye-off"
+        this.typePassword = "password"
+      }
+    },
+    iconRePassOnClick() {
+      if (this.iconReEye == "mdi-eye-off") {
+        this.iconReEye = "mdi-eye"
+        this.typeRePassword = "text"
+      } else {
+        this.iconReEye = "mdi-eye-off"
+        this.typeRePassword = "password"
+      }
+    }
   },
   data() {
     return {
@@ -96,9 +139,15 @@ export default {
         password: "",
         phoneNumber: "",
         dateOfBirth: "",
-        sex: null
+        sex: null,
+        retypePassword: "",
       },
-      showMessageError: "d-block"
+      showMessageError: "d-block",
+      iconEye: "mdi-eye-off",
+      iconReEye: "mdi-eye-off",
+      typePassword: "password",
+      typeRePassword: "password"
+      
     };
   },
 };
@@ -124,27 +173,48 @@ export default {
 }
 .input {
   margin-top: 2px;
+  font-size: small;
+}
+
+.passW {
+  margin-left: 10%;
+  width: 80%;
+  margin-top: 2px;
+  margin-bottom: 20px;
+  font-size: small;
+}
+.inputPass {
+  width: 92.62%;
 }
 .input-group {
   display: flex;
   height: 24px;
   align-items: center;
   margin-bottom: 25px;
-  margin-left: 68px
+  margin-left: 68px;
 }
 .radio-input {
   width: 338px;
   display: flex;
   height: 40px;
   align-items: center;
+  font-size: small;
+}
+.text-input {
+  margin-left: 2px;
+  font-size: small;
 }
 .radio-input label {
   padding: 10px;
+  font-size: small;
 }
 .radio-input .genderNu {
   margin-left: 20px;
 }
 .radio-input .genderNam {
   margin-left: 20px;
+}
+.text-header {
+  margin-top: 25px !important;
 }
 </style>

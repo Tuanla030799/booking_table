@@ -27,20 +27,32 @@
         <br />
         <input
           type="text"
-          class="input username"
+          class="inputType input username"
           placeholder="Username or SDT"
           required
           v-model="email"
           autocomplete="on"
         />
+        <div class="passW" >
         <input
-          type="password"
-          class="input passwd"
+          :type="typePassword"
+          id="txtPasswordRegister"
+          class="inputPass"
           placeholder="Password"
           required
           v-model="password"
           autocomplete="on"
         />
+        <v-icon small class="mb-1 ml-1" @click="iconPassOnClick()">{{ this.iconEye }}</v-icon>
+      </div>
+        <!-- <input
+          type="password"
+          class="inputType input passwd"
+          placeholder="Password"
+          required
+          v-model="password"
+          autocomplete="on"
+        /> -->
         <button class="btn-login btn-default" @click="btnOnClickLogin()">
           Login
         </button>
@@ -68,6 +80,15 @@ export default {
   name: "customer-signin",
   created() {},
   methods: {
+    iconPassOnClick() {
+      if (this.iconEye == "mdi-eye-off") {
+        this.iconEye = "mdi-eye"
+        this.typePassword = "text"
+      } else {
+        this.iconEye = "mdi-eye-off"
+        this.typePassword = "password"
+      }
+    },
     btnOnClickLogin() {
       localStorage.setItem("aHeight", this.appHeight);
       // axios
@@ -150,7 +171,9 @@ export default {
       aHeight: "1px",
       Account: "",
       hideLoged: false,
-      showMessageError: "d-block"
+      showMessageError: "d-block",
+      iconEye: "mdi-eye-off",
+      typePassword: "password",
     };
   },
   props: {},
@@ -180,6 +203,7 @@ export default {
   margin-left: 10%;
   margin-bottom: 20px;
   width: 80%;
+  font-size: small;
 }
 .username {
   margin-top: 15%;
@@ -209,5 +233,15 @@ export default {
   text-align: center;
   font-weight: 600;
   margin-top: 10%;
+}
+.passW {
+  margin-left: 10%;
+  width: 80%;
+  margin-top: 2px;
+  margin-bottom: 20px;
+  font-size: small;
+}
+.inputPass {
+  width: 92.62%;
 }
 </style>

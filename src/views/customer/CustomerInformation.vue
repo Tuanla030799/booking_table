@@ -30,6 +30,7 @@
                     @change="onFileChange"
                     class="inputfile"
                     id="file"
+                    
                   />
                   <label for="file">Chọn ảnh</label>
                 </form>
@@ -100,7 +101,7 @@
                 <div class="text-input">Họ Tên:</div>
                 <input
                   type="text"
-                  class="Infor-input"
+                  class="inputType Infor-input"
                   v-model="Customer.fullName"
                 />
               </div>
@@ -109,7 +110,7 @@
                 <div class="text-input">Số điện thoại:</div>
                 <input
                   type="text"
-                  class="Infor-input"
+                  class="inputType Infor-input"
                   v-model="Customer.phoneNumber"
                 />
               </div>
@@ -118,7 +119,7 @@
                 <div class="text-input">Ngày sinh:</div>
                 <input
                   type="date"
-                  class="Infor-input"
+                  class="inputType Infor-input"
                   v-model="Customer.dateOfBirth"
                 />
               </div>
