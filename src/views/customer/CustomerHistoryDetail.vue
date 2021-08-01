@@ -211,14 +211,7 @@ export default {
 </script>
 
 <style scoped>
-/* 
-//
-//id=hóa đơn */
 
-/* #hoadon {
-    width: 100%;
-    min-height: 800px;
-} */
 
 .hoadon-model {
   position: fixed;
