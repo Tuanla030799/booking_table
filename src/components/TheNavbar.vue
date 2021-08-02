@@ -125,6 +125,13 @@
                         >
                           <li @click="loader()">Lịch sử đặt chỗ</li>
                         </router-link>
+                        <router-link
+                          class="nav-history-payment"
+                          to="/customer-history-payment"
+                          style="text-decoration: none"
+                        >
+                          <li @click="loader()">Lịch sử nạp tiền</li>
+                        </router-link>
                         <div class="logout">
                           <button class="btn-login" @click="btnOnClickLogout()">
                         Đăng xuất
