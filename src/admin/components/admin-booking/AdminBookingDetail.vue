@@ -325,8 +325,9 @@ export default {
     },
     handleCloseCancelBooking() {
       this.dialogCancel = false
-    }
+    },
   },
+
   created() {
     this.handleGetBookingDetailByBookingId()
   }
@@ -334,18 +335,6 @@ export default {
 </script>
 
 <style scoped>
-.notification-enter-active {
-  transition: all .3s ease;
-}
-
-.notification-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-
-.notification-enter, .notification-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-}
 
 .font-weight {
   font-size: small;
