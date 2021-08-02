@@ -43,7 +43,8 @@
                   <span>Level: </span>{{ this.Customer.level }}
                 </div>
                 <div class="infor-notEmail">
-                  <span>Status: </span>{{ this.Customer.status }}
+                  <span>Status: </span>{{ this.Customer.status }} 
+                  <v-icon x-small class="" color="green">mdi-circle-slice-8</v-icon>
                 </div>
                 <div class="infor-notEmail">
                   <span>Price: </span>{{ this.Customer.totalMoney }}
@@ -83,6 +84,17 @@
               <div class="cInfor2">
                 <v-icon dense class="mb-1">mdi-history</v-icon>
                 <span>Lịch sử đặt chỗ</span>
+                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+              </div>
+            </router-link>
+            <router-link
+              class="nav-history"
+              to="/customer-history-payment"
+              style="text-decoration: none"
+            >
+              <div class="cInfor2">
+                <v-icon dense class="mb">mdi-credit-card-outline</v-icon>
+                <span>Lịch sử nạp tiền</span>
                 <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
               </div>
             </router-link>
@@ -184,7 +196,8 @@ export default {
       base_url: process.env.VUE_APP_BASE_URL,
       File: null,
       isDeposit: false,
-      showMessageError: "d-block"
+      showMessageError: "d-block",
+      color: "color:green"
     };
   },
   methods: {
@@ -320,8 +333,8 @@ export default {
   /* border: 1px solid #ccc; */
 }
 .cInfor-left {
-  width: 33%;
-  height: 382px;
+  width: 330px;
+  height: 434px;
 
   border: 1px solid #ccc;
 }

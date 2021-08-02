@@ -9,6 +9,7 @@ import CustomerRegister from "../views/customer/CustomerRegister.vue";
 import ChooseFoot from "../views/foots/ChooseFoot.vue";
 import CustomerChat from "../views/customer/CustomerChat.vue";
 import CustomerHistory from "../views/customer/CustomerHistory.vue";
+import CustomerHistoryPayment from "../views/customer/CustomerHistoryPayment.vue"
 import CustomerInformation from "../views/customer/CustomerInformation.vue"
 import AdminPage from "../admin/pages/AdminPage";
 import AdminBooking from "../admin/components/admin-booking/AdminBooking";
@@ -140,6 +141,11 @@ const routes = [
                 path: "/customer-history",
                 name: "lịch sử đặt bàn",
                 component: CustomerHistory
+            },
+            {
+                path: "/customer-history-payment",
+                name: "lịch sử nạp tiền",
+                component: CustomerHistoryPayment
             },
             {
                 path: "/*",
