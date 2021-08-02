@@ -6,6 +6,7 @@ import food from "./food"
 import sale from './sale'
 import pay from './payment'
 import exportFile from './export-file'
+import logOut from './admin-log-out'
 import {ACCESS_TOKEN_ADMIN} from "../constants";
 
 Vue.use(Vuex)
@@ -16,7 +17,8 @@ export default new Vuex.Store({
         food,
         sale,
         pay,
-        exportFile
+        exportFile,
+        logOut
     },
     // state
     state: {

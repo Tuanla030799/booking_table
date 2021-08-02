@@ -7,7 +7,7 @@
 
 .logo-box {
     display: flex;
-    margin-left: 60px;
+    padding-top: 10px;
     align-items: center;
     height: 100px;
     width: 100%;
@@ -28,12 +28,12 @@
 }
 
 .logo-box .logo {
-    width: 70px;
-    height:70px;
+    width: 200px;
+    height:100px;
     background-color: #f0f0f0;
     flex-shrink: 0;
-    background-image: url("../../assets/logo.png");
-    background-size: contain;
+    background-image: url("https://uc1086ec74132925908b2e09d783.dl.dropboxusercontent.com/cd/0/inline/BTbd9hoAfDafiacqovQ52aZvxLRDl6dGHztcwFEaAqGq7WcSy3naNqTkKs61RTdqd3XtYqFea3qq1LB8yjw26TxNNuvYBcfWQlkyLeLCdEmz0KbMpMmOpaK0puKen-e--TBaLujNyreKQjytD8jO6VG_/file#");
+    background-size: cover;
     background-position: left;
     background-repeat: no-repeat;
 }
