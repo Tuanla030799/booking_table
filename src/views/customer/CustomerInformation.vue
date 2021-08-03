@@ -37,7 +37,7 @@
               </div>
               <div class="infor-notfix">
                 <div class="infor-notEmail">
-                  <span>Email: </span>{{ this.Customer.email }}
+                  <span>Email: </span>{{ setEmail(this.Customer.email) }}
                 </div>
                 <div class="infor-notEmail">
                   <span>Level: </span>{{ this.Customer.level }}
@@ -286,6 +286,14 @@ export default {
     closeDeposit() {
       this.isDeposit =false
     },
+    setEmail(email) {
+      if (email.length > 22) {
+        let e = `${email.slice(0,17)}...`
+        return e
+      } else {
+        return email
+      }
+    }
   },
 };
 </script>
@@ -369,12 +377,14 @@ export default {
   height: 156px;
   /* border: 1px solid #ccc; */
   align-items: center;
-  padding: 5px;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .infor-notEmail {
   /* margin-top: 10px; */
   padding: 5px 0px;
-  font-size: small;
+  font-size: 12px;
   color: #000000;
 }
 .infor-notEmail span {
