@@ -86,7 +86,10 @@ export default {
     colorStatus(status) {
       if (status == "Y/c xác nhận") {
         return this.color = "color:blue"
-      } else {
+      } else if (status == "Thành công") {
+        return this.color = "color:green"
+      }
+       else {
         return this.color = "color:red"
       }
     }
