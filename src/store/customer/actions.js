@@ -53,5 +53,13 @@ export default {
         if (result.status === 200) {
             await context.dispatch('getCustomerDetail', email)
         }
+    },
+    async enableCustomerByEmail(context, email = '') {
+        console.log('email open : ', email)
+        let result = await axiosInstance.post(`/api/admin/enable-customer/${email}`)
+        console.log('result lock account : ', result);
+        if (result.status === 200) {
+            await context.dispatch('getCustomerDetail', email)
+        }
     }
 }
