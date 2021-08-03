@@ -20,6 +20,7 @@
             <td>{{ item.time }}</td>
             <td>
               <v-btn
+                  v-bind:disabled="item.status !== 'Y/c xác nhận'"
                   color="info"
                   @click="handlePay(item.id)"
               >
@@ -32,6 +33,7 @@
             </td>
             <td>
               <v-btn
+                  v-bind:disabled="item.status !== 'Y/c xác nhận'"
                   color="error"
                   @click="handleCanclePayment(item.id)"
               >
