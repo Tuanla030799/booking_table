@@ -30,9 +30,9 @@
                   <td>{{ ListPaymentHistory.id }}</td>
                   <td>{{ ListPaymentHistory.phoneNumber }}</td>
                   <td>{{ ListPaymentHistory.code }}</td>
-                  <td>{{ listHistory.money }}</td>
-                  <td :style="colorStatus(listHistory.status)">{{ listHistory.status }}</td>
-                  <td>{{ listHistory.created }}</td>
+                  <td>{{ ListPaymentHistory.money }}</td>
+                  <td :style="colorStatus(ListPaymentHistory.status)">{{ ListPaymentHistory.status }}</td>
+                  <td>{{ ListPaymentHistory.created }}</td>
                 </tr>
               </tbody>
             </table>
@@ -80,13 +80,16 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error.response.data);
+          console.log(error.response);
         });
     },
     colorStatus(status) {
       if (status == "Y/c xác nhận") {
         return this.color = "color:blue"
-      } else {
+      } else if (status == "Thành công") {
+        return this.color = "color:green"
+      }
+       else {
         return this.color = "color:red"
       }
     }

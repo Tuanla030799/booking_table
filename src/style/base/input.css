@@ -6,6 +6,7 @@ input[type].inputType {
     border-radius: 6px;
     outline: none;
     box-sizing: border-box;
+    font-size: small;
 }
 
 input[type].inputType:hover {
