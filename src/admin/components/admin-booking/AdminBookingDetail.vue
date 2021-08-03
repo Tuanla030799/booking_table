@@ -117,8 +117,8 @@
                     </v-card-actions>
                   </v-card-title>
                   <v-data-table class="elevation-1"
-                      :headers="headerFoods"
-                      :items="bookingDetail.listFoodInBookings"
+                                :headers="headerFoods"
+                                :items="bookingDetail.listFoodInBookings"
                   >
                     <template v-slot:body="{items}">
                       <tbody>
@@ -149,7 +149,7 @@
             HỦY ĐẶT BÀN
           </v-btn>
           <v-btn color="info" class="ml-5" right
-                 v-bind:disabled="bookingDetail.status === 'Đã thanh toán' || bookingDetail.status === 'Đã hủy'"
+                 v-bind:disabled="bookingDetail.status === 'Đã thanh toán' || bookingDetail.status === 'Đã hủy' || bookingDetail.status === 'Chờ admin xác nhận'"
                  @click="handleOpenPayByBookingId"
           >
             <v-icon class="pr-3">
@@ -158,7 +158,7 @@
             THANH TOÁN
           </v-btn>
           <v-btn color="info" class="ml-5" right
-                 v-bind:disabled="bookingDetail.status === 'Đã thanh toán' || bookingDetail.status === 'Đã hủy'"
+                 v-bind:disabled="bookingDetail.status === 'Đã hủy'|| bookingDetail.status === 'Chờ admin xác nhận'|| bookingDetail.status==='Chưa thánh toán'"
                  @click="handleExportBill"
           >
             <v-icon class="pr-3">
@@ -325,8 +325,9 @@ export default {
     },
     handleCloseCancelBooking() {
       this.dialogCancel = false
-    }
+    },
   },
+
   created() {
     this.handleGetBookingDetailByBookingId()
   }
@@ -334,22 +335,12 @@ export default {
 </script>
 
 <style scoped>
-.notification-enter-active {
-  transition: all .3s ease;
-}
 
-.notification-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-
-.notification-enter, .notification-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-}
 .font-weight {
   font-size: small;
 }
+
 .elevation-1 tbody td {
-    font-size: smaller !important;
+  font-size: smaller !important;
 }
 </style>

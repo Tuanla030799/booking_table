@@ -5,9 +5,9 @@
         DANH SÁCH ĐẶT BÀN
       </v-card-title>
       <v-data-table class="elevation-1"
-          :headers="headers"
-          :items="listBooking"
-          :items-per-page="5"
+                    :headers="headers"
+                    :items="listBooking"
+                    :items-per-page="5"
       >
         <template v-slot:body="{items}">
           <tbody>
@@ -15,7 +15,7 @@
             <td>{{ item.bookingId }}</td>
             <td>{{ item.deposit }}</td>
             <td>{{ item.moneyPay }}</td>
-            <td>{{ item.bookingStatus }}</td>
+            <td :style="styleColorStatus(item.bookingStatus)">{{ item.bookingStatus }}</td>
             <td>{{ item.bookingTime }}</td>
             <td>{{ item.refund }}</td>
             <td>{{ item.email }}</td>
@@ -76,6 +76,19 @@ export default {
     }),
     handleGetListBookingTables() {
       this.getListBookingTables()
+    },
+    styleColorStatus(status) {
+      if (status === 'Chờ admin xác nhận') {
+        return this.color = "color:black"
+      } else if (status === 'Chưa thánh toán') {
+        return this.color = 'color:green'
+      } else if (status === 'Đã thanh toán') {
+        return this.color = 'color:blue'
+      } else if (status === 'Đã hủy') {
+        return this.color = 'color:red'
+      } else {
+        return this.color = 'color:yellow'
+      }
     }
   },
   created() {
@@ -91,7 +104,8 @@ export default {
   width: 100%;
   background-color: #FAFAFA;
 }
+
 .elevation-1 tbody td {
-    font-size: smaller !important;
+  font-size: smaller !important;
 }
 </style>

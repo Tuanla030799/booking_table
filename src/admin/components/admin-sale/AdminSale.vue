@@ -40,7 +40,7 @@
               <v-img :src="item.saleImage" max-width="100px" max-height="100px"></v-img>
             </td>
             <td>{{ item.saleTitle }}</td>
-            <td>{{ item.saleStatus }}</td>
+            <td :style="styleColor(item.saleStatus)">{{ item.saleStatus }}</td>
             <td>{{ item.percentDiscount }}</td>
             <td>{{ item.beneficiary }}</td>
             <td>
@@ -91,6 +91,13 @@ export default {
     },
     handleOpenAddSale() {
       this.dialogAdd = true
+    },
+    styleColor(status) {
+      if (status === 'Hết khuyến mãi') {
+        return this.color = 'color:red'
+      } else {
+        return this.color = 'color:blue'
+      }
     }
   },
   computed: {

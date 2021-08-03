@@ -1,6 +1,6 @@
 <template>
-  <v-container id="customer" fluid >
-    <v-card  elevation="10">
+  <v-container id="customer" fluid>
+    <v-card elevation="10">
       <v-card-title>
         DANH SÁCH KHÁCH HÀNG
       </v-card-title>
@@ -14,7 +14,7 @@
           <tr v-for="item in items" :key="item.email">
             <td>{{ item.fullName }}</td>
             <td>{{ item.phoneNumber }}</td>
-            <td>{{ item.status }}</td>
+            <td :style="styleColorStatusCustomer(item.status)">{{ item.status }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.totalMoney }}</td>
             <td>
@@ -66,6 +66,13 @@ export default {
     }),
     handleGetListCustomer() {
       this.getCustomers()
+    },
+    styleColorStatusCustomer(status) {
+      if (status === 'Đang hoạt động') {
+        return this.color = 'color:blue'
+      } else {
+        return this.color = 'color:red'
+      }
     }
   },
   created() {

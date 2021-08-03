@@ -53,13 +53,31 @@
           Xuất báo cáo
         </div>
       </router-link>
+      <router-link to="/" class="navbar-item" tag="div">
+        <v-icon color="grey lighten-5" class="pl-5">
+          mdi-account-arrow-right-outline
+        </v-icon>
+        <div class="navbar-text" @click="logOutAdmin">
+          Đăng Xuất
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
-  name: "AdminNavbar"
+  name: "AdminNavbar",
+  methods: {
+    ...mapActions({
+      logOut: 'logOutAdmin'
+    }),
+    logOutAdmin() {
+      this.logOut()
+    }
+  }
 }
 </script>
 
