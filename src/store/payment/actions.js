@@ -1,5 +1,5 @@
 import axiosInstance from "../../axios";
-import {ACCESS_TOKEN_ADMIN} from "../../constants";
+// import {ACCESS_TOKEN_ADMIN} from "../../constants";
 
 export default {
     async getListPayment(context) {
@@ -19,20 +19,16 @@ export default {
                 id,
                 status: parseInt('1')
             }
-            let config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
-                }
-            }
-            let result = await axiosInstance.put(`/api/admin/confirm-charging?id=${request.id}&status=${request.status}`,null, config)
+            
+            let result = await axiosInstance.post(`/api/admin/confirm-charging?id=${request.id}&status=${request.status}`)
             if (result.status === 200) {
                 console.log(result)
                 await context.dispatch('getListPayment')
             }
         } catch (err) {
-            console.log('error: ', err.response.data.message)
+            console.log('error: ', err.response)
             alert(err.response.data.message)
+            
 
         }
     },
@@ -42,13 +38,7 @@ export default {
                 id: parseInt(id),
                 status: 2
             }
-            let config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
-                }
-            }
-            let result = await axiosInstance.options(`/api/admin/confirm-charging?id=${request.id}&status=${request.status}`, config)
+            let result = await axiosInstance.post(`/api/admin/confirm-charging?id=${request.id}&status=${request.status}`)
             if (result.status === 200) {
                 await context.dispatch('getListPayment')
             }

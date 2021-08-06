@@ -103,13 +103,13 @@ export default {
       });
      let data = {
        bookingId: this.bookingId,
-       foodList:[]
+       foodList:chooseList
      }
       console.log('data: ', data)
       console.log('cl', chooseList)
       axios({
         method: "post",
-        url: `${this.base_url}api/admin/add-food-in-booking`,
+        url: `${this.base_url}/api/admin/add-food-in-booking`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_ADMIN)}`,
@@ -120,7 +120,7 @@ export default {
         },
       }).then((response) => {
         if (response.status === 200 && response.data.statusCode === "ADD_FOOD_SUCCESS") {
-          alert(response.data)
+          alert(response.data.message)
         }
       })
           .catch((error) => {

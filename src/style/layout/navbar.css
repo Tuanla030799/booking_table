@@ -9,9 +9,10 @@
     display: flex;
     padding-top: 10px;
     align-items: center;
-    height: 100px;
+    height: 150px;
     width: 100%;
     cursor: pointer;
+    /* border: solid #ccc 1px; */
 }
 
 .logo-box .sidebar {
@@ -29,17 +30,18 @@
 
 .logo-box .logo {
     width: 200px;
-    height:100px;
-    background-color: #f0f0f0;
+    height:150px;
     flex-shrink: 0;
-    background-image: url("https://uc1086ec74132925908b2e09d783.dl.dropboxusercontent.com/cd/0/inline/BTbd9hoAfDafiacqovQ52aZvxLRDl6dGHztcwFEaAqGq7WcSy3naNqTkKs61RTdqd3XtYqFea3qq1LB8yjw26TxNNuvYBcfWQlkyLeLCdEmz0KbMpMmOpaK0puKen-e--TBaLujNyreKQjytD8jO6VG_/file#");
-    background-size: cover;
+    background-image: url("https://www.dropbox.com/s/5l351xmohotdjj6/1624163183514.jpg?raw=1");
+    background-size: contain;
     background-position: left;
     background-repeat: no-repeat;
+
+    
 }
 
 .navbar-box {
-    margin-top: 10px;
+    margin-top: 7px;
 }
 
 .navbar-box .navbar-item {
