@@ -55,7 +55,7 @@
           </v-btn>
         </v-card-actions>
         <v-card-actions v-if="customerDetail.status ==='Đã bị khóa'">
-          <v-btn color="error" class="ml-4" @click="handleOpenLock" disabled >
+          <v-btn color="error" class="ml-4" disabled>
             <v-icon class="mr-3">
               mdi-delete
             </v-icon>
@@ -63,11 +63,27 @@
           </v-btn>
         </v-card-actions>
         <v-card-actions v-else>
-          <v-btn color="error" class="ml-4" @click="handleOpenLock"  >
+          <v-btn color="error" class="ml-4" @click="handleOpenLock">
             <v-icon class="mr-3">
               mdi-delete
             </v-icon>
             Khóa Tài Khoản
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions v-if="customerDetail.status ==='Đang hoạt động'">
+          <v-btn color="success" class="ml-4" disabled>
+            <v-icon class="mr-3">
+              mdi-delete
+            </v-icon>
+            Mở Tài Khoản
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions v-else>
+          <v-btn color="success" class="ml-4" @click="handleDialogOpenAccount">
+            <v-icon class="mr-3">
+              mdi-delete
+            </v-icon>
+            Mở Tài Khoản
           </v-btn>
         </v-card-actions>
         <v-card-actions class="mr-5">
@@ -175,6 +191,52 @@
         </v-btn>
       </template>
     </v-snackbar>
+    <v-dialog v-model="dialogOpenAccount" max-width="300px" transition>
+      <v-card elevation="10">
+        <v-card-text>
+          <h3>Mở tài khoản khách hàng {{ customerDetail.fullName }}</h3>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary ml-5" @click="handleOpenAccount">
+            <v-icon class="mr-2">
+              mdi-checkbox-marked-circle
+            </v-icon>
+            Mở
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="error mr-8" @click="handleCloseDialogOpenAccount">
+            <v-icon class="mr-2">
+              mdi-minus-circle
+            </v-icon>
+            Hủy
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-snackbar
+        v-model="snackbarOpen.status"
+        :timeout="snackbarOpen.timeout"
+        :color="snackbarOpen.color"
+        top
+        right
+        :transition="snackbarOpen.transition"
+        vertical
+        absolute
+        shaped
+    >
+      {{ snackbarOpen.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            dark
+            text
+            v-bind="attrs"
+            @click="snackbarOpen.status = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -189,6 +251,7 @@ export default {
       money: 0,
       dialogInput: false,
       dialogLockAccount: false,
+      dialogOpenAccount: false,
       snackbar: {
         status: false,
         text: 'Nạp tiền thành công !',
@@ -199,6 +262,13 @@ export default {
       snackbarLock: {
         status: false,
         text: 'Khóa tài khoản khách hàng thành công !',
+        color: 'success',
+        timeout: '5000',
+        transition: 'fab-transition'
+      },
+      snackbarOpen: {
+        status: false,
+        text: 'Mở tài khoản khách hàng thành công !',
         color: 'success',
         timeout: '5000',
         transition: 'fab-transition'
@@ -220,7 +290,8 @@ export default {
     ...mapActions({
       customerDetailByEmail: 'getCustomerDetail',
       paymentMoney: 'paymentMoneyForCustomer',
-      lockAccount: 'lockAccountCustomerByEmail'
+      lockAccount: 'lockAccountCustomerByEmail',
+      openAccount: 'enableCustomerByEmail'
     }),
     handleOpenLock() {
       this.dialogLockAccount = true
@@ -233,6 +304,18 @@ export default {
       this.lockAccount(this.email)
       this.dialogLockAccount = false
       this.snackbarLock.status = true
+    },
+    handleDialogOpenAccount() {
+      this.dialogOpenAccount = true
+    },
+    handleCloseDialogOpenAccount() {
+      this.dialogOpenAccount = false
+    },
+    handleOpenAccount() {
+      console.log('email open : ', this.email)
+      this.openAccount(this.email)
+      this.handleCloseDialogOpenAccount()
+      this.snackbarOpen.status = true
     },
     handlePayment(email, money) {
       email = this.email

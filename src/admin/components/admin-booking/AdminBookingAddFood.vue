@@ -3,14 +3,14 @@
     <div class="ChooseFoot">
       <div class="ChooseFoot-title">Vui Lòng Chọn Món Ăn</div>
       <div class="ChooseFoot-text">
-        Đặt món cho hóa đơn số: {{ this.bookingFootId }}
+        Đặt món cho hóa đơn số: {{ this.bookingId }}
       </div>
       <div class="listfoots">
         <v-item-group multiple>
           <v-container>
             <v-row>
               <v-col
-                  v-for="listFoot in foods"
+                  v-for="listFoot in listFoods"
                   :key="listFoot.stt"
                   cols="12"
                   md="4"
@@ -55,8 +55,8 @@
       <div class="footer">
         <!-- <button class="btn-default btn-dTable">Đặt món sau</button> -->
         <!-- <router-link class="cFoot" to="/"> -->
-        <button class="btn-default btn-bTable">
-          Đặt món
+        <button class="btn-default btn-bTable" @click="bookingFoods">
+          Thêm món
         </button>
         <!-- </router-link> -->
       </div>
@@ -65,57 +65,78 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import axios from "axios";
+import {ACCESS_TOKEN_ADMIN} from "../../../constants";
 
 export default {
   name: "AdminBookingAddFood",
   data() {
     return {
+      base_url: process.env.VUE_APP_BASE_URL,
       bookingId: this.$route.params.bookingId,
-      listFood: [
-        {
-          foodId:0,
-          quantity:0
-        }
-      ],
+      listFoods: [],
     }
   },
-  computed: {
-    ...mapGetters({
-      foods: 'getListFoods',
-      foodOfBooking: 'getListFoodByBookingId'
-    }),
-  },
   methods: {
-    ...mapActions({
-      getFoods: 'getListFoods',
-      getFoodOfBookingByBookingId: 'getFoodOfBookingByBookingId',
-      addFoodToBooking: 'addFoodToBookingByBookingId'
-    }),
-    handleGetFoods() {
-      this.getFoods()
+    getListFoods() {
+      axios({
+        method: "get",
+        url:
+            `${this.base_url}/api/sunshine/get-list-food?bookingId=` +
+            this.bookingId,
+      })
+          .then((response) => {
+            console.log('result ', response)
+            this.listFoods = response.data;
+          })
+          .catch((error) => {
+            console.log(error.response);
+          });
     },
-    handleAddFoodToBooking(bookingId, foodId, quantity) {
-      bookingId = this.bookingId
-      console.log('booking id : ', bookingId)
-      foodId = this.foodId
-      console.log('foodId ', foodId)
-      quantity = this.quantity
-      console.log('quantity ', quantity)
-      this.addFoodToBooking({bookingId, foodId, quantity})
+    bookingFoods() {
+      let chooseList = this.listFoods.filter((person) => person.quantity > 0).map((x) => {
+        let list = {
+          quantity: x.quantity,
+          foodId: x.foodId
+        }
+        return list
+      });
+     let data = {
+       bookingId: this.bookingId,
+       foodList:[]
+     }
+      console.log('data: ', data)
+      console.log('cl', chooseList)
+      axios({
+        method: "post",
+        url: `${this.base_url}api/admin/add-food-in-booking`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_ADMIN)}`,
+        },
+        data: {
+          bookingId: `${this.bookingId}`,
+          foodList: chooseList
+        },
+      }).then((response) => {
+        if (response.status === 200 && response.data.statusCode === "ADD_FOOD_SUCCESS") {
+          alert(response.data)
+        }
+      })
+          .catch((error) => {
+            console.log(this.bookingId)
+            console.log(error)
+          });
+      console.log(this.listFoods);
     },
-    handleGetFoodOfBookingByBookingId() {
-      this.getFoodOfBookingByBookingId(this.bookingId)
+    addFood(stt) {
+      this.listFoods[stt - 1].quantity++
     },
-    addFood(foodId) {
-      this.listFood=this.foodOfBooking
-      this.listFood[foodId - 1].quantity++
-    },
-    subFood(foodId) {
-      if (this.listFood[foodId - 1].quantity <= 0) {
-        this.listFood[foodId - 1].quantity = 0
+    subFood(stt) {
+      if (this.listFoods[stt - 1].quantity <= 0) {
+        this.listFoods[stt - 1].quantity = 0
       } else {
-        this.listFood[foodId - 1].quantity--
+        this.listFoods[stt - 1].quantity--
       }
     }
   },
@@ -128,8 +149,7 @@ export default {
   }
   ,
   created() {
-    this.handleGetFoods()
-    this.handleGetFoodOfBookingByBookingId()
+    this.getListFoods()
   }
 }
 </script>
