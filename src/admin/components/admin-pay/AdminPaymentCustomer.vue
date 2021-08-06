@@ -152,6 +152,8 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import axios from "axios";
+import {ACCESS_TOKEN_ADMIN} from "../../../constants";
 
 export default {
   name: "AdminPaymentCustomer",
@@ -172,6 +174,7 @@ export default {
         {text: 'Nạp Tiền', value: 'actions', sort: false},
         {text: 'Hủy Nạp', value: 'actions', sort: false},
       ],
+      base_url: process.env.VUE_APP_BASE_URL
     }
   },
   methods: {
@@ -199,13 +202,50 @@ export default {
       this.dialogCancelPay = true
     },
     handleAcceptPay() {
-      this.acceptPayForCustomer(this.idPay)
+      axios({
+        method: 'put',
+        url: `${this.base_url}/api/admin/confirm-charging?id=${this.idPay}&status=1`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_ADMIN)}`,
+        },
+      })
+          .then((response) => {
+            console.log('log accept: ', response)
+            if (response.status === 200) {
+              this.handleGetPaymentForCustomer()
+              alert(response.data.message)
+            }
+
+          })
+          .catch((error) => {
+            alert(error.response.message)
+          })
       this.dialogAcceptPay = false
       this.snackbar.status = true
 
     },
     handleCancelPay() {
-      this.cancelPayForCustomer(this.idPay)
+      axios({
+        method: 'put',
+        url: `${this.base_url}/api/admin/confirm-charging?id=${this.idPay}&status=2`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_ADMIN)}`,
+        },
+      })
+          .then((response) => {
+            console.log('log cancel: ', response)
+            if (response.status === 200) {
+              this.handleGetPaymentForCustomer()
+              alert(response.data.message)
+            }
+
+          })
+          .catch((error) => {
+            alert(error.response.message)
+          })
+
       this.dialogCancelPay = false
       this.snackbarCancel = true
     }

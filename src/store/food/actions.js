@@ -1,5 +1,5 @@
 import axiosInstance from "../../axios";
-import {ACCESS_TOKEN_ADMIN} from "../../constants";
+// import {ACCESS_TOKEN_ADMIN} from "../../constants";
 
 export default {
     async getListFoods(context) {
@@ -34,31 +34,30 @@ export default {
             return e
         }
     },
-    async addFoodToBookingByBookingId(context, {bookingId, foodId, quantity}) {
-        console.log('booking Id : ' + bookingId + 'foodId: ' + foodId + 'quantity: ', quantity)
-        try {
-            let foodList = [
-                {foodId, quantity}
-            ]
-
-            let response = {
-                bookingId,
-                foodList
-            }
-            let config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
-                }
-            }
-            console.log('data add food to booking Id : ', response)
-            let result = await axiosInstance.post('/api/admin/add-food-in-booking', response, config)
-            if (result.status === 200) {
-                await context.dispatch('getBookingTableById', bookingId)
-            }
-        } catch (e) {
-            return e;
-        }
-
-    },
+    // async addFoodToBookingByBookingId(context, {bookingId, [foodId, quantity]}) {
+    //     try {
+    //         let foodList =[
+    //             {foodId: this.foodId,}
+    //         ]
+    //
+    //         let response = {
+    //             bookingId,
+    //             foodList
+    //         }
+    //         let config = {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
+    //             }
+    //         }
+    //         console.log('data add food to booking Id : ', response)
+    //         let result = await axiosInstance.post('/api/admin/add-food-in-booking', response, config)
+    //         if (result.status === 200) {
+    //             await context.dispatch('getBookingTableById', bookingId)
+    //         }
+    //     } catch (e) {
+    //         return e;
+    //     }
+    //
+    // },
 }
