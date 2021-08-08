@@ -153,7 +153,7 @@ export default {
       this.dialogAcceptPay = false
     },
     handleCloseCancelPay() {
-      this.dialogCancelPay = true
+      this.dialogCancelPay = false
     },
     handleAcceptPay() {
       axios({
