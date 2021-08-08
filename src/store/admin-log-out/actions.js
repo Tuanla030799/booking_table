@@ -14,7 +14,7 @@ export default {
             if (result.status === 200) {
                 alert(result.data.message)
                 this.$cookie.delete('token');
-                location.reload()
+                localStorage.clear()
             }
         } catch (e) {
             alert(e.response.data.message)
