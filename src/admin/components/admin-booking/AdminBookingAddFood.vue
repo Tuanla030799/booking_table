@@ -33,7 +33,7 @@
                       </div>
                       <div class="foot-title">
                         <div class="title-foot">{{ listFoot.foodName }}</div>
-                        <div class="foot-text">{{ listFoot.describes }}</div>
+                        <div class="foot-text">{{ setDescription(listFoot.describes) }}</div>
                       </div>
                     </div>
                     <div class="foot-footer">
@@ -78,6 +78,14 @@ export default {
     }
   },
   methods: {
+    setDescription(descriptions) {
+      if (descriptions.length > 20) {
+        let e = `${descriptions.slice(0, 17)}...`
+        return e
+      } else {
+        return descriptions
+      }
+    },
     getListFoods() {
       axios({
         method: "get",
@@ -101,10 +109,10 @@ export default {
         }
         return list
       });
-     let data = {
-       bookingId: this.bookingId,
-       foodList:chooseList
-     }
+      let data = {
+        bookingId: this.bookingId,
+        foodList: chooseList
+      }
       console.log('data: ', data)
       console.log('cl', chooseList)
       axios({
