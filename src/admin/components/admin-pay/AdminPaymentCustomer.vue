@@ -35,7 +35,7 @@
               <v-btn
                   v-bind:disabled="item.status !== 'Y/c xác nhận'"
                   color="error"
-                  @click="handleCanclePayment(item.id)"
+                  @click="handleCancelPayment(item.id)"
               >
                 Hủy
                 <v-icon dark class="ml-3">
@@ -110,7 +110,6 @@
 import {mapActions, mapGetters} from 'vuex'
 import axios from "axios";
 import {ACCESS_TOKEN_ADMIN} from "../../../constants";
-// import {ACCESS_TOKEN_ADMIN} from "../../../constants";
 
 export default {
   name: "AdminPaymentCustomer",
@@ -146,7 +145,7 @@ export default {
       this.dialogAcceptPay = true
 
     },
-    handleCanclePayment(id) {
+    handleCancelPayment(id) {
       this.idPay = id
       this.dialogCancelPay = true
     },
@@ -171,8 +170,9 @@ export default {
           this.handleGetPaymentForCustomer()
         }
       }).catch((error) => {
-            alert(error.response.data.message)
-          })
+        alert(error.response.data.message)
+        this.handleGetPaymentForCustomer()
+      })
       this.dialogAcceptPay = false
 
     },
@@ -190,10 +190,10 @@ export default {
           alert(response.data.message)
           this.handleGetPaymentForCustomer()
         }
-
       })
           .catch((error) => {
             alert(error.response.data.message)
+            this.handleGetPaymentForCustomer()
           })
       this.dialogCancelPay = false
     }
