@@ -19,16 +19,15 @@ export default {
                 id,
                 status: parseInt('1')
             }
-            
             let result = await axiosInstance.post(`/api/admin/confirm-charging?id=${request.id}&status=${request.status}`)
             if (result.status === 200) {
-                console.log(result)
+                alert(result.data.message)
                 await context.dispatch('getListPayment')
             }
         } catch (err) {
             console.log('error: ', err.response)
             alert(err.response.data.message)
-            
+
 
         }
     },
@@ -40,10 +39,11 @@ export default {
             }
             let result = await axiosInstance.post(`/api/admin/confirm-charging?id=${request.id}&status=${request.status}`)
             if (result.status === 200) {
+                alert(result.data.message)
                 await context.dispatch('getListPayment')
             }
         } catch (e) {
-            return e
+            alert(e.response.data.message)
         }
     }
 }

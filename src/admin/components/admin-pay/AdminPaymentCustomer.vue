@@ -103,50 +103,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar
-        v-model="snackbar.status"
-        top
-        right
-        color="success"
-        absolute
-        shaped
-        :timeout="5000"
-        transition="fab-transition"
-        vertical
-    >
-      <h3>Nạp tiền thành công !</h3>
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            dark
-            outlined
-            v-bind="attrs"
-            @click="snackbar.status = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
-    <v-snackbar
-        v-model="snackbarCancel.status"
-        top
-        right
-        color="success"
-        :timeout="5000"
-    >
-      Hủy nạp tiền thành công !
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            dark
-            text
-            v-bind="attrs"
-            @click="snackbarCancel.status = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -154,6 +110,7 @@
 import {mapActions, mapGetters} from 'vuex'
 import axios from "axios";
 import {ACCESS_TOKEN_ADMIN} from "../../../constants";
+// import {ACCESS_TOKEN_ADMIN} from "../../../constants";
 
 export default {
   name: "AdminPaymentCustomer",
@@ -162,8 +119,6 @@ export default {
       idPay: '',
       dialogAcceptPay: false,
       dialogCancelPay: false,
-      snackbar: {status: false, text: '', color: ''},
-      snackbarCancel: {status: false, text: '', color: ''},
       headers: [
         {text: 'Id', value: 'id'},
         {text: 'Mã nạp', value: 'code'},
@@ -203,51 +158,44 @@ export default {
     },
     handleAcceptPay() {
       axios({
-        method: 'put',
-        url: `${this.base_url}/api/admin/confirm-charging?id=${this.idPay}&status=1`,
+        method: 'POST',
+        url: `${this.base_url}/api/admin/confirm-charging?id=${parseInt(this.idPay)}&status=${parseInt(1)}`,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': "application/json",
           Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_ADMIN)}`,
         },
-      })
-          .then((response) => {
-            console.log('log accept: ', response)
-            if (response.status === 200) {
-              this.handleGetPaymentForCustomer()
-              alert(response.data.message)
-            }
-
-          })
-          .catch((error) => {
-            alert(error.response.message)
+      }).then((response) => {
+        console.log('log accept: ', response)
+        if (response.status === 200) {
+          alert(response.data.message)
+          this.handleGetPaymentForCustomer()
+        }
+      }).catch((error) => {
+            alert(error.response.data.message)
           })
       this.dialogAcceptPay = false
-      this.snackbar.status = true
 
     },
     handleCancelPay() {
       axios({
-        method: 'put',
+        method: 'POST',
         url: `${this.base_url}/api/admin/confirm-charging?id=${this.idPay}&status=2`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN_ADMIN)}`,
         },
+      }).then((response) => {
+        console.log('log cancel: ', response)
+        if (response.status === 200) {
+          alert(response.data.message)
+          this.handleGetPaymentForCustomer()
+        }
+
       })
-          .then((response) => {
-            console.log('log cancel: ', response)
-            if (response.status === 200) {
-              this.handleGetPaymentForCustomer()
-              alert(response.data.message)
-            }
-
-          })
           .catch((error) => {
-            alert(error.response.message)
+            alert(error.response.data.message)
           })
-
       this.dialogCancelPay = false
-      this.snackbarCancel = true
     }
   },
   computed: {
