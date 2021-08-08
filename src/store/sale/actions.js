@@ -19,9 +19,13 @@ export default {
      * @return sale detail
      * */
     async getSaleDetailForAdmin(context, saleId = '') {
-        let result = await axiosInstance.get(`/api/sunshine/sale-detail/${saleId}`)
-        if (result.status === 200) {
-            context.commit('SALE_DETAIL', result.data)
+        try {
+            let result = await axiosInstance.get(`/api/sunshine/sale-detail/${saleId}`)
+            if (result.status === 200) {
+                context.commit('SALE_DETAIL', result.data)
+            }
+        }catch (err){
+            alert(err.response.data.message)
         }
     },
 
@@ -32,14 +36,17 @@ export default {
      * @return String message
      * */
     async removeSaleInSunshine(context, saleId = '') {
-        let result = await axiosInstance.post(`/api/admin/disable-sale/${saleId}`)
-        console.log('result remove: ', result)
-        if (result.status === 200) {
-            await context.dispatch('getSaleDetailForAdmin')
-            return{
-                ok:true
+        try {
+            let result = await axiosInstance.post(`/api/admin/disable-sale/${saleId}`)
+            console.log('result remove: ', result)
+            if (result.status === 200) {
+                alert(result.data.message)
+                await context.dispatch('getSaleDetailForAdmin')
             }
+        }catch (err){
+            alert(err.response.data.message)
         }
+
     },
 
     // chua co response ban len

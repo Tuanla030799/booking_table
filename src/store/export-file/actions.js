@@ -23,7 +23,7 @@ export default {
 
 
         } catch (e) {
-            return e;
+            alert(e.response.data.message)
         }
     }
 

@@ -30,14 +30,15 @@
       </v-row>
       <v-row>
         <v-spacer></v-spacer>
-        <v-col cols="2" sm="2">
-          <v-btn color="error" @click="handleOpenDialogCancel">
-            <v-icon class="mr-2">
-              mdi-cancel
-            </v-icon>
-            HỦY
-          </v-btn>
+       <v-col cols="2" sm="2">
+        <v-btn color="error" @click="handleOpenDialogCancel">
+          <v-icon class="mr-2">
+            mdi-cancel
+          </v-icon>
+          HỦY
+        </v-btn>
         </v-col>
+
         <v-col cols="2" sm="2" class="mr-5">
           <router-link :to="{name:'sales'}" tag="p">
             <v-btn color="info">
@@ -72,30 +73,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar
-        v-model="snackbar.status"
-        :timeout="snackbar.timeout"
-        :color="snackbar.color"
-        top
-        right
-        :transition="snackbar.transition"
-        vertical
-        absolute
-        shaped
-    >
-      {{ snackbar.text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            dark
-            text
-            v-bind="attrs"
-            @click="snackbar.status = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -108,13 +85,6 @@ export default {
     return {
       dialogCancel: false,
       saleId: this.$route.params.saleId,
-      snackbar: {
-        status: false,
-        text: 'Huỷ Chương Trình Khuyến Mại Thành Công !',
-        color: 'success',
-        timeout: '5000',
-        transition: 'fab-transition'
-      }
     }
   },
   methods: {
@@ -128,7 +98,6 @@ export default {
     },
     handleRemoveSaleForAdmin() {
       this.remove(this.saleId)
-      this.snackbar.status = true
       this.dialogCancel = false
     },
     handleOpenDialogCancel() {

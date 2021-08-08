@@ -46,7 +46,7 @@ export default new Vuex.Store({
                     context.commit('LIST_BOOKING_TABLES', result.data)
                 }
             } catch (e) {
-                return e
+                alert(e.response.data.message)
             }
         },
         async getBookingTableById(context, bookingId) {
@@ -57,7 +57,7 @@ export default new Vuex.Store({
                     context.commit('BOOKING_DETAIL', result.data)
                 }
             } catch (e) {
-                return e
+                alert(e.response.data.message)
             }
 
         },
@@ -77,32 +77,20 @@ export default new Vuex.Store({
                 let result = await axiosInstance.post('/api/admin/cancel-booking-admin', data, config)
                 console.log('cancel: ', result)
                 if (result.status === 200) {
+                    alert(result.data.message)
                     let resultListBooking = await context.dispatch('getBookingTableById', bookingId)
                     console.log('resultListBooking: ', resultListBooking.data)
                     if (resultListBooking.status === 200) {
                         context.commit('LIST_BOOKING_TABLES', resultListBooking.data)
                     }
-                    return {
-                        ok: true,
-                        data: result.data,
-                        error: null
-                    }
-                } else {
-                    return {
-                        ok: false,
-                        error: result.data.error
-                    }
                 }
 
             } catch (e) {
-                return {
-                    ok: false,
-                    error: e.message
-                }
+                alert(e.response.data.message)
             }
 
         },
-        async  payBookingTableByBookingId(context, bookingId = '') {
+        async payBookingTableByBookingId(context, bookingId = '') {
             console.log('pay booking table by booking id : ', bookingId)
             try {
                 let result = await axiosInstance.post(`/api/admin/pay-bill/${bookingId}`)
@@ -116,12 +104,14 @@ export default new Vuex.Store({
         },
         async exportBillForCustomerByBookingId(context, bookingId = '') {
             console.log('export bill by bookingID: ', bookingId)
-            let result = await axiosInstance.get(`/api/admin/export-bill/${bookingId}`)
-            if (result.status === 200) {
-                return {
-                    ok: true
-                }
-            }
+           try {
+               let result = await axiosInstance.get(`/api/admin/export-bill/${bookingId}`)
+               if (result.status === 200) {
+                   alert(result.data.message)
+               }
+           }catch (err){
+                alert(err.response.data.message)
+           }
         }
     },
 

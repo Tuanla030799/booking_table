@@ -145,52 +145,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar
-        v-model="snackbar.status"
-        :timeout="snackbar.timeout"
-        :color="snackbar.color"
-        top
-        right
-        :transition="snackbar.transition"
-        vertical
-    >
-      {{ snackbar.text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            dark
-            text
-            v-bind="attrs"
-            @click="snackbar.status = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
-    <v-snackbar
-        v-model="snackbarLock.status"
-        :timeout="snackbarLock.timeout"
-        :color="snackbarLock.color"
-        top
-        right
-        :transition="snackbarLock.transition"
-        vertical
-        absolute
-        shaped
-    >
-      {{ snackbarLock.text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            dark
-            text
-            v-bind="attrs"
-            @click="snackbarLock.status = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
     <v-dialog v-model="dialogOpenAccount" max-width="300px" transition>
       <v-card elevation="10">
         <v-card-text>
@@ -213,30 +167,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar
-        v-model="snackbarOpen.status"
-        :timeout="snackbarOpen.timeout"
-        :color="snackbarOpen.color"
-        top
-        right
-        :transition="snackbarOpen.transition"
-        vertical
-        absolute
-        shaped
-    >
-      {{ snackbarOpen.text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            dark
-            text
-            v-bind="attrs"
-            @click="snackbarOpen.status = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -252,27 +182,6 @@ export default {
       dialogInput: false,
       dialogLockAccount: false,
       dialogOpenAccount: false,
-      snackbar: {
-        status: false,
-        text: 'Nạp tiền thành công !',
-        color: 'success',
-        timeout: '5000',
-        transition: 'fab-transition'
-      },
-      snackbarLock: {
-        status: false,
-        text: 'Khóa tài khoản khách hàng thành công !',
-        color: 'success',
-        timeout: '5000',
-        transition: 'fab-transition'
-      },
-      snackbarOpen: {
-        status: false,
-        text: 'Mở tài khoản khách hàng thành công !',
-        color: 'success',
-        timeout: '5000',
-        transition: 'fab-transition'
-      }
     }
   },
   watch: {
@@ -303,7 +212,6 @@ export default {
       console.log('email lock : ', this.email)
       this.lockAccount(this.email)
       this.dialogLockAccount = false
-      this.snackbarLock.status = true
     },
     handleDialogOpenAccount() {
       this.dialogOpenAccount = true
@@ -315,7 +223,6 @@ export default {
       console.log('email open : ', this.email)
       this.openAccount(this.email)
       this.handleCloseDialogOpenAccount()
-      this.snackbarOpen.status = true
     },
     handlePayment(email, money) {
       email = this.email
@@ -323,7 +230,6 @@ export default {
       console.log('email : ' + email + ' money : ' + money)
       this.paymentMoney({email, money})
       this.dialogInput = false
-      this.snackbar.status = true
       this.money = ''
     },
     handleGetCustomerDetailByEmail() {
@@ -340,9 +246,6 @@ export default {
     },
     handleChanrge() {
       this.dialogInput = true
-    },
-    reloadPage() {
-      location.reload()
     },
     handleCloseDialog() {
       this.dialogInput = false

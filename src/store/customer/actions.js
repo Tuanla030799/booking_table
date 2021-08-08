@@ -40,6 +40,7 @@ export default {
             }
             let result = await axiosInstance.post('/api/admin/Charging', request, config)
             if (result.status === 200) {
+                alert(result.data.message)
                 await context.dispatch('getCustomerDetail', request.email)
             }
         } catch (e) {
@@ -51,6 +52,7 @@ export default {
         let result = await axiosInstance.post(`/api/admin/disable-customer/${email}`)
         console.log('result lock account : ', result);
         if (result.status === 200) {
+            alert(result.data.message)
             await context.dispatch('getCustomerDetail', email)
         }
     },
@@ -59,6 +61,7 @@ export default {
         let result = await axiosInstance.post(`/api/admin/enable-customer/${email}`)
         console.log('result lock account : ', result);
         if (result.status === 200) {
+            alert(result.data.message)
             await context.dispatch('getCustomerDetail', email)
         }
     }

@@ -55,9 +55,9 @@
       <div class="footer">
         <!-- <button class="btn-default btn-dTable">Đặt món sau</button> -->
         <!-- <router-link class="cFoot" to="/"> -->
-        <button class="btn-default btn-bTable" @click="bookingFoods">
-          Thêm món
-        </button>
+          <button class="btn-default btn-bTable" @click="bookingFoods">
+            Thêm món
+          </button>
         <!-- </router-link> -->
       </div>
     </div>
@@ -79,8 +79,8 @@ export default {
   },
   methods: {
     setDescription(descriptions) {
-      if (descriptions.length > 20) {
-        let e = `${descriptions.slice(0, 17)}...`
+      if (descriptions.length > 100) {
+        let e = `${descriptions.slice(0, 90)}...`
         return e
       } else {
         return descriptions
@@ -114,7 +114,6 @@ export default {
         foodList: chooseList
       }
       console.log('data: ', data)
-      console.log('cl', chooseList)
       axios({
         method: "post",
         url: `${this.base_url}/api/admin/add-food-in-booking`,
@@ -129,13 +128,13 @@ export default {
       }).then((response) => {
         if (response.status === 200 && response.data.statusCode === "ADD_FOOD_SUCCESS") {
           alert(response.data.message)
+          this.$router.push({name:'booking-detail', params:{bookingId: this.bookingId}})
         }
       })
           .catch((error) => {
             console.log(this.bookingId)
             console.log(error)
           });
-      console.log(this.listFoods);
     },
     addFood(stt) {
       this.listFoods[stt - 1].quantity++

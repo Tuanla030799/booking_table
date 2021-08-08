@@ -4,13 +4,18 @@ import {ACCESS_TOKEN_ADMIN} from "../../constants";
 export default {
     async logOutAdmin() {
         try {
-            let result = await axiosInstance.post('api/auth/logout')
+            let config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
+                }
+            }
+            let result = await axiosInstance.post('api/auth/logout', null, config)
             if (result.status === 200) {
-                localStorage.removeItem(ACCESS_TOKEN_ADMIN)
-                    alert('log out success !')
+                alert(result.data.message)
             }
         } catch (e) {
-            return e
+            alert(e.response.data.message)
         }
     }
 }
