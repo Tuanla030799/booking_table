@@ -7,12 +7,14 @@ export default {
             let config = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
+                    Authorization: 'Bearer ' + localStorage.getItem(ACCESS_TOKEN_ADMIN)
                 }
             }
             let result = await axiosInstance.post('api/auth/logout', null, config)
             if (result.status === 200) {
                 alert(result.data.message)
+                this.$cookie.delete('token');
+                location.reload()
             }
         } catch (e) {
             alert(e.response.data.message)
