@@ -1,13 +1,7 @@
 <template>
   <div class="app-bar">
     <v-app-bar color="transparent">
-      <v-app-bar-title>Nhà Hàng Sunshine</v-app-bar-title>
-      <v-spacer></v-spacer>
-      <v-app-bar-title>Admin</v-app-bar-title>
-      <v-app-bar-title>
-        <v-app-bar-nav-icon>
-        </v-app-bar-nav-icon>
-      </v-app-bar-title>
+      <v-app-bar-title>Sunshine</v-app-bar-title>
     </v-app-bar>
   </div>
 </template>
