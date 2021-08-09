@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     CloseOnClick() {
+      this.code = ""
       this.$emit("closeDeposit");
     },
     depositOnclick() {
@@ -71,14 +72,17 @@ export default {
       })
         .then((response) => {
           if (response.status == 200) {
-            alert(response.data.message)
-            console.log(this.phoneNumber);
-            console.log(this.code);
-            this.$emit("closeDeposit");
+            // alert(response.data.message)
+            // console.log(this.phoneNumber);
+            // console.log(this.code);
+            this.code = "";
+            this.$emit("SusPayment",response.data.message);
           }
         })
         .catch((error) => {
-          alert(error.response.data.message)
+          //console.log(error.response.data)
+          this.code = "";
+          this.$emit("ErrorPayment",error.response.data.message);
         });
     }  
   },
