@@ -6,7 +6,7 @@
           <span class="text-home">Trang chủ</span>
         </router-link>
         <span> > </span>
-        <span style="color: red">Quản Lí Mật Khẩu</span>
+        <span style="color: red">Quản Lý Mật Khẩu</span>
       </div>
       <div class="cInfor">
         <div class="cInfor-left">
