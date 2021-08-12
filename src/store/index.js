@@ -104,14 +104,26 @@ export default new Vuex.Store({
         },
         async exportBillForCustomerByBookingId(context, bookingId = '') {
             console.log('export bill by bookingID: ', bookingId)
-           try {
-               let result = await axiosInstance.get(`/api/admin/export-bill/${bookingId}`)
-               if (result.status === 200) {
-                   alert(result.data.message)
-               }
-           }catch (err){
+            try {
+                let result = await axiosInstance.get(`/api/admin/export-bill/${bookingId}`)
+                if (result.status === 200) {
+                    alert(result.data.message)
+                }
+            } catch (err) {
                 alert(err.response.data.message)
-           }
+            }
+        },
+        async confirmCustomer(context, bookingId = ''){
+            console.log(' booking id confirm ', bookingId)
+            try {
+                let result = await  axiosInstance.post(`/api/admin/confirm-booking/${bookingId}`)
+                if (result.status === 200){
+                    alert(result.data.message)
+                    await context.dispatch('getBookingTables')
+                }
+            }catch (err){
+                alert(err.response.data.message)
+            }
         }
     },
 

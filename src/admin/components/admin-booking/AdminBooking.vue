@@ -20,6 +20,23 @@
             <td>{{ item.refund }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.phoneNumber }}</td>
+            <td :style="styleColorConfirm(item.confirmBooking)">{{ confirmBookingChange(item.confirmBooking) }}</td>
+            <td >
+              <v-btn
+                  color="success"
+                  v-if="item.confirmBooking === 1"
+                  disabled
+              >
+                Xác nhận
+              </v-btn>
+              <v-btn
+                  color="success"
+                  @click="handleConfirmBooking(item.bookingId)"
+                  v-else
+              >
+                Xác nhận
+              </v-btn>
+            </td>
             <td>
               <router-link :to="{name:'booking-detail', params:{bookingId:item.bookingId}}" tag="div">
                 <v-btn
@@ -29,7 +46,6 @@
                   <v-icon dark>
                     mdi-clipboard-edit-outline
                   </v-icon>
-
                 </v-btn>
               </router-link>
 
@@ -60,6 +76,8 @@ export default {
         {text: 'Hoàn Tiền', value: 'refund'},
         {text: 'Email Khách Hàng', value: 'email'},
         {text: 'Số Điện Thoại', value: 'phoneNumber'},
+        {text: 'Position', value: 'confirmBooking'},
+        {text: 'Xác Nhận', value: 'actions', sortable: false},
         {text: 'Chi Tiết', value: 'actions', sortable: false},
       ],
     }
@@ -72,10 +90,31 @@ export default {
 
   methods: {
     ...mapActions({
-      getListBookingTables: 'getBookingTables'
+      getListBookingTables: 'getBookingTables',
+      confirmBooking: 'confirmCustomer'
     }),
+    handleConfirmBooking(bookingId) {
+      console.log('booking confirm : ', bookingId)
+      this.confirmBooking(bookingId)
+    }
+    ,
     handleGetListBookingTables() {
       this.getListBookingTables()
+    },
+    confirmBookingChange(value) {
+      if (value === 1) {
+        return 'Khách đến cửa hàng'
+      } else {
+        return 'Khách chưa đến '
+      }
+
+    },
+    styleColorConfirm(value) {
+      if (value === 1) {
+        return this.color = "color:blue"
+      } else {
+        return this.color = "color:red"
+      }
     },
     styleColorStatus(status) {
       if (status === 'Chờ admin xác nhận') {
