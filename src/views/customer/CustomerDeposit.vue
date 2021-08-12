@@ -8,7 +8,7 @@
           <div class="input-deposit">
             <input type="text"
              class="inputType input-deposit" 
-             v-model="dataObj.phoneNumber">
+             v-model="phone">
           </div>
         </div>
         <div class="from-deposit">
@@ -39,7 +39,7 @@ export default {
     return {
       code: "",
       base_url: process.env.VUE_APP_BASE_URL,
-      phone: "0969346205"
+      phone: this.dataObj.phoneNumber
     };
   },
   props: {
@@ -54,9 +54,13 @@ export default {
   },
   methods: {
     CloseOnClick() {
+      let x = this.dataObj.phoneNumber
+      this.phone = x
+      this.code = ""
       this.$emit("closeDeposit");
     },
     depositOnclick() {
+      let x = this.dataObj.phoneNumber
       axios({
         method: "post",
         url: `${this.base_url}/api/customer/charging`,
@@ -65,20 +69,25 @@ export default {
           Authorization: `Bearer ${this.$cookie.get("token")}`,
         },
         data: {
-          phoneNumber: this.dataObj.phoneNumber,
+          phoneNumber: this.phone,
           code: this.code
         }
       })
         .then((response) => {
           if (response.status == 200) {
-            alert(response.data.message)
-            console.log(this.phoneNumber);
-            console.log(this.code);
-            this.$emit("closeDeposit");
+            // alert(response.data.message)
+            // console.log(this.phoneNumber);
+            // console.log(this.code);
+            this.code = "";
+            this.phone = x;
+            this.$emit("SusPayment",response.data.message);
           }
         })
         .catch((error) => {
-          alert(error.response.data.message)
+          //console.log(error.response.data)
+          this.code = "";
+          this.phone = x;
+          this.$emit("ErrorPayment",error.response.data.message);
         });
     }  
   },

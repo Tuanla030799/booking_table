@@ -61,6 +61,7 @@ export default {
         data: {
           bookingTime:  this.bbookingTime,
           totalSeats: this.InforBookingFoot.totalSeats,
+          note: this.InforBookingFoot.note
         },
       })
         .then((response) => {

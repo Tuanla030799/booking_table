@@ -1,189 +1,196 @@
 <template>
-    <div class="CustomerInformation">
-      <div class="Information">
-        <div class="infor-text">
-          <router-link to="Home" style="text-decoration: none">
-            <span class="text-home">Trang chủ</span>
-          </router-link>
-          <span> > </span>
-          <span style="color: red">Thông tin tài khoản</span>
-        </div>
-        <div class="cInfor">
-          <div class="cInfor-left">
-            <div class="cInfor1">
-              <div class="cInfor-avatar">
-                <div class="avatar-infor">
-                  <v-avatar color="#ccc" size="105">
-                    <img v-if="url" :src="url" />
-                    <img v-else :src="Customer.image" />
-                  </v-avatar>
-                </div>
-                <!-- <button type="file" class="btn-default" @change="onFileChange">Chọn ảnh</button> -->
-                <!-- <label>
+  <div class="CustomerInformation">
+    <div class="Information">
+      <div class="infor-text">
+        <router-link to="Home" style="text-decoration: none">
+          <span class="text-home">Trang chủ</span>
+        </router-link>
+        <span> > </span>
+        <span style="color: red">Thông tin tài khoản</span>
+      </div>
+      <div class="cInfor">
+        <div class="cInfor-left">
+          <div class="cInfor1">
+            <div class="cInfor-avatar">
+              <div class="avatar-infor">
+                <v-avatar color="#ccc" size="105">
+                  <img v-if="url" :src="url" />
+                  <img v-else :src="Customer.image" />
+                </v-avatar>
+              </div>
+              <!-- <button type="file" class="btn-default" @change="onFileChange">Chọn ảnh</button> -->
+              <!-- <label>
                   <input type="file" @change="onFileChange" />
                   "chọn ảnh"
               </label> -->
-                <form ref="uploadForm" @submit.prevent="submit">
-                  <input
-                    type="file"
-                    ref="uploadImage"
-                    @change="onFileChange"
-                    class="inputfile"
-                    id="file"
-                    
-                  />
-                  <label for="file">Chọn ảnh</label>
-                </form>
+              <form ref="uploadForm" @submit.prevent="submit">
+                <input
+                  type="file"
+                  ref="uploadImage"
+                  @change="onFileChange"
+                  class="inputfile"
+                  id="file"
+                />
+                <label for="file">Chọn ảnh</label>
+              </form>
+            </div>
+            <div class="infor-notfix">
+              <div class="infor-notEmail">
+                <span>Email: </span>{{ setEmail(this.Customer.email) }}
               </div>
-              <div class="infor-notfix">
-                <div class="infor-notEmail">
-                  <span>Email: </span>{{ setEmail(this.Customer.email) }}
-                </div>
-                <div class="infor-notEmail">
-                  <span>Level: </span>{{ this.Customer.level }}
-                </div>
-                <div class="infor-notEmail">
-                  <span>Status: </span>{{ this.Customer.status }} 
-                  <v-icon x-small class="" color="green">mdi-circle-slice-8</v-icon>
-                </div>
-                <div class="infor-notEmail">
-                  <span>Price: </span>{{ this.Customer.totalMoney }}
-                </div>
-                <div class="deposit">
-                  <button class="btn-default btn-deposit" @click="depositOnClick()">Nạp tiền</button>
-                </div>
+              <div class="infor-notEmail">
+                <span>Level: </span>{{ this.Customer.level }}
+              </div>
+              <div class="infor-notEmail">
+                <span>Status: </span>{{ this.Customer.status }}
+                <v-icon x-small class="" color="green"
+                  >mdi-circle-slice-8</v-icon
+                >
+              </div>
+              <div class="infor-notEmail">
+                <span>Price: </span>{{ this.Customer.totalMoney }}
+              </div>
+              <div class="deposit">
+                <button
+                  class="btn-default btn-deposit"
+                  @click="depositOnClick()"
+                >
+                  Nạp tiền
+                </button>
               </div>
             </div>
-            <router-link
-              class="nav-information"
-              to="/information"
-              style="text-decoration: none"
-            >
-              <div class="cInfor2">
-                <v-icon dense class="mb-1">mdi-account</v-icon>
-                <span>Thông tin tài khoản</span>
-                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
-              </div>
-            </router-link>
-            <router-link
-              class="nav-changepass"
-              to="/change-password"
-              style="text-decoration: none"
-            >
-              <div class="cInfor2">
-                <v-icon dense class="mb-1">mdi-camera-account</v-icon>
-                <span>Quản lí mật khẩu</span>
-                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
-              </div>
-            </router-link>
-            <router-link
-              class="nav-history"
-              to="/customer-history"
-              style="text-decoration: none"
-            >
-              <div class="cInfor2">
-                <v-icon dense class="mb-1">mdi-history</v-icon>
-                <span>Lịch sử đặt chỗ</span>
-                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
-              </div>
-            </router-link>
-            <router-link
-              class="nav-history"
-              to="/customer-history-payment"
-              style="text-decoration: none"
-            >
-              <div class="cInfor2">
-                <v-icon dense class="mb">mdi-credit-card-outline</v-icon>
-                <span>Lịch sử nạp tiền</span>
-                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
-              </div>
-            </router-link>
-            <router-link class="nav-home" to="/" style="text-decoration: none">
-              <div class="cInfor2">
-                <v-icon dense class="mb-1">mdi-exit-to-app</v-icon>
-                <span>Thoát</span>
-                <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
-              </div>
-            </router-link>
           </div>
-          <div class="cInfor-right">
-            <div class="InforAccount">THÔNG TIN TÀI KHOẢN</div>
-            <div class="inputGroupAccout">
-              <div class="input-group">
-                <div class="text-input">Họ Tên:</div>
-                <input
-                  type="text"
-                  class="inputType Infor-input"
-                  v-model="Customer.fullName"
-                />
-              </div>
+          <router-link
+            class="nav-information"
+            to="/information"
+            style="text-decoration: none"
+          >
+            <div class="cInfor2">
+              <v-icon dense class="mb-1">mdi-account</v-icon>
+              <span>Thông tin tài khoản</span>
+              <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+            </div>
+          </router-link>
+          <router-link
+            class="nav-changepass"
+            to="/change-password"
+            style="text-decoration: none"
+          >
+            <div class="cInfor2">
+              <v-icon dense class="mb-1">mdi-camera-account</v-icon>
+              <span>Quản lí mật khẩu</span>
+              <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+            </div>
+          </router-link>
+          <router-link
+            class="nav-history"
+            to="/customer-history"
+            style="text-decoration: none"
+          >
+            <div class="cInfor2">
+              <v-icon dense class="mb-1">mdi-history</v-icon>
+              <span>Lịch sử đặt chỗ</span>
+              <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+            </div>
+          </router-link>
+          <router-link
+            class="nav-history"
+            to="/customer-history-payment"
+            style="text-decoration: none"
+          >
+            <div class="cInfor2">
+              <v-icon dense class="mb">mdi-credit-card-outline</v-icon>
+              <span>Lịch sử nạp tiền</span>
+              <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+            </div>
+          </router-link>
+          <router-link class="nav-home" to="/" style="text-decoration: none">
+            <div class="cInfor2">
+              <v-icon dense class="mb-1">mdi-exit-to-app</v-icon>
+              <span>Thoát</span>
+              <v-icon class="mb-1 float-right">mdi-chevron-right</v-icon>
+            </div>
+          </router-link>
+        </div>
+        <div class="cInfor-right">
+          <div class="InforAccount">THÔNG TIN TÀI KHOẢN</div>
+          <div class="inputGroupAccout">
+            <div class="input-group">
+              <div class="text-input">Họ Tên:</div>
+              <input
+                type="text"
+                class="inputType Infor-input"
+                v-model="Customer.fullName"
+              />
+            </div>
 
-              <div class="input-group">
-                <div class="text-input">Số điện thoại:</div>
-                <input
-                  type="text"
-                  class="inputType Infor-input"
-                  v-model="Customer.phoneNumber"
-                />
-              </div>
+            <div class="input-group">
+              <div class="text-input">Số điện thoại:</div>
+              <input
+                type="text"
+                class="inputType Infor-input"
+                v-model="Customer.phoneNumber"
+              />
+            </div>
 
-              <div class="input-group">
-                <div class="text-input">Ngày sinh:</div>
+            <div class="input-group">
+              <div class="text-input">Ngày sinh:</div>
+              <input
+                type="date"
+                class="inputType Infor-input"
+                v-model="Customer.dateOfBirth"
+              />
+            </div>
+            <div class="input-group">
+              <div class="text-input sex">Giới tính:</div>
+              <div class="radio-input">
                 <input
-                  type="date"
-                  class="inputType Infor-input"
-                  v-model="Customer.dateOfBirth"
+                  type="radio"
+                  id="nam"
+                  name="gender"
+                  value="1"
+                  v-model="Customer.sex"
                 />
-              </div>
-              <div class="input-group">
-                <div class="text-input sex">Giới tính:</div>
-                <div class="radio-input">
-                  <input
-                    type="radio"
-                    id="nam"
-                    name="gender"
-                    value="1"
-                    v-model="Customer.sex"
-                  />
-                  <label for="nam">Nam</label>
-                  <input
-                    type="radio"
-                    id="nu"
-                    name="gender"
-                    value="0"
-                    class="genderNu"
-                    v-model="Customer.sex"
-                  />
-                  <label for="nam">Nữ</label>
-                </div>
+                <label for="nam">Nam</label>
+                <input
+                  type="radio"
+                  id="nu"
+                  name="gender"
+                  value="0"
+                  class="genderNu"
+                  v-model="Customer.sex"
+                />
+                <label for="nam">Nữ</label>
               </div>
             </div>
-            <div class="UpdateInfor">
-              <button class="btn-default" @click="updateCustomer()">
-                Cập nhật
-              </button>
-            </div>
+          </div>
+          <div class="UpdateInfor">
+            <button class="btn-default" @click="updateCustomer()">
+              Cập nhật
+            </button>
           </div>
         </div>
-        <customer-deposit 
+      </div>
+      <customer-deposit
         :depositDialog="isDeposit"
         @closeDeposit="closeDeposit"
+        @SusPayment="SusPayment"
+        @ErrorPayment="ErrorPayment"
         :dataObj="Customer"
-        />
-      </div>
-
+      />
     </div>
+  </div>
 
   <!-- </v-app> -->
 </template>
 
 <script>
-import CustomerDeposit from "../customer/CustomerDeposit.vue"
+import CustomerDeposit from "../customer/CustomerDeposit.vue";
 import axios from "axios";
 export default {
   name: "c-information",
   components: {
-    CustomerDeposit
+    CustomerDeposit,
   },
   created() {
     this.loadCustomer();
@@ -197,7 +204,7 @@ export default {
       File: null,
       isDeposit: false,
       showMessageError: "d-block",
-      color: "color:green"
+      color: "color:green",
     };
   },
   methods: {
@@ -209,8 +216,7 @@ export default {
       this.File = file;
       // console.log(file);
       // console.log(this.File);
-      
-      
+
       // console.log(this.formData);
     },
     loadCustomer() {
@@ -232,19 +238,19 @@ export default {
         });
     },
     updateCustomer() {
-      this.$emit("isLoader")
+      this.$emit("isLoader");
       this.formData = new FormData();
-      if ( this.File == null) {
-      this.formData.append("dateOfBirth", this.Customer.dateOfBirth);
-      this.formData.append("fullName", this.Customer.fullName);
-      this.formData.append("sex", this.Customer.sex);
-      this.formData.append("phoneNumber", this.Customer.phoneNumber);
+      if (this.File == null) {
+        this.formData.append("dateOfBirth", this.Customer.dateOfBirth);
+        this.formData.append("fullName", this.Customer.fullName);
+        this.formData.append("sex", this.Customer.sex);
+        this.formData.append("phoneNumber", this.Customer.phoneNumber);
       } else {
         this.formData.append("file", this.File);
-      this.formData.append("dateOfBirth", this.Customer.dateOfBirth);
-      this.formData.append("fullName", this.Customer.fullName);
-      this.formData.append("sex", this.Customer.sex);
-      this.formData.append("phoneNumber", this.Customer.phoneNumber);
+        this.formData.append("dateOfBirth", this.Customer.dateOfBirth);
+        this.formData.append("fullName", this.Customer.fullName);
+        this.formData.append("sex", this.Customer.sex);
+        this.formData.append("phoneNumber", this.Customer.phoneNumber);
       }
       //this.$emit("isLoadder")
       axios({
@@ -255,45 +261,56 @@ export default {
           "Content-Type": "mutipart/form-data",
           Authorization: `Bearer ${this.$cookie.get("token")}`,
         },
-        data: this.formData
-          // sex: this.Customer.sex,
-          // dateOfBirth: this.Customer.dateOfBirth,
-          // // file: this.formData,
-          // phoneNumber: this.Customer.phoneNumber,
-          // fullName: this.Customer.fullName,
-          
+        data: this.formData,
+        // sex: this.Customer.sex,
+        // dateOfBirth: this.Customer.dateOfBirth,
+        // // file: this.formData,
+        // phoneNumber: this.Customer.phoneNumber,
+        // fullName: this.Customer.fullName,
       })
         .then((response) => {
           if (response.status == 200) {
             // alert(response.data.message)
-            localStorage.setItem("message",response.data.message);
+            localStorage.setItem("message", response.data.message);
             localStorage.setItem("isIcon", "susccess");
-            this.$emit("showMessage", this.showMessageError)
-            this.loadCustomer()
+            this.$emit("showMessage", this.showMessageError);
+            this.loadCustomer();
           }
         })
         .catch((error) => {
           console.log(error.response);
-          localStorage.setItem("message",error.response.data.message);
+          localStorage.setItem("message", error.response.data.message);
           localStorage.setItem("isIcon", "error");
-          this.$emit("showMessage", this.showMessageError)
+          this.$emit("showMessage", this.showMessageError);
         });
-        
     },
     depositOnClick() {
-      this.isDeposit = true
+      this.isDeposit = true;
     },
     closeDeposit() {
-      this.isDeposit =false
+      this.isDeposit = false;
+    },
+    SusPayment(Infor) {
+      this.isDeposit = false;
+      localStorage.setItem("message", Infor);
+      localStorage.setItem("isIcon", "susccess");
+      this.$emit("showMessage", this.showMessageError);
+    },
+    ErrorPayment(Infor) {
+      this.isDeposit = false;
+      //alert(Infor)
+      localStorage.setItem("message", Infor);
+      localStorage.setItem("isIcon", "error");
+      this.$emit("showMessage", this.showMessageError);
     },
     setEmail(email) {
-      if (email.length > 22) {
-        let e = `${email.slice(0,17)}...`
-        return e
+      if ( email.length > 22) {
+        let e = `${email.slice(0, 17)}...`;
+        return e;
       } else {
-        return email
+        return email;
       }
-    }
+    },
   },
 };
 </script>
@@ -318,7 +335,7 @@ export default {
 @media only screen and (max-width: 1200px) {
   .Information {
     width: 100%;
-  margin: 20px 0;
+    margin: 20px 0;
   }
 }
 .infor-text {
@@ -503,10 +520,10 @@ export default {
   text-align: center;
   padding: 20px;
 }
-.btn-deposit{
+.btn-deposit {
   margin-top: 4px;
   color: #fff !important;
-  padding: 0px 5px !important; 
+  padding: 0px 5px !important;
   height: 27px;
   line-height: 27px;
   background-color: #3d7ff8 !important;
