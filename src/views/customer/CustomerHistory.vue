@@ -173,6 +173,7 @@ export default {
           localStorage.setItem("message", error.response.data.message);
           localStorage.setItem("isIcon", "error");
           this.$emit("showMessage", this.showMessageError);
+          location.reload()
         });
     },
     clickOnDetail(Id, Status, listFoot) {
