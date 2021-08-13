@@ -36,8 +36,16 @@
       </v-row>
       <v-row>
         <v-spacer></v-spacer>
-        <v-card-actions>
+        <v-card-actions v-if="foodDetailByFoodId === 1">
           <v-btn color="error" class="ml-4"  @click="handleRemoveFood">
+            <v-icon>
+              mdi-delete
+            </v-icon>
+            XÓA
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions v-else>
+          <v-btn color="error" class="ml-4">
             <v-icon>
               mdi-delete
             </v-icon>
