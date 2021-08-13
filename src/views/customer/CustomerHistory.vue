@@ -167,13 +167,17 @@ export default {
         })
         .catch((error) => {
           //console.log(error.response.data);
-          this.$router.push({ name: "Home" }).catch((err) => {
-            return err;
-          });
+
+          setTimeout(function () {
+            this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
+          }, 2000);
+          
           localStorage.setItem("message", error.response.data.message);
           localStorage.setItem("isIcon", "error");
           this.$emit("showMessage", this.showMessageError);
-          location.reload()
+          location.reload();
         });
     },
     clickOnDetail(Id, Status, listFoot) {
