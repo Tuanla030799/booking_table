@@ -167,7 +167,7 @@ export default {
         })
         .catch((error) => {
           //console.log(error.response.data);
-          this.$router.push({ name: "bookings" }).catch((err) => {
+          this.$router.push({ name: "Home" }).catch((err) => {
             return err;
           });
           localStorage.setItem("message", error.response.data.message);
