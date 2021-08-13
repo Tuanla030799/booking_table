@@ -38,7 +38,8 @@ export default {
         try {
             let result = await axiosInstance.post(`/api/admin/disable-food/${foodId}`)
             if (result.status === 200){
-                alert(result.data.message())
+                alert(result.data.message)
+                await context.dispatch('getFoodDetail', foodId)
             }
         }catch (err){
             alert(err.response.data.message)

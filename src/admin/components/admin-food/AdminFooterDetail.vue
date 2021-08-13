@@ -13,17 +13,20 @@
         </v-col>
         <v-col cols="9" sm="9">
           <v-row>
-            <v-col cols="3" sm="3">
+            <v-col cols="2" sm="2">
               <v-text-field label="Mã Món Ăn " v-bind:value="foodDetailByFoodId.foodId"></v-text-field>
             </v-col>
-            <v-col cols="3" sm="3">
+            <v-col cols="2" sm="2">
               <v-text-field label="Tên Món Ăn" v-bind:value="foodDetailByFoodId.foodName"></v-text-field>
             </v-col>
-            <v-col cols="3" sm="3">
+            <v-col cols="2" sm="2">
               <v-text-field label="Giá Tiền" v-bind:value="foodDetailByFoodId.foodPrice"></v-text-field>
             </v-col>
-            <v-col cols="3" sm="3">
+            <v-col cols="2" sm="2">
               <v-text-field label="Số Lượng" v-bind:value="foodDetailByFoodId.quantity"></v-text-field>
+            </v-col>
+            <v-col cols="2" sm="2">
+              <v-text-field label="Trạng thái" v-bind:value="convetStatus(foodDetailByFoodId.status)"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -36,7 +39,7 @@
       </v-row>
       <v-row>
         <v-spacer></v-spacer>
-        <v-card-actions v-if="foodDetailByFoodId === 1">
+        <v-card-actions v-if="foodDetailByFoodId.status === 1">
           <v-btn color="error" class="ml-4"  @click="handleRemoveFood">
             <v-icon>
               mdi-delete
@@ -45,7 +48,7 @@
           </v-btn>
         </v-card-actions>
         <v-card-actions v-else>
-          <v-btn color="error" class="ml-4">
+          <v-btn color="error" class="ml-4" disabled>
             <v-icon>
               mdi-delete
             </v-icon>
@@ -93,6 +96,13 @@ export default {
     handleRemoveFood(){
       this.removeFood(this.foodId)
 
+    },
+    convetStatus(value){
+      if (value === 1){
+        return 'Còn món ăn'
+      }else {
+        return 'Hết món ăn'
+      }
     }
   },
   created() {
