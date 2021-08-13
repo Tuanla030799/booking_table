@@ -14,25 +14,25 @@
         <v-col cols="9" sm="9">
           <v-row>
             <v-col cols="2" sm="2">
-              <v-text-field label="Mã Món Ăn " v-bind:value="foodDetailByFoodId.foodId"></v-text-field>
+              <v-text-field label="Mã Món Ăn " v-bind:value="foodDetailByFoodId.foodId" readonly></v-text-field>
             </v-col>
             <v-col cols="2" sm="2">
-              <v-text-field label="Tên Món Ăn" v-bind:value="foodDetailByFoodId.foodName"></v-text-field>
+              <v-text-field label="Tên Món Ăn" v-bind:value="foodDetailByFoodId.foodName" readonly></v-text-field>
             </v-col>
             <v-col cols="2" sm="2">
-              <v-text-field label="Giá Tiền" v-bind:value="foodDetailByFoodId.foodPrice"></v-text-field>
+              <v-text-field label="Giá Tiền" v-bind:value="foodDetailByFoodId.foodPrice" readonly></v-text-field>
             </v-col>
             <v-col cols="2" sm="2">
-              <v-text-field label="Số Lượng" v-bind:value="foodDetailByFoodId.quantity"></v-text-field>
+              <v-text-field label="Số Lượng" v-bind:value="foodDetailByFoodId.quantity" readonly></v-text-field>
             </v-col>
             <v-col cols="2" sm="2">
-              <v-text-field label="Trạng thái" v-bind:value="convetStatus(foodDetailByFoodId.status)"></v-text-field>
+              <v-text-field label="Trạng thái" v-bind:value="convetStatus(foodDetailByFoodId.status)" readonly></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" sm="12">
 
-              <v-textarea label="Mô Tả " v-bind:value="foodDetailByFoodId.describes"></v-textarea>
+              <v-textarea label="Mô Tả " v-bind:value="foodDetailByFoodId.describes" readonly></v-textarea>
             </v-col>
           </v-row>
         </v-col>

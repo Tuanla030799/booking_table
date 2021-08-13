@@ -19,6 +19,7 @@
                 </v-text-field>
                 <v-text-field
                     label="Bàn"
+                    readonly
                     rounded
                     v-bind:value="bookingDetail.tableName"
                     class="font-weight"
@@ -26,6 +27,7 @@
                 </v-text-field>
                 <v-text-field
                     rounded
+                    readonly
                     label="Tổng Số Người"
                     v-bind:value="bookingDetail.totalSet"
                     class="font-weight"
@@ -33,6 +35,7 @@
                 </v-text-field>
                 <v-text-field
                     rounded
+                    readonly
                     label="Tiền Đặt Cọc"
                     v-bind:value="bookingDetail.deposit"
                     class="font-weight"
@@ -40,6 +43,7 @@
                 </v-text-field>
                 <v-text-field
                     rounded
+                    readonly
                     label="Phần Trăm"
                     v-bind:value="bookingDetail.percentSale"
                     class="font-weight"
@@ -47,6 +51,7 @@
                 </v-text-field>
                 <v-text-field
                     rounded
+                    readonly
                     label="Tổng Tiền Món Ăn "
                     v-bind:value="bookingDetail.sumMoneyFood"
                     class="font-weight"
@@ -68,6 +73,7 @@
                 </v-text-field>
                 <v-text-field
                     rounded
+                    readonly
                     class="test font-weight"
                     label="Thời Gian Đặt Bàn"
                     v-bind:value="bookingDetail.bookingTime"

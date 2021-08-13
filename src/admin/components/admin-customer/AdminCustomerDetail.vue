@@ -14,29 +14,29 @@
         <v-col cols="9" sm="9">
           <v-row>
             <v-col cols="4" sm="4">
-              <v-text-field label="Tên Khách Hàng " v-bind:value="customerDetail.fullName"></v-text-field>
+              <v-text-field label="Tên Khách Hàng " readonly v-bind:value="customerDetail.fullName"></v-text-field>
             </v-col>
             <v-col cols="4" sm="4">
-              <v-text-field label="Email Khách Hàng " v-bind:value="customerDetail.email"></v-text-field>
+              <v-text-field label="Email Khách Hàng " readonly v-bind:value="customerDetail.email"></v-text-field>
             </v-col>
             <v-col cols="4" sm="4">
-              <v-text-field label="Giới Tính" v-bind:value="convertSex(customerDetail.sex)"></v-text-field>
+              <v-text-field label="Giới Tính" readonly v-bind:value="convertSex(customerDetail.sex)"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="4" sm="4">
-              <v-text-field label="Phân Quyền" v-bind:value="customerDetail.role"></v-text-field>
+              <v-text-field label="Phân Quyền" readonly v-bind:value="customerDetail.role"></v-text-field>
             </v-col>
             <v-col cols="4" sm="4">
-              <v-text-field label="Trạng Thái Tài Khoản" v-bind:value="customerDetail.status"></v-text-field>
+              <v-text-field label="Trạng Thái Tài Khoản" readonly v-bind:value="customerDetail.status"></v-text-field>
             </v-col>
             <v-col cols="4" sm="4">
-              <v-text-field label="Phân Cấp Bậc" v-bind:value="customerDetail.level"></v-text-field>
+              <v-text-field label="Phân Cấp Bậc" readonly v-bind:value="customerDetail.level"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="6" sm="6">
-              <v-text-field label="Ngày Sinh" v-bind:value="customerDetail.dateOfBirth"></v-text-field>
+              <v-text-field label="Ngày Sinh" readonly v-bind:value="customerDetail.dateOfBirth"></v-text-field>
             </v-col>
             <v-col cols="6" sm="6">
               <v-text-field label="Tổng Tiền " v-bind:value="customerDetail.totalMoney"></v-text-field>
@@ -65,7 +65,7 @@
         <v-card-actions v-else>
           <v-btn color="error" class="ml-4" @click="handleOpenLock">
             <v-icon class="mr-3">
-              mdi-delete
+              mdi-lock
             </v-icon>
             Khóa Tài Khoản
           </v-btn>
@@ -73,7 +73,7 @@
         <v-card-actions v-if="customerDetail.status ==='Đang hoạt động'">
           <v-btn color="success" class="ml-4" disabled>
             <v-icon class="mr-3">
-              mdi-delete
+              mdi-lock-open-check-outline
             </v-icon>
             Mở Tài Khoản
           </v-btn>
