@@ -15,7 +15,7 @@
             <td>{{ item.id }}</td>
             <td>{{ item.code }}</td>
             <td>{{ item.phoneNumber }}</td>
-            <td>{{ item.status }}</td>
+            <td :style="setColorStatus(item.status)">{{item.status}}</td>
             <td>{{ item.money }}</td>
             <td>{{ item.time }}</td>
             <td>
@@ -175,6 +175,17 @@ export default {
       })
       this.dialogAcceptPay = false
 
+    },
+    setColorStatus(value) {
+      if (value === 'Y/c xác nhận') {
+        return this.color = "color:black"
+      } else if (value === 'Thành công') {
+        return this.color = "color:blue"
+      } else if (value === 'Đã huỷ') {
+        return this.color = 'color:red'
+      } else {
+        return this.color = 'color:red'
+      }
     },
     handleCancelPay() {
       axios({
