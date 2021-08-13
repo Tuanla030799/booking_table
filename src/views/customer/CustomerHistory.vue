@@ -167,16 +167,14 @@ export default {
         })
         .catch((error) => {
           //console.log(error.response.data);
-
-          setTimeout(function () {
-            this.$router.push({ name: "Home" }).catch((err) => {
-              return err;
-            });
-          }, 2000);
-          
           localStorage.setItem("message", error.response.data.message);
           localStorage.setItem("isIcon", "error");
           this.$emit("showMessage", this.showMessageError);
+          //setTimeout(function () {
+            this.$router.push({ name: "Home" }).catch((err) => {
+              return err;
+            });
+          //}, 2000);
           location.reload();
         });
     },
