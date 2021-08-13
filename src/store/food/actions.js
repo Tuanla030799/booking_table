@@ -4,7 +4,7 @@ import axiosInstance from "../../axios";
 export default {
     async getListFoods(context) {
         try {
-            let result = await axiosInstance.get("/api/sunshine/get-list-food")
+            let result = await axiosInstance.get("/api/sunshine/get-list-food-admin")
             if (result.status === 200) {
                 context.commit("GET_LIST_FOODS", result.data)
             }
