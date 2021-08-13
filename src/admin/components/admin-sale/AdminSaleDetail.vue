@@ -22,23 +22,29 @@
               <h4>Đối tượng áp dụng </h4>
               <span>{{ saleDetail.beneficiary }}</span>
             </v-card-subtitle>
-            <v-card-actions>
-
-            </v-card-actions>
+            <v-card-subtitle>
+              <h4>Trạng Thái </h4>
+              <span>{{ saleDetail.status }}</span>
+            </v-card-subtitle>
           </v-row>
         </v-col>
       </v-row>
       <v-row>
         <v-spacer></v-spacer>
-       <v-col cols="2" sm="2">
-        <v-btn color="error" @click="handleOpenDialogCancel">
-          <v-icon class="mr-2">
-            mdi-cancel
-          </v-icon>
-          HỦY
-        </v-btn>
+        <v-col cols="2" sm="2">
+          <v-btn color="error" @click="handleOpenDialogCancel" v-if="saleDetail.status === 1">
+            <v-icon class="mr-2">
+              mdi-cancel
+            </v-icon>
+            HỦY
+          </v-btn>
+          <v-btn color="error" disabled v-else>
+            <v-icon class="mr-2">
+              mdi-cancel
+            </v-icon>
+            HỦY
+          </v-btn>
         </v-col>
-
         <v-col cols="2" sm="2" class="mr-5">
           <router-link :to="{name:'sales'}" tag="p">
             <v-btn color="info">

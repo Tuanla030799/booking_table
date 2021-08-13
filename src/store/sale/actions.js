@@ -7,7 +7,7 @@ export default {
      * @return list sale of sushine
      * */
     async getListSales(context) {
-        let result = await axiosInstance.get('/api/sunshine/get-list-sale')
+        let result = await axiosInstance.get('/api/sunshine/get-list-sale-admin')
         if (result.status === 200) {
             context.commit('LIST_SALE', result.data)
         }

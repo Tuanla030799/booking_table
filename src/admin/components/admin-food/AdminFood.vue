@@ -17,7 +17,7 @@
             <td>{{ item.foodPrice }}</td>
             <td>{{ item.quantity }}</td>
             <td :style="styleColorStatus(item.status)">{{convetStatus(item.status)}}</td>
-            <td>{{ item.describes }}</td>
+            <td>{{ setDescription(item.describes) }}</td>
             <td>
               <router-link :to="{name:'food-detail', params:{foodId:item.foodId}}" tag="div">
                 <v-btn
@@ -81,7 +81,15 @@ export default {
       }else {
         return this.color = "color:red"
       }
-    }
+    },
+    setDescription(descriptions) {
+      if (descriptions.length > 60) {
+        let e = `${descriptions.slice(0, 60)}...`
+        return e
+      } else {
+        return descriptions
+      }
+    },
   },
   created() {
     this.handleGetListFoods()

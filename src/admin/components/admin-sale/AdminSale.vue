@@ -5,26 +5,7 @@
         <v-card-title class="ml-3">
           Danh sách chương trình khuyến mãi
         </v-card-title>
-        <v-spacer></v-spacer>
         <v-card-actions class="mr-10">
-          <v-btn color="info" @click="handleOpenAddSale">
-            <v-icon class="mr-2">
-              mdi-plus
-            </v-icon>
-            Thêm
-          </v-btn>
-          <v-dialog v-model="dialogAdd" max-width="600px">
-            <v-form>
-              <v-card>
-                <v-card-text>
-                  <v-text-field
-                  >
-                    Demo
-                  </v-text-field>
-                </v-card-text>
-              </v-card>
-            </v-form>
-          </v-dialog>
         </v-card-actions>
       </v-row>
       <v-data-table
@@ -70,7 +51,6 @@ export default {
   data() {
     return {
       saleId: '',
-      dialogAdd: false,
       headers: [
         {text: 'Mã Sale', value: 'saleId'},
         {text: 'Ảnh Sale', value: 'saleImage'},
@@ -88,9 +68,6 @@ export default {
     }),
     handleGetListSales() {
       this.getListSalesForAdmin();
-    },
-    handleOpenAddSale() {
-      this.dialogAdd = true
     },
     styleColor(status) {
       if (status === 'Hết khuyến mãi') {
