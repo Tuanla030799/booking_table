@@ -175,7 +175,10 @@ export default {
               return err;
             });
           //}, 2000);
-          location.reload();
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+          
         });
     },
     clickOnDetail(Id, Status, listFoot) {
