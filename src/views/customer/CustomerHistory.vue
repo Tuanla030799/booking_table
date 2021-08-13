@@ -30,10 +30,12 @@
                 >
                   <td>{{ listHistory.stt }}</td>
                   <td>{{ listHistory.bookingId }}</td>
-                  <td >{{ listHistory.bookingTime }}</td>
+                  <td>{{ listHistory.bookingTime }}</td>
                   <td>{{ listHistory.deposit }}</td>
                   <td>{{ listHistory.moneyPay }}</td>
-                  <td :style="colorStatus(listHistory.bookingStatus)">{{ listHistory.bookingStatus }}</td>
+                  <td :style="colorStatus(listHistory.bookingStatus)">
+                    {{ listHistory.bookingStatus }}
+                  </td>
                   <!-- <td>
                     <div class="Edit">
                       <div class="btn-edit">
@@ -105,15 +107,15 @@
       @payBillError="payBillError"
     />
     <CustomerValiDestroy
-    :dialogNoti="notiDialog"
-    @closeCNoti="closeCNoti"
-    :cNoti="historyDetailId"
-    @closeCNotiHide="closeCNotiHide"
+      :dialogNoti="notiDialog"
+      @closeCNoti="closeCNoti"
+      :cNoti="historyDetailId"
+      @closeCNotiHide="closeCNotiHide"
     />
     <Customernotification
-    :dialognotification="notificationDialog"
-    :notification="notificationMessage"
-    @closeNotification="closeNotification"
+      :dialognotification="notificationDialog"
+      :notification="notificationMessage"
+      @closeNotification="closeNotification"
     />
   </div>
 </template>
@@ -130,7 +132,7 @@ export default {
   components: {
     CustomerHistoryDetail,
     CustomerValiDestroy,
-    Customernotification
+    Customernotification,
   },
   data() {
     return {
@@ -144,7 +146,7 @@ export default {
       notificationDialog: false,
       notificationMessage: "",
       showMessageError: "d-block",
-      color: "color:red"
+      color: "color:red",
     };
   },
   methods: {
@@ -164,7 +166,13 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error.response.data);
+          //console.log(error.response.data);
+          this.$router.push({ name: "bookings" }).catch((err) => {
+            return err;
+          });
+          localStorage.setItem("message", error.response.data.message);
+          localStorage.setItem("isIcon", "error");
+          this.$emit("showMessage", this.showMessageError);
         });
     },
     clickOnDetail(Id, Status, listFoot) {
@@ -188,28 +196,27 @@ export default {
               this.bookingStatus = "d-none";
             }
             if (Status == "Chưa thánh toán" && listFoot.length > 0) {
-                this.BillBooking = "d-block";
-              } else {
-                this.BillBooking = "d-none";
-              }
+              this.BillBooking = "d-block";
+            } else {
+              this.BillBooking = "d-none";
+            }
           }
         })
         .catch((error) => {
           console.log(error.response.data);
         });
-        
-        
+
       // this.historyDetailId = Id
       // console.log(this.historyDetailId);
     },
     closeDialog() {
       this.dialogdetail = false;
-      this.$emit("isLoader")
+      this.$emit("isLoader");
       this.loadBookingHistory();
     },
     payBill() {
       this.dialogdetail = false;
-      this.$emit("isLoader")
+      this.$emit("isLoader");
       this.loadBookingHistory();
     },
     cDialogNoti() {
@@ -217,12 +224,12 @@ export default {
       this.notiDialog = true;
     },
     closeCNotiHide() {
-      this.notiDialog = false
+      this.notiDialog = false;
     },
     closeCNoti(message) {
-      this.notiDialog = false
+      this.notiDialog = false;
       this.notificationDialog = true;
-      this.notificationMessage = message
+      this.notificationMessage = message;
     },
     closeNotification() {
       this.notificationDialog = false;
@@ -236,26 +243,26 @@ export default {
       });
     },
     payBillSuss(BillSuss) {
-      localStorage.setItem("message",BillSuss);
+      localStorage.setItem("message", BillSuss);
       localStorage.setItem("isIcon", "susccess");
-      this.$emit("showMessage", this.showMessageError)
+      this.$emit("showMessage", this.showMessageError);
     },
     payBillError(BillErorr) {
-      localStorage.setItem("message",BillErorr);
+      localStorage.setItem("message", BillErorr);
       localStorage.setItem("isIcon", "error");
-      this.$emit("showMessage", this.showMessageError)
+      this.$emit("showMessage", this.showMessageError);
     },
     colorStatus(status) {
       if (status == "Chưa thánh toán") {
-        return this.color = "color:black"
+        return (this.color = "color:black");
       } else if (status == "Chờ admin xác nhận") {
-        return this.color = "color:blue"
+        return (this.color = "color:blue");
       } else if (status == "Đã thanh toán") {
-        return this.color = "color:green"
+        return (this.color = "color:green");
       } else {
-        return this.color = "color:red"
+        return (this.color = "color:red");
       }
-    }
+    },
   },
 };
 </script>

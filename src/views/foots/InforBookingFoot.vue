@@ -7,7 +7,7 @@
         <div class="bfoot-item">Thời gian đặt bàn: {{ bookingDateTime(InforBookingFoot.bookingTime) }}</div>
         <div class="bfoot-item">Số người: {{ InforBookingFoot.totalSeats }} </div>
         <div class="bfoot-item">Ghi Chú: {{ InforBookingFoot.note }} </div>
-        <div class="bfoot-item">Số tiền phải trả: {{ InforBookingFoot.priceBooking }}</div>
+        <div class="bfoot-item">Số tiền cọc: {{ InforBookingFoot.priceBooking }}</div>
       </div>
       <div class="bfoot-text">Bạn có đồng ý với số tiền đặt cọc này?</div>
       <div class="bfoot-footer">
