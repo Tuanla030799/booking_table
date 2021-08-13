@@ -41,7 +41,7 @@ export default {
             console.log('result remove: ', result)
             if (result.status === 200) {
                 alert(result.data.message)
-                await context.dispatch('getSaleDetailForAdmin')
+                await context.dispatch('getSaleDetailForAdmin', saleId)
             }
         }catch (err){
             alert(err.response.data.message)

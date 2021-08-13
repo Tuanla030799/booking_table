@@ -24,7 +24,7 @@
             </v-card-subtitle>
             <v-card-subtitle>
               <h4>Trạng Thái </h4>
-              <span>{{ saleDetail.status }}</span>
+              <span>{{ convetStatus(saleDetail.status) }}</span>
             </v-card-subtitle>
           </v-row>
         </v-col>
@@ -111,6 +111,13 @@ export default {
     },
     handleCloseDialogCancel() {
       this.dialogCancel = false
+    },
+    convetStatus(value) {
+      if (value === 1) {
+        return 'Còn khuyến mại'
+      } else {
+        return 'Hết khuyến mại'
+      }
     }
   },
   watch: {
