@@ -16,6 +16,7 @@
             <td>{{ item.foodName }}</td>
             <td>{{ item.foodPrice }}</td>
             <td>{{ item.quantity }}</td>
+            <td :style="styleColorStatus(item.status)">{{convetStatus(item.status)}}</td>
             <td>{{ item.describes }}</td>
             <td>
               <router-link :to="{name:'food-detail', params:{foodId:item.foodId}}" tag="div">
@@ -49,6 +50,7 @@ export default {
         {text: 'Tên Món Ăn', value: 'foodName'},
         {text: 'Giá ', value: 'foodPrice'},
         {text: 'Số Lượng', value: 'quantity'},
+        {text: 'Trạng Thái', value: 'status'},
         {text: 'Mô Tả', value: 'describes'},
         {text: 'Chi Tiết', value: 'actions', sortable: false}
       ]
@@ -65,6 +67,20 @@ export default {
     }),
     handleGetListFoods() {
       this.getFoods()
+    },
+    convetStatus(value){
+      if (value === 1){
+        return 'Còn món ăn'
+      }else {
+        return 'Hết món ăn'
+      }
+    },
+    styleColorStatus(value){
+      if (value === 1){
+        return this.color = "color:blue"
+      }else {
+        return this.color = "color:red"
+      }
     }
   },
   created() {
