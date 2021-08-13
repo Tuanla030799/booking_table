@@ -310,6 +310,7 @@ export default {
   margin-top: 5px;
   width: 100%;
   height: 92%;
+  
   /* border: 1px solid #ccc; */
 }
 .cInfor-left {
