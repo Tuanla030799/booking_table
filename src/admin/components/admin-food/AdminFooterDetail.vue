@@ -37,7 +37,7 @@
       <v-row>
         <v-spacer></v-spacer>
         <v-card-actions>
-          <v-btn color="error" class="ml-4" >
+          <v-btn color="error" class="ml-4"  @click="handleRemoveFood">
             <v-icon>
               mdi-delete
             </v-icon>
@@ -76,10 +76,15 @@ export default {
   },
   methods: {
     ...mapActions({
-      findFoodDetails: 'getFoodDetail'
+      findFoodDetails: 'getFoodDetail',
+      removeFood:'removeFoodByFoodId'
     }),
     handleFindFoodDetailByBookingId() {
       this.findFoodDetails(this.foodId)
+    },
+    handleRemoveFood(){
+      this.removeFood(this.foodId)
+
     }
   },
   created() {

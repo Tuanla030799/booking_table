@@ -34,6 +34,16 @@ export default {
             return e
         }
     },
+    async removeFoodByFoodId(context, foodId){
+        try {
+            let result = await axiosInstance.post(`/api/admin/disable-food/${foodId}`)
+            if (result.status === 200){
+                alert(result.data.message())
+            }
+        }catch (err){
+            alert(err.response.data.message)
+        }
+    }
     // async addFoodToBookingByBookingId(context, {bookingId, [foodId, quantity]}) {
     //     try {
     //         let foodList =[
