@@ -237,11 +237,11 @@ export default {
     },
     convertSex(sex) {
       if (sex === 1) {
-        return "NAM"
+        return "Nam"
       } else if (sex === 0) {
-        return "NU"
+        return "Nữ"
       } else {
-        return "GIOI TINH KHONG XAC DINH"
+        return "Không xác định"
       }
     },
     handleChanrge() {

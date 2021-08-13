@@ -143,33 +143,33 @@ export default {
         console.log(chooseList);
     },
     bookingZerofootOnClick() {
-      axios({
-        method: "post",
-        url: `${this.base_url}/api/customer/order-food`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.$cookie.get("token")}`,
-        },
-        data: {
-          bookingId: `${this.bookingFootId}`,
-          foodList: [],
-        },
-      })
-        .then((response) => {
-          if (
-            response.status == 200 &&
-            response.data.statusCode == "ADD_FOOD_SUCCESS"
-          ) {
+      // axios({
+      //   method: "post",
+      //   url: `${this.base_url}/api/customer/order-food`,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${this.$cookie.get("token")}`,
+      //   },
+      //   data: {
+      //     bookingId: `${this.bookingFootId}`,
+      //     foodList: [],
+      //   },
+      // })
+      //   .then((response) => {
+      //     if (
+      //       response.status == 200 &&
+      //       response.data.statusCode == "ADD_FOOD_SUCCESS"
+      //     ) {
 
             this.$router.push({ name: "lịch sử đặt bàn" }).catch((err) => {
               return err;
             });
-          }
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-          alert(error.response.data.message);
-        });
+          // }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error.response.data);
+      //     alert(error.response.data.message);
+      //   });
     },
     // thêm món
     addOnclick(stt) {

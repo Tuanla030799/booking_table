@@ -304,8 +304,8 @@ export default {
       this.$emit("showMessage", this.showMessageError);
     },
     setEmail(email) {
-      if ( email.length > 22) {
-        let e = `${email.slice(0, 17)}...`;
+      if ( email.length > 15) {
+        let e = `${email.slice(0, 15)}...`;
         return e;
       } else {
         return email;
