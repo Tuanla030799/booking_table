@@ -126,7 +126,7 @@ export default {
       } else if (status === 'Đã hủy') {
         return this.color = 'color:red'
       } else {
-        return this.color = 'color:yellow'
+        return this.color = 'color:red'
       }
     }
   },
