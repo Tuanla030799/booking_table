@@ -12,7 +12,7 @@
           <v-col cols="6">
             <v-text-field
                 v-model.number="year"
-                :counter="10"
+                type="number"
                 label="Nhập năm xuất file báo cáo"
                 class="ml-5"
             ></v-text-field>
