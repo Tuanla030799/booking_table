@@ -5,7 +5,7 @@
       <div class="logo"></div>
     </div>
     <div class="navbar-box">
-      <router-link to="/admin/bookings" class="navbar-item" tag="div">
+      <router-link to="/admin/bookings" class="navbar-item" tag="div" active-class="active-click">
         <v-icon color="grey lighten-5" class="pl-5">
           mdi-clipboard-edit-outline
         </v-icon>
@@ -13,7 +13,7 @@
           Đặt Bàn
         </div>
       </router-link>
-      <router-link class="navbar-item" to="/admin/customers" tag="div">
+      <router-link class="navbar-item" to="/admin/customers" tag="div" active-class="active-click">
         <v-icon color="grey lighten-5" class="pl-5">
           mdi-account-details
         </v-icon>
@@ -21,7 +21,7 @@
           Khách Hàng
         </div>
       </router-link>
-      <router-link to="/admin/foods" class="navbar-item" tag="div">
+      <router-link to="/admin/foods" class="navbar-item" tag="div" active-class="active-click">
         <v-icon color="grey lighten-5" class="pl-5">
           mdi-basket
         </v-icon>
@@ -29,7 +29,7 @@
           Món Ăn
         </div>
       </router-link>
-      <router-link class="navbar-item" to="/admin/sales" tag="div">
+      <router-link class="navbar-item" to="/admin/sales" tag="div" active-class="active-click">
         <v-icon color="grey lighten-5" class="pl-5">
           mdi-file-export-outline
         </v-icon>
@@ -37,7 +37,7 @@
           Chương trình khuyến mại
         </div>
       </router-link>
-      <router-link to="/admin/payments" class="navbar-item" tag="div">
+      <router-link to="/admin/payments" class="navbar-item" tag="div" active-class="active-click">
         <v-icon color="grey lighten-5" class="pl-5">
           mdi-file-send
         </v-icon>
@@ -45,7 +45,7 @@
           Danh sách nạp tiền
         </div>
       </router-link>
-      <router-link to="/admin/exports" class="navbar-item" tag="div">
+      <router-link to="/admin/exports" class="navbar-item" tag="div" active-class="active-click">
         <v-icon color="grey lighten-5" class="pl-5">
           mdi-download
         </v-icon>
@@ -83,4 +83,8 @@ export default {
 
 <style scoped>
 @import "../../../style/layout/navbar.css";
+.active-click{
+  background-color: #2CA01C;
+  padding: 15px 35px;
+}
 </style>

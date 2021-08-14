@@ -54,7 +54,7 @@
 .navbar-box .navbar-item:hover {
     background-color: #1890FF;
     transition: ease 1s;
-    padding: 10px 30px;
+    padding: 15px 35px;
     cursor: pointer;
 }
 
