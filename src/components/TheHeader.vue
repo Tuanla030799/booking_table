@@ -192,6 +192,7 @@ export default {
   display: flex;
   align-items: center;
   /* border-bottom: 1px solid #ccc; */
+  overflow: scroll;
 }
 .list-infomation a{
    display: flex;

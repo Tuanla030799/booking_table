@@ -176,5 +176,6 @@ export default {
 .bfoot-footer-title span {
   color: #d02028;
   font-size: 18px;
+  
 }
 </style>
