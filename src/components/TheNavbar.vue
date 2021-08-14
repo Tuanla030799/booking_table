@@ -6,7 +6,7 @@
           <div class="navbar-header-left">
             <div class="navbar-text">Kết nối:</div>
             <a
-              href="https://www.facebook.com/anhtuanlee.belowzero/"
+              href="https://www.facebook.com/anhtuanlee.nightmares"
               class="text-decoration-none ml-1"
             >
               <v-icon small>mdi-facebook</v-icon></a
@@ -19,7 +19,7 @@
             >
           </div>
           <div class="navbar-header-right">
-            <div class="navbar-item test">
+             <!-- <div class="navbar-item test">
               <button class="btn-account">
                 <v-icon small>mdi-bell</v-icon>
                 Thông báo
@@ -39,7 +39,8 @@
                 </v-list-item>
               </v-card>
             </div>
-            <div class="navbar-item test">
+
+             <div class="navbar-item test">
               <button class="btn-account">
                 <v-icon small>mdi-help</v-icon>
                 Hỗ trợ
@@ -69,7 +70,7 @@
                   ></v-list-item-avatar>
                 </v-list-item>
               </v-card>
-            </div>
+            </div>  -->
             <div class="navbar-item test">
               <button class="btn-account">
                 <v-icon small>mdi-account</v-icon>
@@ -419,6 +420,9 @@ export default {
 
 .navbar-item {
   padding-right: 10px;
+  /* border: 1px solid #ccc; */
+  text-align: right;
+  min-width: 200px;
 }
 .navbar-text {
   margin-top: 5px;
